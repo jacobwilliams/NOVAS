@@ -7,6 +7,8 @@
 !
 program example
 
+use novas_module
+
 implicit double precision ( a-h, o-z )
 implicit integer ( i-n )
 

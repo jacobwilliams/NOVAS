@@ -3,8 +3,8 @@ doc
 bin
 lib
 
-.obj
-.o
-.mod
-.a
-.so
+*.obj
+*.o
+*.mod
+*.a
+*.so

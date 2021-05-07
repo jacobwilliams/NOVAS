@@ -1,5 +1,7 @@
 program checkout
 
+use novas_module
+
 implicit none
 
 !-----This program checks out many parts of NOVAS Fortran, producing
