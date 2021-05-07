@@ -60,7 +60,7 @@ data pw /  0.257503d 0,  1.613242d 0,  2.983889d 0,  0.784898d 0 /      !
 data pl /  0.600470d 0,  0.871693d 0,  5.466933d 0,  5.321160d 0 /      !
 data pn /  1.450138d-3,  5.841727d-4,  2.047497d-4,  1.043891d-4 /      !
 
-if ( tlast .lt. 1.d0 ) then
+if ( tlast < 1.d0 ) then
 !         FIRST TIME COMPUTATIONS
 !         MASS OF SUN PLUS FOUR INNER PLANETS
     tmass = 1.d0 + 5.977d-6
@@ -97,17 +97,17 @@ end if
 ierr = 0
 !     VALID DATES ARE WITHIN 3 CENTURIES OF J2000, ALTHOUGH RESULTS
 !     DETERIORATE GRADUALLY      
-if ( tjd .lt. 2340000.5d0 ) ierr = 1
-if ( tjd .gt. 2560000.5d0 ) ierr = 2
-if ( ierr .ne. 0 ) go to 110
-if ( m .ge. 2 ) go to 30
+if ( tjd < 2340000.5d0 ) ierr = 1
+if ( tjd > 2560000.5d0 ) ierr = 2
+if ( ierr /= 0 ) go to 110
+if ( m >= 2 ) go to 30
 
 !     FORM HELIOCENTRIC COORDINATES OF SUN
 20 do 25 j=1,3
     pos(j) = 0.d0
     vel(j) = 0.d0
 25 continue
-if ( k .ge. 1 ) go to 110
+if ( k >= 1 ) go to 110
 go to 90
 
 !     FORM HELIOCENTRIC COORDINATES OF EARTH
@@ -125,12 +125,12 @@ do 40 j=1,3
     pos(j) =   p(2,j)
     vel(j) = ( p(3,j) - p(1,j) ) / 0.2d0  
 40 continue
-if ( k .ge. 1 ) go to 110
+if ( k >= 1 ) go to 110
 
 !     IF K=0, MOVE ORIGIN TO SOLAR SYSTEM BARYCENTER
 !     SOLAR SYSTEM BARYCENTER COORDINATES COMPUTED FROM KEPLERIAN
 !     APPROXIMATIONS OF THE COORDINATES OF THE FOUR LARGEST PLANETS
-90 if ( dabs ( tjd - tlast ) .lt. 1.d-6 ) go to 99
+90 if ( dabs ( tjd - tlast ) < 1.d-6 ) go to 99
 do 92 j = 1, 3
     pbary(j) = 0.d0
     vbary(j) = 0.d0
@@ -593,14 +593,14 @@ namein = name
 
 !     LOOK THROUGH LIST OF BODY NAMES TO FIND MATCH
 do 20 i = 1, num
-    if ( namein .eq. names(i) ) then
+    if ( namein == names(i) ) then
         idss = ids(i)
         go to 30
     end if
 20 continue
 
 !     IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES   
-if ( namein .eq. 'JD ' ) then
+if ( namein == 'JD ' ) then
 !         IN THIS CASE, SET IDSS=2 IF SOLSYS PROCESSES SPLIT
 !         JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE 
     idss = 1

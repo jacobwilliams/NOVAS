@@ -163,7 +163,7 @@ data tlast1, tlast2 / 0.d0, 0.d0 /,   ntimes / 0 /
 
 ntimes = ntimes + 1
 
-if ( ntimes .eq. 1 ) then
+if ( ntimes == 1 ) then
     iearth = idss ( 'EARTH' )
     isun = idss ( 'SUN' )
 !         GET C, THE SPEED OF LIGHT IN AU/DAY
@@ -172,14 +172,14 @@ end if
 
 ! --- CHECK ON EARTH AS AN OBSERVED OBJECT ----------------------------
 
-if ( object .eq. 'EARTH' .and. locatn .ne. 2 ) then
+if ( object == 'EARTH' .and. locatn /= 2 ) then
     write ( *, 4 )
     go to 70
 end if
 
 ! --- GET POSITION AND VELOCITY OF EARTH (GEOCENTER) AND SUN ----------
 
-if ( dabs ( tjd - tlast1 ) .gt. 1.d-8 ) then
+if ( dabs ( tjd - tlast1 ) > 1.d-8 ) then
 
 !         COMPUTE TDBJD, THE TDB JULIAN DATE CORRESPONDING TO TTJD
     ttjd = tjd
@@ -190,7 +190,7 @@ if ( dabs ( tjd - tlast1 ) .gt. 1.d-8 ) then
 !         GET POSITION AND VELOCITY OF THE EARTH WRT BARYCENTER OF
 !         SOLAR SYSTEM, IN ICRS
     call solsys ( tdbjd, iearth, 0,   peb, veb, ierr )
-    if ( ierr .ne. 0 ) then
+    if ( ierr /= 0 ) then
         write ( *, 3 ) 'EARTH', tjd
         go to 70
     end if
@@ -198,7 +198,7 @@ if ( dabs ( tjd - tlast1 ) .gt. 1.d-8 ) then
 !         GET POSITION AND VELOCITY OF THE SUN WRT BARYCENTER OF
 !         SOLAR SYSTEM, IN ICRS
     call solsys ( tdbjd, isun, 0,   psb, vsb, ierr )
-    if ( ierr .ne. 0 ) then
+    if ( ierr /= 0 ) then
         write ( *, 3 ) 'SUN', tjd
         go to 70
     end if
@@ -209,7 +209,7 @@ end if
 
 ! --- GET POSITION AND VELOCITY OF OBSERVER ---------------------------
 
-if ( locatn .eq. 1 .or. locatn .eq. 2 ) then
+if ( locatn == 1 .or. locatn == 2 ) then
 
 !         FOR TOPOCENTRIC PLACE, GET GEOCENTRIC POSITION AND VELOCITY
 !         VECTORS OF OBSERVER
@@ -236,8 +236,8 @@ do 30 j=1,3
 
 ! --- FIND GEOMETRIC POSITION OF OBSERVED OBJECT ----------------------
 
-if ( object .eq. 'STAR' .or. object .eq. ' ' .or. &
-     object(1:1) .eq. '*' ) then
+if ( object == 'STAR' .or. object == ' ' .or. &
+     object(1:1) == '*' ) then
 
 !         OBSERVED OBJECT IS STAR
     idbody = -9999
@@ -256,11 +256,11 @@ else
 !         OBSERVED OBJECT IS SOLAR SYSTEM BODY
 
 !         GET ID NUMBER OF BODY
-    if ( object(1:1) .eq. '=' ) then
+    if ( object(1:1) == '=' ) then
         read ( object, '(1X,I3)' ) idbody
     else
         idbody = idss ( object )
-        if ( idbody .eq. -9999 ) then
+        if ( idbody == -9999 ) then
             write ( *, 3 ) object, tjd
             go to 70
         end if
@@ -268,7 +268,7 @@ else
 
 !         GET POSITION OF BODY WRT BARYCENTER OF SOLAR SYSTEM
     call solsys ( tdbjd, idbody, 0,   pos1, vel1, ierr )
-    if ( ierr .ne. 0 ) then
+    if ( ierr /= 0 ) then
         write ( *, 3 ) object, tjd
         go to 70
     end if
@@ -285,7 +285,7 @@ end if
 
 ! --- APPLY GRAVITATIONAL DEFLECTION OF LIGHT AND ABERRATION ----------
 
-if ( icoord .eq. 3 ) then
+if ( icoord == 3 ) then
 
 !         THESE CALCULATIONS ARE SKIPPED FOR ASTROMETRIC PLACE
     do 40 j = 1, 3
@@ -295,9 +295,9 @@ if ( icoord .eq. 3 ) then
 else
 
 !         VARIABLE LOC DETERMINES WHETHER EARTH DEFLECTION IS INCLUDED
-    if ( loc .eq. 1 ) then
+    if ( loc == 1 ) then
         call limang ( pos3, pog,   x, frlimb )
-        if ( frlimb .lt. 0.8d0 ) loc = 0
+        if ( frlimb < 0.8d0 ) loc = 0
     end if
 
 !         COMPUTE GRAVITATIONAL DEFLECTION AND ABERRATION
@@ -309,17 +309,17 @@ end if
 
 ! --- TRANSFORM, IF NECESSARY, TO OUTPUT COORDINATE SYSTEM ------------
 
-if ( icoord .eq. 1 ) then
+if ( icoord == 1 ) then
 
 !         TRANSFORM TO EQUATOR AND EQUINOX OF DATE
     call frame  ( pos5, 1,   pos6 )
     call preces ( t0, pos6, tdbjd,   pos7 )
     call nutate ( tdbjd, pos7,   pos8 )
 
-else if ( icoord .eq. 2 ) then
+else if ( icoord == 2 ) then
 
 !         TRANSFORM TO EQUATOR AND CIO OF DATE
-    if ( dabs ( tdbjd - tlast2 ) .gt. 1.d-8 ) then
+    if ( dabs ( tdbjd - tlast2 ) > 1.d-8 ) then
 !             OBTAIN THE BASIS VECTORS, IN THE GCRS, OF THE CELESTIAL
 !             INTERMEDIATE SYSTEM
         call cioloc ( tdbjd,   rcio, kcio )
@@ -344,11 +344,11 @@ end if
 ! --- GET RADIAL VELOCITY ---------------------------------------------      
 
 !     SET UP STAR DATA, IF APPLICABLE      
-if ( idbody .eq. -9999 ) then
+if ( idbody == -9999 ) then
     rvs(1) = star(1)
     rvs(2) = star(2)
     rvs(3) = star(6)
-    if ( star(5) .le. 0.d0 ) then
+    if ( star(5) <= 0.d0 ) then
         vel1(1) = 0.d0
         vel1(2) = 0.d0
         vel1(3) = 0.d0 
@@ -508,11 +508,11 @@ entry lpstar (ujd,glon,glat,ht, ra,dec)
 locatn = 1
 icoord = 0
 
-20 if ( ujd .gt. 100.d0 ) then
+20 if ( ujd > 100.d0 ) then
     deltat = ( ttjd - ujd ) * 86400.d0
 else
     gast = dmod ( ujd, 24.d0 )
-    if ( gast .lt. 0.d0 ) gast = gast + 24.d0
+    if ( gast < 0.d0 ) gast = gast + 24.d0
     call placst ( gast )
     deltat = 0.d0
 end if
@@ -611,11 +611,11 @@ entry lpplan (ujd,glon,glat,ht, ra,dec,dis)
 locatn = 1
 icoord = 0
 
-40 if ( ujd .gt. 100.d0 ) then
+40 if ( ujd > 100.d0 ) then
     deltat = ( ttjd - ujd ) * 86400.d0
 else
     gast = dmod ( ujd, 24.d0 )
-    if ( gast .lt. 0.d0 ) gast = gast + 24.d0
+    if ( gast < 0.d0 ) gast = gast + 24.d0
     call placst ( gast )
     deltat = 0.d0
 end if
@@ -690,21 +690,21 @@ r = skypos(4)
 d = skypos(5)
 delra = r - ra
 deldec = d - dec
-if (delra.lt.-12.d0) delra = delra + 24.d0
-if (delra.gt.+12.d0) delra = delra - 24.d0
+if (delra<-12.d0) delra = delra + 24.d0
+if (delra>+12.d0) delra = delra - 24.d0
 rainew = raiold - delra
 dcinew = dciold - deldec
-if (iter.gt.30) then
+if (iter>30) then
     write ( *, 3 ) ra, dec, tjd
     go to 40
 end if
-if (dabs(rainew-raiold).gt.1.d-12) go to 20
-if (dabs(dcinew-dciold).gt.1.d-11) go to 20
+if (dabs(rainew-raiold)>1.d-12) go to 20
+if (dabs(dcinew-dciold)>1.d-11) go to 20
 
 40 rai = rainew
 deci = dcinew
-if (rai.lt. 0.d0) rai = rai + 24.d0
-if (rai.ge.24.d0) rai = rai - 24.d0
+if (rai< 0.d0) rai = rai + 24.d0
+if (rai>=24.d0) rai = rai - 24.d0
 
 !     STORE COMPUTED POSITION VECTOR FOR POSSIBLE LATER RETRIEVAL
 call vectrs (rai,deci,0.d0,0.d0,0.d0,0.d0,p,v)
@@ -766,7 +766,7 @@ tdbjd = ttjd + secdif / 86400.d0
 !     GET METHOD/ACCURACY MODE
 call getmod ( mode )
 
-if ( mode .ge. 2 ) then
+if ( mode >= 2 ) then
 !          EQUINOX-BASED MODE
 !          SEE USNO CIRCULAR 179, SECTION 2.6.2   
 
@@ -776,7 +776,7 @@ if ( mode .ge. 2 ) then
     call erot ( tjdh, tjdl,   theta )
 !         COMBINE TO OBTAIN SIDEREAL TIME       
     gst = dmod ( theta / 15.d0 - rcio, 24.d0 )
-    if ( gst .lt. 0.d0 ) gst = gst + 24.d0
+    if ( gst < 0.d0 ) gst = gst + 24.d0
 
 else
 !         CIO-BASED MODE
@@ -787,7 +787,7 @@ else
 !         OBTAIN THE BASIS VECTORS, IN THE GCRS, OF THE CELESTIAL
 !         INTERMEDIATE SYSTEM
     call cioloc ( tdbjd,   rcio, kcio )
-    if ( rcio .eq. 99.d0 ) then
+    if ( rcio == 99.d0 ) then
         write ( *, 3 ) tdbjd
         gst = 99.d0
         go to 50
@@ -805,13 +805,13 @@ else
 
 !         FOR MEAN SIDEREAL TIME, OBTAIN THE EQUATION OF THE EQUINOXES
 !         AND SUBTRACT IT
-    if ( k .eq. 0 ) then
+    if ( k == 0 ) then
         call etilt ( tdbjd,   a, a, ee, a, a )
         haeq = haeq - ee / 240.d0
     end if
 
     haeq = dmod ( haeq, 360.d0 ) / 15.d0
-    if ( haeq .lt. 0.d0 ) haeq = haeq + 24.d0
+    if ( haeq < 0.d0 ) haeq = haeq + 24.d0
     gst = haeq
 
 end if
@@ -857,7 +857,7 @@ tdbjd = tjd + secdif / 86400.d0
 !     INTERMEDIATE SYSTEM DEFINED BY THE CIP (IN THE Z DIRECTION) AND
 !     THE CIO (IN THE X DIRECTION)
 call cioloc ( tdbjd,   rcio, kcio )
-if ( rcio .eq. 99.d0 ) then
+if ( rcio == 99.d0 ) then
     write ( *, 3 ) tdbjd
     racio = 99.d0
     go to 50
@@ -938,7 +938,7 @@ data t0 / 2451545.00000000d0 /
 
 call getdt ( deltat )
 
-if ( tjdh .ge. 0.d0 ) then
+if ( tjdh >= 0.d0 ) then
     utjdh = tjdh
     utjdl = tjdl
 else
@@ -956,11 +956,11 @@ tdbjd = ttjd + secdif / 86400.d0
 !     GET METHOD/ACCURACY MODE
 call getmod ( mode )
 
-if ( mode .ge. 2 ) then
+if ( mode >= 2 ) then
 !         'EQUINOX' MODE
 
 !         APPLY POLAR MOTION
-    if ( xp .eq. 0.d0 .and. yp .eq. 0.d0 ) then
+    if ( xp == 0.d0 .and. yp == 0.d0 ) then
         v1(1) = vec1(1)
         v1(2) = vec1(2)
         v1(3) = vec1(3)
@@ -973,7 +973,7 @@ if ( mode .ge. 2 ) then
     call spin ( -gast * 15.d0, v1,   v2 )
 
 !         SPECIAL OPTION SKIPS REMAINING TRANSFORMATIONS
-    if ( tjdh .lt. 0.d0 ) then
+    if ( tjdh < 0.d0 ) then
         vec2(1) = v2(1)
         vec2(2) = v2(2)
         vec2(3) = v2(3)
@@ -996,7 +996,7 @@ else
 
 !         APPLY POLAR MOTION, TRANSFORMING THE VECTOR TO THE TERRESTRIAL
 !         INTERMEDIATE SYSTEM
-    if ( xp .eq. 0.d0 .and. yp .eq. 0.d0 ) then
+    if ( xp == 0.d0 .and. yp == 0.d0 ) then
         v1(1) = vec1(1)
         v1(2) = vec1(2)
         v1(3) = vec1(3)
@@ -1082,7 +1082,7 @@ data t0 / 2451545.00000000d0 /
 
 call getdt ( deltat )
 
-if ( tjdh .ge. 0.d0 ) then
+if ( tjdh >= 0.d0 ) then
     utjdh = tjdh
     utjdl = tjdl
 else
@@ -1100,11 +1100,11 @@ tdbjd = ttjd + secdif / 86400.d0
 !     GET METHOD/ACCURACY MODE
 call getmod ( mode )
 
-if ( mode .ge. 2 ) then
+if ( mode >= 2 ) then
 !         'EQUINOX' MODE
 
 !         SPECIAL OPTION SKIPS INITIAL TRANSFORMATIONS
-    if ( tjdh .lt. 0.d0 ) then
+    if ( tjdh < 0.d0 ) then
         v3(1) = vec1(1)
         v3(2) = vec1(2)
         v3(3) = vec1(3)
@@ -1124,7 +1124,7 @@ if ( mode .ge. 2 ) then
     call spin ( gast * 15.d0, v3,   v4 )
 
 !         APPLY POLAR MOTION
-    if ( xp .eq. 0.d0 .and. yp .eq. 0.d0 ) then
+    if ( xp == 0.d0 .and. yp == 0.d0 ) then
         vec2(1) = v4(1)
         vec2(2) = v4(2)
         vec2(3) = v4(3)
@@ -1155,7 +1155,7 @@ else
     call spin ( theta, v1,   v2 )
 
 !         APPLY POLAR MOTION, TRANSFORMING THE VECTOR TO THE ITRS
-    if ( xp .eq. 0.d0 .and. yp .eq. 0.d0 ) then
+    if ( xp == 0.d0 .and. yp == 0.d0 ) then
         vec2(1) = v2(1)
         vec2(2) = v2(2)
         vec2(3) = v2(3)
@@ -1310,7 +1310,7 @@ parameter ( seccon = 180.d0 * 3600.d0 / pi )
 data ntimes / 0 /
 
 ntimes = ntimes + 1
-if ( ntimes .eq. 1 ) then
+if ( ntimes == 1 ) then
 !         GET LENGTH OF AU IN KILOMETERS
     call astcon ( 'AU', 1.d-3, aukm )
 !         GET C, THE SPEED OF LIGHT IN KILOMETERS/SECOND
@@ -1322,12 +1322,12 @@ end if
 !     SUBROUTINE USES TDB JULIAN DATES INTERNALLY, BUT NO
 !     DISTINCTION BETWEEN TDB AND TT IS NECESSARY
 
-if ( date1 .lt. 10000.d0 ) then
+if ( date1 < 10000.d0 ) then
      tjd1 = 2451545.0d0 + ( date1 - 2000.d0 ) * 365.25d0
 else
      tjd1 = date1
 end if
-if ( date2 .lt. 10000.d0 ) then
+if ( date2 < 10000.d0 ) then
      tjd2 = 2451545.0d0 + ( date2 - 2000.d0 ) * 365.25d0
 else
      tjd2 = date2
@@ -1338,7 +1338,7 @@ end if
 !     IF PARALLAX IS UNKNOWN, UNDETERMINED, OR ZERO, SET IT TO 1E-6
 !     MILLIARCSECOND, CORRESPONDING TO A DISTANCE OF 1 GIGAPARSEC
 paralx = parx1
-if ( paralx .le. 0.d0 ) paralx = 1.d-6
+if ( paralx <= 0.d0 ) paralx = 1.d-6
 
 !     CONVERT RIGHT ASCENSION, DECLINATION, AND PARALLAX TO POSITION
 !     VECTOR IN EQUATORIAL SYSTEM WITH UNITS OF AU
@@ -1372,7 +1372,7 @@ vel1(3) =               pmd * cdc       + rvl * sdc
 ! --- UPDATE STAR'S POSITION VECTOR FOR SPACE MOTION ------------------
 !     (ONLY IF IT=1 OR IT=3)
 
-if ( it .eq. 1 .or. it .eq. 3 ) then
+if ( it == 1 .or. it == 3 ) then
     do 22 j=1,3
         pos2(j) = pos1(j) + vel1(j) * ( tjd2 - tjd1 )
         vel2(j) = vel1(j)
@@ -1387,7 +1387,7 @@ end if
 ! --- PRECESS POSITION AND VELOCITY VECTORS ---------------------------
 !     (ONLY IF IT=2 OR IT=3)
 
-if ( it .eq. 2 .or. it .eq. 3 ) then
+if ( it == 2 .or. it == 3 ) then
     do 32 j=1,3
         pos1(j) = pos2(j)
         vel1(j) = vel2(j)
@@ -1399,7 +1399,7 @@ end if
 ! --- ROTATE DYNAMICAL J2000.0 POSITION AND VELOCITY VECTORS TO ICRS --
 !     (ONLY IF IT=4)
 
-if ( it .eq. 4 ) then
+if ( it == 4 ) then
     call frame ( pos1, -1,    pos2 )
     call frame ( vel1, -1,    vel2 )
 end if
@@ -1407,7 +1407,7 @@ end if
 ! --- ROTATE ICRS POSITION AND VELOCITY VECTORS TO DYNAMICAL J2000.0 --
 !     (ONLY IF IT=5)
 
-if ( it .eq. 5 ) then
+if ( it == 5 ) then
     call frame ( pos1, 1,    pos2 )
     call frame ( vel1, 1,    vel2 )
 end if
@@ -1418,10 +1418,10 @@ end if
 !     EXPRESSED AS ANGULAR QUANTITIES
 xyproj = dsqrt ( pos2(1)**2 + pos2(2)**2 )
 r = 0.d0
-if ( xyproj .gt. 0.d0 ) r = datan2 ( pos2(2), pos2(1) )
+if ( xyproj > 0.d0 ) r = datan2 ( pos2(2), pos2(1) )
 ra2 = r * seccon / 54000.d0
-if ( ra2 .lt.  0.d0 ) ra2 = ra2 + 24.d0
-if ( ra2 .ge. 24.d0 ) ra2 = ra2 - 24.d0
+if ( ra2 <  0.d0 ) ra2 = ra2 + 24.d0
+if ( ra2 >= 24.d0 ) ra2 = ra2 - 24.d0
 d = datan2 ( pos2(3), xyproj  )
 dec2 = d * seccon / 3600.d0
 dist = dsqrt ( pos2(1)**2 + pos2(2)**2 + pos2(3)**2 )
@@ -1445,7 +1445,7 @@ pmdec2 = pmd * paralx * 365.25d0   / k
 rv2    = rvl * ( aukm / 86400.d0 ) / k
 
 !     TAKE CARE OF ZERO-PARALLAX CASE
-if ( parx2 .le. 1.01d-6 ) then
+if ( parx2 <= 1.01d-6 ) then
     parx2 = 0.d0
     rv2 = rv1
 end if
@@ -1582,14 +1582,14 @@ pw = p(1) * uw(1) + p(2) * uw(2) + p(3) * uw(3)
 !     COMPUTE AZIMUTH AND ZENITH DISTANCE
 proj = dsqrt ( pn**2 + pw**2 )
 az = 0.d0
-if ( proj .gt. 0.d0 ) az = -datan2 ( pw, pn ) * raddeg
-if ( az .lt.   0.d0 ) az = az + 360.d0
-if ( az .ge. 360.d0 ) az = az - 360.d0
+if ( proj > 0.d0 ) az = -datan2 ( pw, pn ) * raddeg
+if ( az <   0.d0 ) az = az + 360.d0
+if ( az >= 360.d0 ) az = az - 360.d0
 zd = datan2 ( proj, pz ) * raddeg
 
 ! --- APPLY ATMOSPHERIC REFRACTION IF REQUESTED -----------------------
 
-if ( irefr .eq. 1 ) then
+if ( irefr == 1 ) then
 
 !         GET REFRACTION IN ZENITH DISTANCE
 !         ITERATIVE PROCESS REQUIRED BECAUSE REFRACTION ALGORITHMS ARE
@@ -1599,10 +1599,10 @@ if ( irefr .eq. 1 ) then
     call refrac ( ht, zd,   refr )
     zd = zd0 - refr
 !         REQUIRE CONVERGENCE TO 0.1 ARCSEC (ACTUAL ACCURACY LESS)
-    if ( dabs ( zd - zd1 ) .gt. 3.d-5 ) go to 40
+    if ( dabs ( zd - zd1 ) > 3.d-5 ) go to 40
 
 !         APPLY REFRACTION TO CELESTIAL COORDINATES OF OBJECT
-    if ( refr .gt. 0.d0 .and. zd .gt. 3.d-4 ) then
+    if ( refr > 0.d0 .and. zd > 3.d-4 ) then
 
 !             SHIFT POSITION VECTOR OF OBJECT IN CELESTIAL SYSTEM
 !             TO ACCOUNT FOR FOR REFRACTION (SEE USNO/AA TECHNICAL
@@ -1619,10 +1619,10 @@ if ( irefr .eq. 1 ) then
 !             COMPUTE REFRACTED RIGHT ASCENSION AND DECLINATION
         proj = dsqrt ( pr(1)**2 + pr(2)**2 )
         rar = 0.d0
-        if ( proj .gt. 0.d0 ) rar = datan2 ( pr(2), pr(1) ) &
+        if ( proj > 0.d0 ) rar = datan2 ( pr(2), pr(1) ) &
                                     * raddeg / 15.d0
-        if ( rar .lt.  0.d0 ) rar = rar + 24.d0
-        if ( rar .ge. 24.d0 ) rar = rar - 24.d0
+        if ( rar <  0.d0 ) rar = rar + 24.d0
+        if ( rar >= 24.d0 ) rar = rar - 24.d0
         decr = datan2 ( pr(3), proj ) * raddeg
 
     end if
@@ -1682,7 +1682,7 @@ pos1(1) = dcos ( d ) * dcos ( r )
 pos1(2) = dcos ( d ) * dsin ( r )
 pos1(3) = dsin ( d )
 
-if ( icoord .le. 1 ) then
+if ( icoord <= 1 ) then
 
 !         TRANSFORM THE POSITION VECTOR FROM GCRS TO MEAN EQUATOR AND
 !         EQUINOX OF DATE
@@ -1690,7 +1690,7 @@ if ( icoord .le. 1 ) then
     call preces ( t0, pos2, t1,   pos3 )
 !         IF REQUESTED, TRANSFORM FURTHER TO TRUE EQUATOR AND EQUINOX
 !         OF DATE
-    if ( icoord .eq. 1 ) then
+    if ( icoord == 1 ) then
         call nutate ( t1, pos3,   pos4)
     else
         pos4(1) = pos3(1)
@@ -1767,9 +1767,9 @@ call eqec ( tjd, icoord, pos1,   pos2 )
 !     DECOMPOSE ECLIPTIC VECTOR INTO ECLIPTIC LONGITUDE AND LATITUDE
 xyproj = dsqrt ( pos2(1)**2 + pos2(2)**2 )
 e = 0.d0
-if ( xyproj .gt. 0.d0 ) e = datan2 ( pos2(2), pos2(1) )
+if ( xyproj > 0.d0 ) e = datan2 ( pos2(2), pos2(1) )
 elon = e / radcon
-if ( elon .lt. 0.d0 ) elon = elon + 360.d0
+if ( elon < 0.d0 ) elon = elon + 360.d0
 e = datan2 ( pos2(3), xyproj )
 elat = e / radcon
 
@@ -1817,11 +1817,11 @@ data tlast / 0.d0 /,   ob2000 / 0.d0 /
 call times ( tjd, t,   secdif )
 t1 = tjd + secdif / 86400.d0
 
-if ( tjd .eq. 0.d0 ) then
+if ( tjd == 0.d0 ) then
 !         CASE WHERE INPUT VECTOR IS IN ICRS SYSTEM
     call frame ( pos1, 1,   pos0 )
 !         GET MEAN OBLIQUITY AT J2000.0 IF NECESSARY
-    if ( ob2000 .eq. 0.d0 ) call etilt ( t0,  ob2000, x, x, x, x )      !
+    if ( ob2000 == 0.d0 ) call etilt ( t0,  ob2000, x, x, x, x )      !
     obl = ob2000 * radcon
 else 
 !         CASE WHERE INPUT VECTOR IS IN EQUATOR OF DATE SYSTEM      
@@ -1829,13 +1829,13 @@ else
     pos0(2) = pos1(2)
     pos0(3) = pos1(3)
 !         GET MEAN AND TRUE OBLIQUITY
-    if ( dabs ( tjd - tlast ) .gt. 1.d-8 ) then
+    if ( dabs ( tjd - tlast ) > 1.d-8 ) then
         call etilt ( t1,   oblm, oblt, x, x, x )
         tlast = tjd
     end if
 !         SELECT MEAN OR TRUE OBLIQUITY         
     obl = oblm * radcon
-    if ( icoord .eq. 1 ) obl = oblt * radcon 
+    if ( icoord == 1 ) obl = oblt * radcon 
 end if
 
 !     ROTATE EQUATORIAL POSITION VECTOR TO ECLIPTIC SYSTEM
@@ -1890,21 +1890,21 @@ data tlast / 0.d0 /,   ob2000 / 0.d0 /
 call times ( tjd, t,   secdif )
 t1 = tjd + secdif / 86400.d0
 
-if ( tjd .eq. 0.d0 ) then
+if ( tjd == 0.d0 ) then
 !         CASE WHERE OUTPUT VECTOR IS TO BE IN ICRS SYSTEM
 !         GET MEAN OBLIQUITY AT J2000.0 IF NECESSARY 
-    if ( ob2000 .eq. 0.d0 ) call etilt ( t0,  ob2000, x, x, x, x )      !
+    if ( ob2000 == 0.d0 ) call etilt ( t0,  ob2000, x, x, x, x )      !
     obl = ob2000 * radcon
 else 
 !         CASE WHERE OUTPUT VECTOR IS TO BE IN EQUATOR OF DATE SYSTEM      
 !         GET MEAN AND TRUE OBLIQUITY
-    if ( dabs ( tjd - tlast ) .gt. 1.d-8 ) then
+    if ( dabs ( tjd - tlast ) > 1.d-8 ) then
         call etilt ( t1,   oblm, oblt, x, x, x )
         tlast = tjd
     end if
 !         SELECT MEAN OR TRUE OBLIQUITY         
     obl = oblm * radcon
-    if ( icoord .eq. 1 ) obl = oblt * radcon 
+    if ( icoord == 1 ) obl = oblt * radcon 
 end if     
 
 !     ROTATE ECLIPTIC POSITION VECTOR TO EQUATORIAL SYSTEM
@@ -1912,7 +1912,7 @@ pos2(1) =  pos1(1)
 pos2(2) =  pos1(2) * dcos ( obl ) - pos1(3) * dsin ( obl )
 pos2(3) =  pos1(2) * dsin ( obl ) + pos1(3) * dcos ( obl )
 
-if ( tjd .eq. 0.d0 ) then
+if ( tjd == 0.d0 ) then
 !         CASE WHERE OUTPUT VECTOR IS TO BE IN ICRS SYSTEM
     pos0(1) = pos2(1) 
     pos0(2) = pos2(2)
@@ -1972,9 +1972,9 @@ pos2(3) = ag(3,1)*pos1(1) + ag(3,2)*pos1(2) + ag(3,3)*pos1(3)
 !     DECOMPOSE GALACTIC VECTOR INTO LONGITUDE AND LATITUDE
 xyproj = dsqrt ( pos2(1)**2 + pos2(2)**2 )
 g = 0.d0
-if ( xyproj .gt. 0.d0 ) g = datan2 ( pos2(2), pos2(1) )
+if ( xyproj > 0.d0 ) g = datan2 ( pos2(2), pos2(1) )
 glon = g / radcon
-if ( glon .lt. 0.d0 ) glon = glon + 360.d0
+if ( glon < 0.d0 ) glon = glon + 360.d0
 g = datan2 ( pos2(3), xyproj )
 glat = g / radcon
 
@@ -2020,7 +2020,7 @@ parameter ( seccon = 180.d0 * 3600.d0 / pi )
 data ntimes / 0 /
 
 ntimes = ntimes + 1
-if ( ntimes .eq. 1 ) then
+if ( ntimes == 1 ) then
 !         GET LENGTH OF AU IN KILOMETERS
     call astcon ( 'AU', 1.d-3,   aukm )
 !         GET C, THE SPEED OF LIGHT IN KILOMETERS/SECOND
@@ -2030,7 +2030,7 @@ end if
 !     IF PARALLAX IS UNKNOWN, UNDETERMINED, OR ZERO, SET IT TO 1E-6
 !     MILLIARCSECOND, CORRESPONDING TO A DISTANCE OF 1 GIGAPARSEC
 paralx = parllx
-if ( paralx .le. 0.d0 ) paralx = 1.d-6
+if ( paralx <= 0.d0 ) paralx = 1.d-6
 
 !     CONVERT RIGHT ASCENSION, DECLINATION, AND PARALLAX TO POSITION
 !     VECTOR IN EQUATORIAL SYSTEM WITH UNITS OF AU
@@ -2084,10 +2084,10 @@ parameter ( seccon = 180.d0 * 3600.d0 / pi )
 
 xyproj = dsqrt(pos(1)**2 + pos(2)**2)
 r = 0.d0
-if (xyproj.gt.0.d0) r = datan2(pos(2),pos(1))
+if (xyproj>0.d0) r = datan2(pos(2),pos(1))
 ra = r * seccon / 54000.d0
-if (ra.lt. 0.d0) ra = ra + 24.d0
-if (ra.ge.24.d0) ra = ra - 24.d0
+if (ra< 0.d0) ra = ra + 24.d0
+if (ra>=24.d0) ra = ra - 24.d0
 d = datan2(pos(3),xyproj)
 dec = d * seccon / 3600.d0
 
@@ -2153,7 +2153,7 @@ save
 data ntimes / 0 /
 
 ntimes = ntimes + 1
-if (ntimes.eq.1) then
+if (ntimes==1) then
 !         GET C, THE SPEED OF LIGHT IN AU/DAY
     call astcon ('C(AU/DAY)',1.d0,c)
 end if
@@ -2231,12 +2231,12 @@ data t0 / 2451545.00000000d0 /
 data tlast / 0.d0 /,   gst / -99.d0 /,   ntimes / 0 /
 
 ntimes = ntimes + 1
-if ( ntimes .eq. 1 ) then
+if ( ntimes == 1 ) then
 !         GET AU, THE LENGTH OF THE ASTRONOMICAL UNIT IN KILOMETERS
     call astcon ( 'AU', 1.d-3,   au )
 end if
 
-if ( locatn .eq. 0 ) then
+if ( locatn == 0 ) then
     pos(1) = 0.d0
     pos(2) = 0.d0
     pos(3) = 0.d0
@@ -2253,12 +2253,12 @@ tdbjd = tjd
 !     GET GEOCENTRIC POSITION AND VELOCITY VECTORS OF OBSERVER WRT
 !     EQUATOR AND EQUINOX OF DATE
 
-if ( locatn .eq. 1 ) then
+if ( locatn == 1 ) then
 
 !         OBSERVER ON SURFACE OF EARTH
 
 !         TEMPORARY CODE TO USE SIDEREAL TIME PREVIOUSLY PROVIDED
-    if ( gst .ne. -99.d0 ) then
+    if ( gst /= -99.d0 ) then
         gast = gst
         gst = -99.d0
         go to 20
@@ -2266,19 +2266,19 @@ if ( locatn .eq. 1 ) then
 !         END OF TEMPROARY CODE
 
 !         GET DELTA-T VALUE
-    if ( observ(4) .ne. 0.d0 ) then
+    if ( observ(4) /= 0.d0 ) then
         deltat = observ(4) / 86400.d0
     else
         call getdt ( deltat )
     end if
 
 !         USING DELTA-T VALUE, COMPUTE UT1 AND SIDEREAL TIME
-    if ( ttjd .eq. 0.d0 ) then
+    if ( ttjd == 0.d0 ) then
         ut1jd = tdbjd - deltat
     else
         ut1jd = ttjd - deltat
     end if
-    if ( dabs ( ut1jd - tlast ) .gt. 1.d-8 ) then
+    if ( dabs ( ut1jd - tlast ) > 1.d-8 ) then
         call eqinox
         call sidtim ( ut1jd, 0.d0, 0,   gmst )
         call etilt ( tdbjd,   x, x, eqeq, x, x )
@@ -2292,7 +2292,7 @@ if ( locatn .eq. 1 ) then
                  pos1, vel1 )
 
 
-else if ( locatn .eq. 2 ) then
+else if ( locatn == 2 ) then
 
 !         OBSERVER ON NEAR-EARTH SPACECRAFT
 
@@ -2360,11 +2360,11 @@ data ntimes / 0 /,   split / .false. /
 ntimes = ntimes + 1
 
 !     ON FIRST CALL, CHECK WHETHER SOLSYS SUPPORTS SPLIT JULIAN DATES
-if ( ntimes .eq. 1 ) split = idss ('JD') .eq. 2
+if ( ntimes == 1 ) split = idss ('JD') == 2
 
 !     SET LIGHT-TIME CONVERGENCE TOLERANCE
 tol = 1.d-9
-if ( split .and. tlite .lt. 0.01d0 ) tol = 1.d-12 
+if ( split .and. tlite < 0.01d0 ) tol = 1.d-12 
 
 !     IF SOLSYS SUPPORTS SPLIT JULIAN DATES, SPLIT THE JULIAN DATE
 !     INTO WHOLE DAYS + FRACTION OF DAY
@@ -2378,14 +2378,14 @@ iter = 0
 !     ITERATE TO OBTAIN CORRECT LIGHT-TIME (USUALLY CONVERGES RAPIDLY)
 40 call solsys ( t2, idbody, 0,   pos1, vel1, ierr )
 call geocen ( pos1, pose,   pos, tlight )
-if ( ierr .ne. 0 ) then
+if ( ierr /= 0 ) then
     write ( *, 3 ) idbody, t0 + t2
     go to 70
 end if
 t3 = t1 - tlight
-if ( dabs ( t3 - t2 ) .gt. tol ) then
+if ( dabs ( t3 - t2 ) > tol ) then
     iter = iter + 1
-    if ( iter .gt. 10 ) then
+    if ( iter > 10 ) then
         write ( *, 3 ) idbody, t0 + t3
         go to 70
     end if
@@ -2437,7 +2437,7 @@ save
 data ntimes / 0 /
 
 ntimes = ntimes + 1
-if (ntimes.eq.1) then
+if (ntimes==1) then
 !         GET C, THE SPEED OF LIGHT IN AU/DAY
     call astcon ('C(AU/DAY)',1.d0,c)
 end if
@@ -2507,7 +2507,7 @@ data nbody / 3 /
 data ntimes / 0 /
 
 ntimes = ntimes + 1
-if ( ntimes .eq. 1 ) then
+if ( ntimes == 1 ) then
 !         GET C, THE SPEED OF LIGHT IN AU/DAY
     call astcon ( 'C(AU/DAY)', 1.d0, c )
 !         GET ID NUMBERS AND RECIPROCAL MASSES OF GRAVITATING BODIES
@@ -2524,7 +2524,7 @@ do 30 j = 1, 3
     pos2(j) = pos1(j)
 30 continue
 !     OPTION FOR NO DEFLECTION
-if ( nbody .le. 0 ) go to 50
+if ( nbody <= 0 ) go to 50
 
 !     COMPUTE LIGHT-TIME TO OBSERVED OBJECT
 tlt = dsqrt ( pos1(1)**2 + pos1(2)**2 + pos1(3)**2 ) / c
@@ -2532,7 +2532,7 @@ tlt = dsqrt ( pos1(1)**2 + pos1(2)**2 + pos1(3)**2 ) / c
 !     CYCLE THROUGH GRAVITATING BODIES
 do 40 i = 1, nbody
 
-    if ( id(i) .eq. -9999 ) go to 40
+    if ( id(i) == -9999 ) go to 40
 
 !         GET POSITION OF GRAVITATING BODY WRT SS BARYCENTER AT TIME TJD
     call solsys ( tjd, id(i), 0,   pbody, vbody, ierr )
@@ -2547,8 +2547,8 @@ do 40 i = 1, nbody
 !         GET POSITION OF GRAVITATING BODY WRT SS BARYCENTER AT TIME
 !         WHEN INCOMING PHOTONS WERE CLOSEST TO IT
     tclose = tjd
-    if ( dlt .gt. 0.d0 ) tclose = tjd - dlt
-    if ( tlt .lt. dlt  ) tclose = tjd - tlt
+    if ( dlt > 0.d0 ) tclose = tjd - dlt
+    if ( tlt < dlt  ) tclose = tjd - tlt
     call solsys ( tclose, id(i), 0,   pbody, vbody, ierr )
 
 !         COMPUTE DEFLECTION DUE TO GRAVITATING BODY
@@ -2557,7 +2557,7 @@ do 40 i = 1, nbody
 40 continue
 
 !     IF OBSERVER IS NOT AT GEOCENTER, ADD IN DEFLECTION DUE TO EARTH
-if ( loc .ne. 0 ) then
+if ( loc /= 0 ) then
 
 !         GET POSITION OF EARTH WRT SS BARYCENTER AT TIME TJD
     call solsys ( tjd, ide, 0,   pbody, vbody, ierr )
@@ -2609,7 +2609,7 @@ save
 data ntimes / 0 /
 
 ntimes = ntimes + 1
-if (ntimes.eq.1) then
+if (ntimes==1) then
 !         GET C, THE SPEED OF LIGHT IN METERS/SECOND
     call astcon ( 'C', 1.d0, c )
 !         GET MAU, THE LENGTH OF THE AU IN METERS
@@ -2643,7 +2643,7 @@ qdote = qhat(1)*ehat(1) + qhat(2)*ehat(2) + qhat(3)*ehat(3)
 !     IF GRAVITATING BODY IS OBSERVED OBJECT, OR IS ON A STRAIGHT LINE
 !     TOWARD OR AWAY FROM OBSERVED OBJECT TO WITHIN 1 ARCSEC,
 !     DEFLECTION IS SET TO ZERO
-if ( dabs ( edotp ) .gt. 0.99999999999d0 ) then
+if ( dabs ( edotp ) > 0.99999999999d0 ) then
     do 35 j=1,3
         pos2(j) = pos1(j)
 35     continue
@@ -2694,14 +2694,14 @@ save
 data ntimes / 0 /
 
 ntimes = ntimes + 1
-if (ntimes.eq.1) then
+if (ntimes==1) then
 !         GET C, THE SPEED OF LIGHT IN AU/DAY
     call astcon ('C(AU/DAY)',1.d0,c)
 end if
 
 tl = tlight
 p1mag = tl * c
-if (tl.ne.0.d0) go to 20
+if (tl/=0.d0) go to 20
 p1mag = dsqrt(pos1(1)**2 + pos1(2)**2 + pos1(3)**2)
 tl = p1mag / c
 20 vemag = dsqrt(ve(1)**2 + ve(2)**2 + ve(3)**2)
@@ -2805,7 +2805,7 @@ data ntimes / 0 /
 
 ntimes = ntimes + 1
 
-if ( ntimes .eq. 1 ) then
+if ( ntimes == 1 ) then
 !         GET AU, LENGTH OF ASTRONOMICAL UNIT IN METERS          
     call astcon ( 'AU', 1.d0,   au )
 !         GET C, THE SPEED OF LIGHT IN METERS/SECOND
@@ -2824,12 +2824,12 @@ rv = 0.d0
 
 !     COMPUTE LENGTH OF POSITION VECTOR = DISTANCE TO OBJECT IN AU     
 posmag = dsqrt ( pos(1)**2 + pos(2)**2 + pos(3)**2 )
-if ( posmag .lt. 1.d-8 ) go to 70
+if ( posmag < 1.d-8 ) go to 70
 
 !     DETERMINE HOW OBJECT IS TO BE PROCESSED
-dostar = star(1) .ne. 0.d0 .or. &
-         star(2) .ne. 0.d0 .or. &
-         star(3) .ne. 0.d0 
+dostar = star(1) /= 0.d0 .or. &
+         star(2) /= 0.d0 .or. &
+         star(3) /= 0.d0 
 
 !     COMPUTE UNIT VECTOR TOWARD OBJECT      
 do 40 j = 1, 3
@@ -2843,15 +2843,15 @@ vo2 = ( velobs(1)**2 + velobs(2)**2 + velobs(3)**2 ) * toms2
 !     COMPUTE GEOPOTENTIAL AT OBSERVER, UNLESS OBSERVER IS GEOCENTRIC
 r = dist(1) * au
 phigeo = 0.d0
-if ( r .gt. 1.d6 ) phigeo = ge / r
+if ( r > 1.d6 ) phigeo = ge / r
 
 !     COMPUTE SOLAR POTENTIAL AT OBSERVER
 r = dist(2) * au
 phisun = 0.d0
-if ( r .gt. 1.d8 ) phisun = gs / r
+if ( r > 1.d8 ) phisun = gs / r
 
 !     COMPUTE RELATIVISTIC POTENTIAL AND VELOCITY FACTOR FOR OBSERVER
-if ( dist(1) .ne. 0.d0 .or. dist(2) .ne. 0.d0 ) then 
+if ( dist(1) /= 0.d0 .or. dist(2) /= 0.d0 ) then 
 !         LINDEGREN & DRAVINS EQ. (41), SECOND FACTOR IN PARENTHESES
     rel = 1.d0 - ( phigeo + phisun ) / c2 - 0.5d0 * vo2 / c2 
 else    
@@ -2884,7 +2884,7 @@ else
 !         COMPUTE SOLAR POTENTIAL AT OBJECT, IF WITHIN SOLAR SYSTEM
     r = dist(3) * au
     phisun = 0.d0
-    if ( r .gt. 1.d8 .and. r .lt. 1.d16 ) phisun = gs / r
+    if ( r > 1.d8 .and. r < 1.d16 ) phisun = gs / r
 
 !         COMPUTE OBSERVED RADIAL VELOCITY MEASURE OF A PLANET OR OTHER
 !         OBJECT -- INCLUDING A NEARBY STAR -- WHERE KINEMATIC 
@@ -2954,15 +2954,15 @@ data zx, zy, zz / 0.d0, 0.d0, 1.d0 /
 3 format ( ' PRECES ERROR: PRECESSION FROM JD ', f10.1, ' TO ', &
      f10.1, ' NOT TO/FROM J2000' )
 
-if ( tjd1 .ne. t0 .and. tjd2 .ne. t0 ) then
+if ( tjd1 /= t0 .and. tjd2 /= t0 ) then
     write ( *, 3 ) tjd1, tjd2
     go to 50
 end if
 
 !     T IS TIME IN TDB CENTURIES BETWEEN THE TWO EPOCHS
 t = ( tjd2 - tjd1 ) / 36525.d0
-if ( tjd2 .eq. t0 ) t = -t
-if ( dabs ( t - tlast ) .lt. 1.d-15 ) go to 20
+if ( tjd2 == t0 ) t = -t
+if ( dabs ( t - tlast ) < 1.d-15 ) go to 20
 
 !     NUMERICAL COEFFICIENTS OF PSI_A, OMEGA_A, AND CHI_A, ALONG WITH
 !     EPSILON_0, THE OBLIQUITY AT J2000.0, ARE 4-ANGLE FORMULATION
@@ -3010,7 +3010,7 @@ zz = -sc * cb * sa + cc * ca
 
 tlast = t
 
-20 if ( tjd2 .eq. t0 ) go to 30
+20 if ( tjd2 == t0 ) go to 30
 
 !     PERFORM ROTATION FROM J2000.0 TO EPOCH
 pos2(1) = xx * pos1(1) + yx * pos1(2) + zx * pos1(3)
@@ -3080,7 +3080,7 @@ zy =  cpsi * sobm * cobt - cobm * sobt
 xz =  spsi * sobt
 yz =  cpsi * cobm * sobt - sobm * cobt
 zz =  cpsi * sobm * sobt + cobm * cobt
-10 if ( tjd .lt. 0.d0 ) go to 30
+10 if ( tjd < 0.d0 ) go to 30
 
 !     PERFORM ROTATION FROM MEAN TO TRUE
 20 pos2(1) = xx * pos1(1) + yx * pos1(2) + zx * pos1(3)
@@ -3122,7 +3122,7 @@ parameter ( pi     = 3.14159265358979324d0 )
 
 data alast / -999.d0 /
 
-if ( dabs ( angl - alast ) .gt. 1.d-12 ) then
+if ( dabs ( angl - alast ) > 1.d-12 ) then
 
     ang = angl / 180.d0 * pi
     cosang = dcos ( ang )
@@ -3226,7 +3226,7 @@ zy =  sinx * cosy * sinl + siny * cosl
 xz =  sinx
 yz = -cosx * siny
 zz =  cosx * cosy
-10 if ( tjd .lt. 0.d0 ) go to 30
+10 if ( tjd < 0.d0 ) go to 30
 
 !     PERFORM ROTATION FROM ITRS TO TERRESTRIAL INTERMEDIATE SYSTEM
 20 pos2(1) = xx * pos1(1) + yx * pos1(2) + zx * pos1(3)
@@ -3286,7 +3286,7 @@ data ntimes / 0 /
 ntimes = ntimes + 1
 
 !     COMPUTE ELEMENTS OF ROTATION MATRIX (TO FIRST ORDER)
-if ( ntimes .gt. 1 ) go to 20
+if ( ntimes > 1 ) go to 20
 xx =  1.d0
 yx = -da0  / seccon
 zx =  xi0  / seccon
@@ -3300,7 +3300,7 @@ zz =  1.d0
 xx = 1.d0 - 0.5d0 * ( yx**2 + zx**2 )
 yy = 1.d0 - 0.5d0 * ( yx**2 + zy**2 )
 zz = 1.d0 - 0.5d0 * ( zy**2 + zx**2 )
-20 if ( k .ge. 0 ) go to 30
+20 if ( k >= 0 ) go to 30
 
 !     PERFORM ROTATION FROM DYNAMICAL SYSTEM TO ICRS
 pos2(1) = xx * pos1(1) + yx * pos1(2) + zx * pos1(3)
@@ -3370,7 +3370,7 @@ parameter ( seccon = 180.d0 * 3600.d0 / pi )
 data ntimes / 0 /
 
 ntimes = ntimes + 1
-if (ntimes.eq.1) then
+if (ntimes==1) then
 !         GET ERAD, THE EQUATORIAL RADIUS OF EARTH IN KILOMETERS
     call astcon ('ERAD',1.d-3,erad)
 !         GET F, THE FLATTENING FACTOR OF EARTH ELLIPSOID
@@ -3512,14 +3512,14 @@ accdif = mod ( mode, 2 ) - mod ( mlast, 2 )
 
 t = ( tjd - t0 ) / 36525.d0
 
-if ( dabs ( tjd - tlast ) .gt. 1.d-8 .or. accdif .ne. 0 ) then
+if ( dabs ( tjd - tlast ) > 1.d-8 .or. accdif /= 0 ) then
 
 !         OBTAIN NUTATION PARAMETERS IN ARCSECONDS
     call nod ( t,   psi, eps )
 
 !         OBTAIN COMPLEMENTARY TERMS FOR EQUATION OF THE EQUINOXES
 !         IN ARCSECONDS
-    if ( mod ( mode, 2 ) .eq. 0 ) then
+    if ( mod ( mode, 2 ) == 0 ) then
 !             HIGH-ACCURACY MODE
         cterms = eect2000 ( tjd, 0.d0 ) * seccon
     else
@@ -3601,7 +3601,7 @@ entry celpol (tjd,itype,dpole1,dpole2)
 !     RADIAN.
 !
 !
-if ( itype .eq. 1 ) then
+if ( itype == 1 ) then
 
     psicor = dpole1 * 1.d-3
     epscor = dpole2 * 1.d-3
@@ -3748,14 +3748,14 @@ data pobs, tobs, dobs, wlobs / 4 * -999.d0 /
 
 !     COMPUTE REFRACTION ONLY FOR ZENITH DISTANCES
 !     BETWEEN 0.1 AND 91 DEGREES
-if ( zdobs .lt. 0.1d0 .or. zdobs .gt. 91.d0 ) then
+if ( zdobs < 0.1d0 .or. zdobs > 91.d0 ) then
     refr = 0.d0
     go to 77
 end if
 
 !     IF OBSERVED WEATHER DATA ARE AVAILABLE, USE THEM
 !     OTHERWISE, USE CRUDE ESTIMATES OF AVERAGE CONDITIONS
-if ( pobs .ge. 1.d0 .and. tobs .gt. -100.d0 ) then
+if ( pobs >= 1.d0 .and. tobs > -100.d0 ) then
     p  = pobs
     t  = tobs
     d  = dobs
@@ -3837,7 +3837,7 @@ parameter ( degcon = 180.d0 / pi           )
 data ntimes / 0 /
 
 ntimes = ntimes + 1
-if ( ntimes .eq. 1 ) then
+if ( ntimes == 1 ) then
      call astcon ( 'ERAD', 1.d0,   erad )
      call astcon ( 'AU', 1.d0,   au )
      rade = erad / au
@@ -3847,7 +3847,7 @@ disobj = dsqrt ( pos1(1)**2 + pos1(2)**2 + pos1(3)**2 )
 disobs = dsqrt ( poso(1)**2 + poso(2)**2 + poso(3)**2 )
 
 !     COMPUTE APPARENT ANGULAR RADIUS OF EARTH'S LIMB
-if ( disobs .gt. rade ) then
+if ( disobs > rade ) then
     aprad = dasin ( rade / disobs )
 else
     aprad = halfpi
@@ -3859,9 +3859,9 @@ zdlim = pi - aprad
 !     COMPUTE ZENITH DISTANCE OF OBSERVED OBJECT
 coszd = ( pos1(1)*poso(1) + pos1(2)*poso(2) + pos1(3)*poso(3) ) &
       / ( disobj * disobs )
-if ( coszd .le. -1.d0 ) then
+if ( coszd <= -1.d0 ) then
    zdobj = pi
-else if ( coszd .ge. 1.d0 ) then
+else if ( coszd >= 1.d0 ) then
    zdobj = 0.d0
 else
    zdobj = dacos ( coszd )
@@ -3914,10 +3914,10 @@ data tlast, rlast, klast / 0.d0, 0.d0, 0 /
 
 !     CHECK IF EXTERNAL FILE EXISTS
 call ciord ( 0.d0, 1,   a, a, ierr )
-usefil = ierr .eq. 0
+usefil = ierr == 0
 
 !     CHECK IF PREVIOUSLY COMPUTED RA VALUE CAN BE USED
-if ( dabs ( tjd - tlast ) .le. 1.d-8 ) then
+if ( dabs ( tjd - tlast ) <= 1.d-8 ) then
     racio = rlast
     k = klast
     go to 77
@@ -3931,7 +3931,7 @@ if ( usefil ) then
 
 !         GET ARRAYS OF VALUES TO INTERPOLATE
     call ciord ( tjd, m,   jd, ra, ierr )
-    if ( ierr .ne. 0 ) then
+    if ( ierr /= 0 ) then
         write ( *, 3 ) tjd
         racio = 99.d0
         go to 77
@@ -3942,7 +3942,7 @@ if ( usefil ) then
     do 40 j = 1, m
         p = 1.d0
         do 30 i = 1, m
-            if ( i .eq. j ) go to 30
+            if ( i == j ) go to 30
             p = p * ( tjd - jd(i) ) / ( jd(j) - jd(i) )
 30         continue
         racio = racio + p * ra(j)
@@ -4021,23 +4021,23 @@ data ntimes, tbeg, tend, fileok / 0, 0.d0, 1.d10, .false. /
 
 !     SPECIAL CALL JUST TO DETERMINE IF FILE EXITS
 !     (NO PRINTED ERROR MESSAGE IF NOT)
-if ( tjd .eq. 0.d0 .and. nvals .eq. 1 ) then
+if ( tjd == 0.d0 .and. nvals == 1 ) then
     ierr = 4
-    if ( ntimes .eq. 0 ) inquire ( file=filnam, exist=fileok )
+    if ( ntimes == 0 ) inquire ( file=filnam, exist=fileok )
     if ( fileok ) ierr = 0
     go to 77
 end if
 
 !     IF EXTERNAL FILE IS ALREADY KNOWN NOT TO EXIST, IMMEDIATELY
 !     EXIT WITH IERR=4 
-if ( ntimes .gt. 0 .and. .not. fileok ) then  
+if ( ntimes > 0 .and. .not. fileok ) then  
     write ( *, 2 ) filnam
     ierr = 4
     go to 77
 end if 
 
 !     CHECK FOR VALID VALUE OF NVALS
-if ( nvals .lt. 2 .or. nvals .gt. 20 ) then
+if ( nvals < 2 .or. nvals > 20 ) then
     ierr = 3
     go to 77
 end if
@@ -4045,17 +4045,17 @@ end if
 middl = nvals / 2
 
 !     CHECK THAT REQUESTED JULIAN DATE IS WITHIN RANGE OF FILE
-10 if ( tjd .lt. tbeg ) then
+10 if ( tjd < tbeg ) then
     write ( *, 3 )  tjd, 'BEFORE FIRST', tbeg
     ierr = 1
     go to 77
-else if ( tjd .gt. tend ) then
+else if ( tjd > tend ) then
     write ( *, 3 ) tjd, 'AFTER LAST', tend
     ierr = 2
     go to 77
 end if
 
-if ( ityp .eq. 1 ) then
+if ( ityp == 1 ) then
 
 !         -------------------------------------------------------------
 !         READ JULIAN DATES AND CIO RA VALUES FROM FORMATTED
@@ -4069,7 +4069,7 @@ if ( ityp .eq. 1 ) then
 
 !         IF FIRST TIME, OPEN FILE AND READ INITIAL VALUES
     ntimes = ntimes + 1
-    if ( ntimes .eq. 1 ) then
+    if ( ntimes == 1 ) then
         inquire ( file=filnam, exist=fileok )
         if ( .not. fileok ) then
             write ( *, 2 ) filnam
@@ -4084,7 +4084,7 @@ if ( ityp .eq. 1 ) then
 19         continue
         tint = nint ( ( t(2) - t(1) ) * 1000.d0 ) / 1000.d0
         tbeg = t(middl)
-        if ( tjd .lt. tbeg ) go to 10
+        if ( tjd < tbeg ) go to 10
     end if
 
 !         -------------------------------------------------------------
@@ -4095,16 +4095,16 @@ if ( ityp .eq. 1 ) then
     ndif = dif
 
 !         BASIC DECISION ON HOW TO READ FILE
-    if ( dif .ge. -0.1d0 .and. dif .le. 1.1d0 ) then
+    if ( dif >= -0.1d0 .and. dif <= 1.1d0 ) then
 !             NO FILE READ NECESSARY, DATA PREVIOUSLY READ CAN BE USED
         go to 70
-    else if ( dif .lt. 0.d0 ) then
+    else if ( dif < 0.d0 ) then
 !             REQUESTED JULIAN DATE BEFORE DATA PREVIOUSLY READ
         irec = ( t(nvals) - tbeg ) / tint
         nback = 3 * nvals
-        if ( -dif .le. 2 * nvals .and. irec .gt. nback ) go to 34
+        if ( -dif <= 2 * nvals .and. irec > nback ) go to 34
         go to 25
-    else if ( ndif .gt. ( nvals + 1 ) ) then
+    else if ( ndif > ( nvals + 1 ) ) then
 !             REQUESTED JULIAN DATE FAR AHEAD OF DATA PREVIOUSLY READ
         nskip = ndif - nvals - 1
         go to 30
@@ -4156,7 +4156,7 @@ if ( ityp .eq. 1 ) then
     ierr = 2
     go to 77
 
-else if ( ityp .eq. 2 ) then
+else if ( ityp == 2 ) then
 
 !         -------------------------------------------------------------
 !         READ JULIAN DATES AND CIO RA VALUES FROM UNFORMATTED
@@ -4174,7 +4174,7 @@ else if ( ityp .eq. 2 ) then
 
 !         IF FIRST TIME, OPEN FILE AND READ INITIAL VALUES
     ntimes = ntimes + 1
-    if ( ntimes .eq. 1 ) then
+    if ( ntimes == 1 ) then
         inquire ( file=filnam, exist=fileok )
         if ( .not. fileok ) then
             write ( *, 2 ) filnam
@@ -4193,7 +4193,7 @@ else if ( ityp .eq. 2 ) then
         t1 = t(1)
         lrec = 1
         maxrec = nrecs - nvals + 1
-        if ( tjd .lt. tbeg .or. tjd .gt. tend ) go to 10
+        if ( tjd < tbeg .or. tjd > tend ) go to 10
     end if
 
 !         -------------------------------------------------------------
@@ -4205,14 +4205,14 @@ else if ( ityp .eq. 2 ) then
 !         OF THE FIRST RECORD IN THE SEQUENCE OF NVALS RECORDS WITH
 !         THE RELEVANT DATA TO BE RETURNED
     irec = ( ( tjd - t1 ) / tint ) - middl + 1.9d0
-    if ( irec .lt. 1      ) irec = 1
-    if ( irec .gt. maxrec ) irec = maxrec
+    if ( irec < 1      ) irec = 1
+    if ( irec > maxrec ) irec = maxrec
 
 !         BASIC DECISION ON HOW TO READ FILE
-    if ( dif .ge. -0.1d0 .and. dif .le. 1.1d0 ) then
+    if ( dif >= -0.1d0 .and. dif <= 1.1d0 ) then
 !             NO FILE READ NECESSARY, DATA PREVIOUSLY READ CAN BE USED
         go to 70
-    else if ( irec .gt. lrec .and. irec - lrec .le. middl ) then
+    else if ( irec > lrec .and. irec - lrec <= middl ) then
 !             REQUESTED JULIAN DATE JUST AHEAD OF DATA PREVIOUSLY READ
         go to 62
     else
@@ -4269,7 +4269,7 @@ entry ciofil ( lunit, fileid, itype )
 !     ITYPE=1 OR 2.
 !
 !
-if ( itype .eq. 1 .or. itype .eq. 2 ) then
+if ( itype == 1 .or. itype == 2 ) then
     lu = lunit
     filnam = fileid
     ityp = itype
@@ -4331,7 +4331,7 @@ data z0 / 0.d0, 0.d0, 1.d0 /,   tlast / 0.d0 /,   klast / 0 /
      f10.1 )      
 
 !     USE LAST-COMPUTED BASIS VECTORS IF POSSIBLE
-if ( dabs ( tjd - tlast ) .le. 1.d-8 .and. k .eq. klast ) &
+if ( dabs ( tjd - tlast ) <= 1.d-8 .and. k == klast ) &
    go to 60
 
 !     COMPUTE UNIT VECTOR Z TOWARD CELESTIAL POLE (CIP)      
@@ -4341,7 +4341,7 @@ call frame ( w2, -1,   zz )
 
 ! --- RA OF CIO EXPRESSED IN GCRS -------------------------------------      
 
-if ( k .eq. 1 ) then
+if ( k == 1 ) then
 
 !         COMPUTE VECTOR X TOWARD CIO IN GCRS
     sinra = dsin ( racio * 15.d0 * radcon )
@@ -4363,7 +4363,7 @@ if ( k .eq. 1 ) then
     
 ! --- RA OF CIO EXPRESSED IN EQUATOR-AND-EQUINOX OF DATE SYSTEM -------          
 
-else if ( k .eq. 2 ) then
+else if ( k == 2 ) then
 
 !         CONSTRUCT UNIT VECTOR TOWARD CIO
 !         IN EQUATOR-AND-EQUINOX-OF-DATE SYSTEM
@@ -4434,7 +4434,7 @@ thet1 = 0.7790572732640d0 + 0.00273781191135448d0 * ( date1 - t0 )      !
 thet2 =                     0.00273781191135448d0 *   date2
 thet3 = dmod ( date1, 1.d0 ) + dmod ( date2, 1.d0 )
 theta = dmod ( thet1 + thet2 + thet3, 1.d0 ) * 360.d0
-if ( theta .lt. 0.d0 ) theta = theta + 360.d0
+if ( theta < 0.d0 ) theta = theta + 360.d0
 
 return
 
@@ -4468,8 +4468,8 @@ t = ( tjd - t0 ) / 36525.d0
 
 !     FOR THE TRUE EQUINOX, OBTAIN THE EQUATION OF THE EQUINOXES IN
 !     TIME SECONDS, WHICH INCLUDES THE 'COMPLIMENTARY TERMS'
-if ( k .eq. 1 ) then
-    if ( dabs ( tjd - tlast ) .gt. 1.d-8 ) then
+if ( k == 1 ) then
+    if ( dabs ( tjd - tlast ) > 1.d-8 ) then
         call etilt ( tjd,   a, a, ee, a, a )
         tlast = tjd
     end if
@@ -4591,25 +4591,25 @@ return
 
 entry ciotio
 lmode = imode
-if ( imode .ge. 2 ) imode = imode - 2
+if ( imode >= 2 ) imode = imode - 2
 return
 
 
 entry eqinox
 lmode = imode
-if ( imode .le. 1 ) imode = imode + 2
+if ( imode <= 1 ) imode = imode + 2
 return
 
 
 entry loacc
 lmode = imode
-if ( mod ( imode, 2 ) .eq. 0 ) imode = imode + 1
+if ( mod ( imode, 2 ) == 0 ) imode = imode + 1
 return
 
 
 entry hiacc
 lmode = imode
-if ( mod ( imode, 2 ) .eq. 1 ) imode = imode - 1
+if ( mod ( imode, 2 ) == 1 ) imode = imode - 1
 return
 
 
@@ -4788,61 +4788,61 @@ data c / 299792458.d0 /
 data ausec / 499.0047838061d0 /
 
 !     SPEED OF LIGHT IN METERS/SECOND
-if ( name .eq. 'C' ) then
+if ( name == 'C' ) then
     const = c
 
 !     SPEED OF LIGHT IN AU/DAY
-else if ( name .eq. 'C(AU/DAY)' ) then
+else if ( name == 'C(AU/DAY)' ) then
     const = 86400.d0 / ausec
 
 !     LENGTH OF ASTRONOMICAL UNIT IN METERS
-else if ( name .eq. 'AU' ) then
+else if ( name == 'AU' ) then
     const = ausec * c
 
 !     LENGTH OF ASTRONOMICAL UNIT IN SECONDS
-else if ( name .eq. 'AU(SEC)' ) then
+else if ( name == 'AU(SEC)' ) then
     const = ausec
 
 !     HELIOCENTRIC GRAVITATIONAL CONSTANT IN METERS**3/SECOND**2, FROM
 !     DE-405
-else if ( name .eq. 'GS' ) then
+else if ( name == 'GS' ) then
     const = 1.32712440017987d20
 
 !     GEOCENTRIC GRAVITATIONAL CONSTANT IN METERS**3/SECOND**2, FROM
 !     DE-405
-else if ( name .eq. 'GE' ) then
+else if ( name == 'GE' ) then
     const = 3.98600433d14
 
 !     EQUATORIAL RADIUS OF EARTH IN METERS, FROM IERS CONVENTIONS (2003)
-else if ( name .eq. 'ERAD' ) then
+else if ( name == 'ERAD' ) then
     const = 6378136.6d0
 
 !     FLATTENING FACTOR OF EARTH, FROM IERS CONVENTIONS (2003)
-else if ( name .eq. 'F' ) then
+else if ( name == 'F' ) then
     const = 1.d0 / 298.25642d0
 
 !     NOMINAL MEAN ROTATIONAL ANGULAR VELOCITY OF EARTH
 !     IN RADIANS/SECOND, FROM IERS CONVENTIONS (2003)
-else if ( name .eq. 'ANGVEL' ) then
+else if ( name == 'ANGVEL' ) then
     const = 7.2921150d-5
 
 !     RECIPROCAL MASSES OF SOLAR SYSTEM BODIES, FROM DE-405
 !     (SUN MASS / BODY MASS)
-else if ( name(1:4) .eq. 'MASS' ) then
+else if ( name(1:4) == 'MASS' ) then
 
     const = 1.d0
-    if ( name(6:8) .eq. 'SUN' ) const =         1.d0
-    if ( name(6:8) .eq. 'MOO' ) const =  27068700.387534d0
-    if ( name(6:8) .eq. 'MER' ) const =   6023600.d0
-    if ( name(6:8) .eq. 'VEN' ) const =    408523.71d0
-    if ( name(6:8) .eq. 'EAR' ) const =    332946.050895d0
-    if ( name(6:8) .eq. 'MAR' ) const =   3098708.d0
-    if ( name(6:8) .eq. 'JUP' ) const =      1047.3486d0
-    if ( name(6:8) .eq. 'SAT' ) const =      3497.898d0
-    if ( name(6:8) .eq. 'URA' ) const =     22902.98d0
-    if ( name(6:8) .eq. 'NEP' ) const =     19412.24d0
-    if ( name(6:8) .eq. 'PLU' ) const = 135200000.d0
-    if ( name(6:8) .eq. 'EMB' ) const =    328900.561400d0
+    if ( name(6:8) == 'SUN' ) const =         1.d0
+    if ( name(6:8) == 'MOO' ) const =  27068700.387534d0
+    if ( name(6:8) == 'MER' ) const =   6023600.d0
+    if ( name(6:8) == 'VEN' ) const =    408523.71d0
+    if ( name(6:8) == 'EAR' ) const =    332946.050895d0
+    if ( name(6:8) == 'MAR' ) const =   3098708.d0
+    if ( name(6:8) == 'JUP' ) const =      1047.3486d0
+    if ( name(6:8) == 'SAT' ) const =      3497.898d0
+    if ( name(6:8) == 'URA' ) const =     22902.98d0
+    if ( name(6:8) == 'NEP' ) const =     19412.24d0
+    if ( name(6:8) == 'PLU' ) const = 135200000.d0
+    if ( name(6:8) == 'EMB' ) const =    328900.561400d0
 
 end if
 
@@ -4883,7 +4883,7 @@ t1 = t * 36525.d0
 !     RESULTING NUTATION IN LONGITUDE AND OBLIQUITY IN ARCSECONDS
 
 !     CALL SUBROUTINE TO EVALUATE NUTATION SERIES
-if ( mod ( mode, 2 ) .eq. 0 ) then
+if ( mod ( mode, 2 ) == 0 ) then
 !         HIGH ACCURACY MODE -- IERS SUBROUTINE
     call nu2000a ( t0, t1, dp, de )
 else
@@ -9700,7 +9700,7 @@ parameter ( dpi = 3.141592653589793238462643d0, &
 double precision w
 
 w = mod(a,d2pi)
-if ( abs(w) .ge. dpi ) w = w - sign(d2pi,a)
+if ( abs(w) >= dpi ) w = w - sign(d2pi,a)
 anmp = w
 
 end

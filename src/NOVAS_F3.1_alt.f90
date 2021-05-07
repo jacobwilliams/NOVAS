@@ -101,7 +101,7 @@ data x / 0., 0., 0., 0., 1., -17.2064,-0.01747, 9.2052, 0.00091, &
 !     GET METHOD/ACCURACY MODE
 call getmod ( mode )
 
-if ( mod ( mode, 2 ) .eq. 0 ) then
+if ( mod ( mode, 2 ) == 0 ) then
 
 !         HIGH ACCURACY MODE -- CALL IERS SUBROUTINE
 

@@ -72,7 +72,7 @@ data tbeg, tend, tlast, mlast, klast / 0.d0, 1.d10, 0.d0, 0, 0 /
 4 format ( ' SOLSYS: ERROR 4 TRYING TO OPEN FILE ', a, ' ON UNIT ', &
      i2 ) 
 
-if ( tlast .le. 0.d0 ) then
+if ( tlast <= 0.d0 ) then
     open ( unit=lu, file=filnam, status='UNKNOWN', err=84 )
     read ( lu, 1 )
     read ( lu, formt ) t
@@ -90,31 +90,31 @@ end if
 
 !     CHECK FOR COMMON ERROR CONDITIONS 
 ierr = 0
-if ( m .lt. 0 .or. m .gt. n - 1 ) go to 73
-if ( tjd .lt. tbeg ) go to 71
-if ( tjd .gt. tend ) go to 78
+if ( m < 0 .or. m > n - 1 ) go to 73
+if ( tjd < tbeg ) go to 71
+if ( tjd > tend ) go to 78
 
 !     LOGIC TO DETERMINE BEST WAY TO SEARCH COORDINATE FILE
 
 !     CHECK IF NEEDED DATA ALREADY IN ARRAYS      
-if ( dabs ( tjd - tlast ) .le. 0.8d0 ) then
-    if ( m .ne. mlast .or. k .ne. klast ) go to 30 
+if ( dabs ( tjd - tlast ) <= 0.8d0 ) then
+    if ( m /= mlast .or. k /= klast ) go to 30 
     go to 60
 end if
 
 !     IF INPUT JD LESS THAN LAST JD, START FROM BEGINNING OF FILE
-if ( tjd .lt. tlast ) then
+if ( tjd < tlast ) then
     rewind lu
     read ( lu, 1 ) 
     tlast = 1.d0
 end if
 
 !     DECIDE ON COURSE OR FINE SEARCH       
-if ( tjd - tlast .le. 15.d0 ) go to 20
+if ( tjd - tlast <= 15.d0 ) go to 20
 
 !     COURSE SEARCH THROUGH COORDINATE FILE
 15 read ( lu, formt, end=77 ) t
-if ( tjd - t .gt. 10.d0 ) go to 15
+if ( tjd - t > 10.d0 ) go to 15
 do 18 i = 1, npts
    read ( lu, formt, end=77 ) t, ((xyz(i,l,j), j=1,3), l=1,n)
    xjd(i) = t
@@ -131,7 +131,7 @@ do 18 i = 1, npts
 22 continue
 read ( lu, formt, end=77 ) t, ((xyz(npts,l,j), j=1,3), l=1,n)
 xjd(npts) = t
-if ( dabs ( tjd - xjd(lmiddl) ) .gt. 0.5d0 ) go to 20
+if ( dabs ( tjd - xjd(lmiddl) ) > 0.5d0 ) go to 20
 tlast = xjd(lmiddl)
 
 !     AT THIS POINT, THE FILE IS POSITIONED CORRECTLY AND ARRAYS
@@ -143,7 +143,7 @@ tlast = xjd(lmiddl)
 do 40 i = 1, npts
 do 40 j = 1, 3
     origin = 0.d0
-    if ( k .ge. 1 ) origin = xyz(i,msun+1,j)
+    if ( k >= 1 ) origin = xyz(i,msun+1,j)
     bpos(i,j) = xyz(i,m+1,j) - origin
 40 continue
 
@@ -152,7 +152,7 @@ do 40 j = 1, 3
 do 50 i = 1, npts
 do 50 j = 1, 3
     bvel(i,j) = 0.d0
-    if ( i .ge. 4 .and. i .le. 10 ) &
+    if ( i >= 4 .and. i <= 10 ) &
         bvel(i,j) = (          bpos(i+3,j) -  9.d0 * bpos(i+2,j) &
                      + 45.d0 * bpos(i+1,j) - 45.d0 * bpos(i-1,j) &
                      +  9.d0 * bpos(i-2,j) -         bpos(i-3,j) ) &    !
@@ -172,7 +172,7 @@ do 63 j = 1, 3
         ak = astart + dfloat(l)
         p = 1.d0
         do 61 i = 1, intpts
-            if ( i .eq. l ) go to 61
+            if ( i == l ) go to 61
             ai = astart + dfloat(i)
             p = p * (ti-ai) / (ak-ai)
 61         continue
@@ -226,13 +226,13 @@ character filnm*(*), fmt*(*), filnam*80, formt*80
 common /ssfile/ lu,n,filnam,formt
 save
 
-if ( lun .ge. 1 ) lu = lun
+if ( lun >= 1 ) lu = lun
 
-if ( nbod .ge. 1 ) n = nbod
+if ( nbod >= 1 ) n = nbod
 
-if ( filnm .ne. ' ' ) filnam = filnm
+if ( filnm /= ' ' ) filnam = filnm
 
-if ( fmt .ne. ' ' ) formt = fmt
+if ( fmt /= ' ' ) formt = fmt
 
 return
 
@@ -294,14 +294,14 @@ namein = name
 
 !     LOOK THROUGH LIST OF BODY NAMES TO FIND MATCH
 do 20 i = 1, num
-    if ( namein .eq. names(i) ) then
+    if ( namein == names(i) ) then
         idss = ids(i)
         go to 30
     end if
 20 continue
 
 !     IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES   
-if ( namein .eq. 'JD ' ) then
+if ( namein == 'JD ' ) then
 !         IN THIS CASE, SET IDSS=1, SINCE SOLSYS VERSION 1 DOES NOT
 !         PROCESSES SPLIT JULIAN DATES (IN SUCCESSIVE CALLS) 
     idss = 1
