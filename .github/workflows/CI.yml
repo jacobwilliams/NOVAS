@@ -47,8 +47,8 @@ jobs:
 
     - name: Compile
       run: |
-        gfortran ./src/NOVAS_F3.1.f ./src/NOVAS_F3.1_solsys1.f ./tests/checkout.f -o checkout
-        gfortran ./src/NOVAS_F3.1.f ./src/NOVAS_F3.1_solsys1.f ./tests/example.F -o example
+        gfortran ./src/NOVAS_F3.1.f90 ./src/NOVAS_F3.1_solsys1.f90 ./tests/checkout.f90 -o checkout
+        gfortran ./src/NOVAS_F3.1.f90 ./src/NOVAS_F3.1_solsys1.f90 ./tests/example.F90 -o example
 
     - name: checkout
       run: ./checkout
