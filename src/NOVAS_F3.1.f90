@@ -1,22 +1,20 @@
-!  NOVAS FORTRAN VERS F3.1 of 2011 MARCH 21                       
-                             
 !***********************************************************************
-!                                                                      *
-!                              N O V A S                               *
-!           NAVAL OBSERVATORY VECTOR ASTROMETRY SOFTWARE               *
-!                                                                      *
-!                            G. H. KAPLAN                              *
-!                        U.S. NAVAL OBSERVATORY                        *
-!                                                                      *
+!>
+!  NOVAS : NAVAL OBSERVATORY VECTOR ASTROMETRY SOFTWARE   
+!       
+!### Author                                                   
+!  * G. H. KAPLAN, U.S. NAVAL OBSERVATORY       
+!     
+!### Version
+!  * NOVAS FORTRAN VERS F3.1 of 2011 MARCH 21           
+
+    module novas_module
+
+    contains 
 !***********************************************************************
 
-module novas_module
-
-contains 
-
-subroutine place ( tjd, object, locatn, icoord, star, observ, &
-                   skypos )
-!
+!***********************************************************************
+!>
 !     THIS SUBROUTINE COMPUTES THE APPARENT DIRECTION OF A STAR OR SOLAR
 !     SYSTEM BODY AT A SPECIFIED TIME AND IN A SPECIFIED COORDINATE
 !     SYSTEM.  BASED ON KAPLAN, ET AL. (1989), ASTRONOMICAL JOURNAL 97,
@@ -126,8 +124,9 @@ subroutine place ( tjd, object, locatn, icoord, star, observ, &
 !     BODY, IT APPLIES TO A FICTITIOUS EMITTER AT THE CENTER OF THE
 !     OBSERVED OBJECT, ASSUMED MASSLESS (NO GRAVITATIONAL RED SHIFT),
 !     AND DOES NOT IN GENERAL APPLY TO REFLECTED LIGHT.
-!
-!
+
+    subroutine place ( tjd, object, locatn, icoord, star, observ, &
+        skypos )
 
 ! --- INITIAL DECLARATIONS---------------------------------------------
 
@@ -393,17 +392,16 @@ call setvec ( pos8 )
 
 end
 
-
+!***********************************************************************
+!>
+!  THE ENTRIES TO THIS SUBROUTINE PROVIDE 'FRONT ENDS' TO
+!  SUBROUTINE PLACE, TAILORED TO SPECIFIC PLACE TYPES.  THEY
+!  PROVIDE COMPATIBILITY WITH PREVIOUSLY SUPPORTED CALLING
+!  SEQUENCES.
 
 subroutine places
-!
-!     THE ENTRIES TO THIS SUBROUTINE PROVIDE 'FRONT ENDS' TO
-!     SUBROUTINE PLACE, TAILORED TO SPECIFIC PLACE TYPES.  THEY
-!     PROVIDE COMPATIBILITY WITH PREVIOUSLY SUPPORTED CALLING
-!     SEQUENCES.
-!
-!
-implicit none
+
+    implicit none
 integer l,n,locatn,icoord
 double precision tjd,rai,deci,pmra,pmdec,parlax,radvel, &
      ujd,glon,glat,ht,ra,dec,dis, &
@@ -634,25 +632,23 @@ return
 
 end
 
-
+!***********************************************************************
+!>
+!  THIS SUBROUTINE COMPUTES THE ICRS POSITION OF A STAR,
+!  GIVEN ITS APPARENT PLACE AT DATE TJD.  PROPER MOTION, PARALLAX,
+!  AND RADIAL VELOCITY ARE ASSUMED TO BE ZERO.
+!
+!      TJD    = TT JULIAN DATE OF APPARENT PLACE (IN)
+!      N      = BODY IDENTIFICATION NUMBER FOR THE EARTH (IN)
+!               (NO LONGER USED)
+!      RA     = APPARENT RIGHT ASCENSION IN HOURS, REFERRED TO
+!               TRUE EQUATOR AND EQUINOX OF DATE (IN)
+!      DEC    = APPARENT DECLINATION IN DEGREES, REFERRED TO
+!               TRUE EQUATOR OF DATE (IN)
+!      RAI    = ICRS RIGHT ASCENSION IN HOURS (OUT)
+!      DECI   = ICRS DECLINATION IN DEGREES (OUT)
 
 subroutine mpstar (tjd,n,ra,dec, rai,deci)
-!
-!     THIS SUBROUTINE COMPUTES THE ICRS POSITION OF A STAR,
-!     GIVEN ITS APPARENT PLACE AT DATE TJD.  PROPER MOTION, PARALLAX,
-!     AND RADIAL VELOCITY ARE ASSUMED TO BE ZERO.
-!
-!          TJD    = TT JULIAN DATE OF APPARENT PLACE (IN)
-!          N      = BODY IDENTIFICATION NUMBER FOR THE EARTH (IN)
-!                   (NO LONGER USED)
-!          RA     = APPARENT RIGHT ASCENSION IN HOURS, REFERRED TO
-!                   TRUE EQUATOR AND EQUINOX OF DATE (IN)
-!          DEC    = APPARENT DECLINATION IN DEGREES, REFERRED TO
-!                   TRUE EQUATOR OF DATE (IN)
-!          RAI    = ICRS RIGHT ASCENSION IN HOURS (OUT)
-!          DECI   = ICRS DECLINATION IN DEGREES (OUT)
-!
-!
 double precision tjd,ra,dec,rai,deci,t0,t1,rainew,dcinew, &
      raiold,dciold,star,observ,skypos,r,d,p,v,delra,deldec, &
      dabs
@@ -714,29 +710,28 @@ call setvec (p)
 
 end
 
-
+!***********************************************************************
+!>
+!  THIS SUBROUTINE COMPUTES THE GREENWICH SIDEREAL TIME
+!  (EITHER MEAN OR APPARENT) AT JULIAN DATE TJDH + TJDL.
+!  
+!       TJDH   = UT1 JULIAN DATE, HIGH-ORDER PART (IN)
+!       TJDL   = UT1 JULIAN DATE, LOW-ORDER PART (IN)
+!                THE JULIAN DATE MAY BE SPLIT AT ANY POINT, BUT
+!                FOR HIGHEST PRECISION, SET TJDH TO BE THE INTEGRAL
+!                PART OF THE JULIAN DATE, AND SET TJDL TO BE THE
+!                FRACTIONAL PART
+!       K      = TIME SELECTION CODE (IN)
+!                SET K=0 FOR GREENWICH MEAN SIDEREAL TIME
+!                SET K=1 FOR GREENWICH APPARENT SIDEREAL TIME
+!       GST    = GREENWICH (MEAN OR APPARENT) SIDEREAL TIME
+!                IN HOURS (OUT)
+!  
+!  NOTE:  SEE ALSO SUBROUTINE SETDT TO SET THE VALUE OF DELTA-T
+!  (DELTA-T = TT - UT1) TO BE USED HERE.
 
 subroutine sidtim ( tjdh, tjdl, k,   gst )
-!
-!     THIS SUBROUTINE COMPUTES THE GREENWICH SIDEREAL TIME
-!     (EITHER MEAN OR APPARENT) AT JULIAN DATE TJDH + TJDL.
-!
-!          TJDH   = UT1 JULIAN DATE, HIGH-ORDER PART (IN)
-!          TJDL   = UT1 JULIAN DATE, LOW-ORDER PART (IN)
-!                   THE JULIAN DATE MAY BE SPLIT AT ANY POINT, BUT
-!                   FOR HIGHEST PRECISION, SET TJDH TO BE THE INTEGRAL
-!                   PART OF THE JULIAN DATE, AND SET TJDL TO BE THE
-!                   FRACTIONAL PART
-!          K      = TIME SELECTION CODE (IN)
-!                   SET K=0 FOR GREENWICH MEAN SIDEREAL TIME
-!                   SET K=1 FOR GREENWICH APPARENT SIDEREAL TIME
-!          GST    = GREENWICH (MEAN OR APPARENT) SIDEREAL TIME
-!                   IN HOURS (OUT)
-!
-!     NOTE:  SEE ALSO SUBROUTINE SETDT TO SET THE VALUE OF DELTA-T
-!     (DELTA-T = TT - UT1) TO BE USED HERE.
-!
-!
+
 double precision tjdh,tjdl,gst,pi,degcon,deltat, &
      t0,utjd,ttjd,tdbjd,secdif,a,theta,rcio, &
      unitx,w1,w2,x,y,z,eq,haeq,ee,dmod,datan2
@@ -9705,4 +9700,6 @@ anmp = w
 
 end
 
-end module novas_module
+!***********************************************************************
+  end module novas_module
+!***********************************************************************
