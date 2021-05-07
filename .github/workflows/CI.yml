@@ -50,10 +50,11 @@ jobs:
         gfortran ./src/NOVAS_F3.1.f ./src/NOVAS_F3.1_solsys1.f ./tests/checkout.f -o checkout
         gfortran ./src/NOVAS_F3.1.f ./src/NOVAS_F3.1_solsys1.f ./tests/example.F -o example
 
-    - name: Run tests
-      run: |
-        ./checkout
-        ./example
+    - name: checkout
+      run: ./checkout
+
+    - name: example
+      run: ./example
 
     - name: Build documentation
       run: ford ./novas.md
