@@ -1,0 +1,10 @@
+.DS_Store
+doc
+bin
+lib
+
+.obj
+.o
+.mod
+.a
+.so
