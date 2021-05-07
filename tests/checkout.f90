@@ -1,12 +1,14 @@
+!*******************************************************************
+!>
+!  This program checks out many parts of NOVAS Fortran, producing
+!  an output file checkout.out that can be compared with validation
+!  files in the NOVAS distribution.
+
 program checkout
 
 use novas_module
 
 implicit none
-
-!-----This program checks out many parts of NOVAS Fortran, producing
-!     an output file checkout.out that can be compared with validation
-!     files in the NOVAS distribution.
 
 integer nstars, ntimes, i, j, k, isun, iearth, idss
 
@@ -44,10 +46,9 @@ iearth = idss ( "EARTH" )
 
 open ( unit=8, file="checkout.out", status="unknown" )
 
-
 !-----Compute geocentric places of stars.
 
-do 10 i = 1, nstars
+do i = 1, nstars
 
    if ( index (starid(i),"HIP") /= 0 ) then
        call gethip ( starda(1,i), starda(2,i), starda(3,i), &
@@ -66,22 +67,22 @@ do 10 i = 1, nstars
 
 !-----Loop through the times.
 
-   do 20 j = 1, ntimes
+   do j = 1, ntimes
       
       call apstar (tjd(j),iearth, &
         rai,deci,pmra,pmdec,parlax,radvel, rag,decg)
    
       write (8, 201) tjd(j), rag, decg
       
-20    continue
+   end do
 
-10 continue
+end do
 
 !------Compute topocentric Sun.
 
    write (8, 102) "Topocentric Sun:"
 
-   do 30 j = 1, ntimes
+   do j = 1, ntimes
          
       ujd = tjd(j) - (deltat(j) / 86400.0d0)
       
@@ -90,7 +91,7 @@ do 10 i = 1, nstars
    
       write (8, 201) tjd(j), rat, dect, dist
     
-30 continue
+   end do
 
 !------Compute Grenwich apparent sidereal time.
 
@@ -104,7 +105,7 @@ do 10 i = 1, nstars
 
    write (8, 102) "Sidereal Time (using "//method//" CIO):" 
 
-   do 40 j = 1, ntimes
+   do j = 1, ntimes
    
       call setdt ( deltat(j) )
          
@@ -115,7 +116,7 @@ do 10 i = 1, nstars
       
       write (8, 202) ujd1, gast
     
-40 continue
+   end do
 
 end file ( unit=8 )
 close ( unit=8 )
@@ -129,4 +130,6 @@ stop
  f12.8, :, 2x, "Dis = ", f10.8)
 202 format (1x, "JD = ", f9.1, 2x, "ST = ", f12.9 )   
 
-end program checkout
+!*******************************************************************
+  end program checkout
+!*******************************************************************
