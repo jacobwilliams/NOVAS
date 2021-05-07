@@ -10,7 +10,7 @@
     <meta name="author" content="Jacob Williams" >
     <link rel="icon" href="../favicon.png">
 
-    <title>FILDEF &ndash; NOVAS</title>
+    <title>fildef &ndash; NOVAS</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -108,7 +108,7 @@
     
   
   <div class="row">
-    <h1>FILDEF
+    <h1>fildef
       <small>Subroutine</small>
     
     </h1>
@@ -131,17 +131,17 @@
      
      
      
-    <li><i class="fa fa-code"></i><a href="../src/NOVAS_F3.1_solsys1.f"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/NOVAS_F3.1_solsys1.f90"> Source File</a></li>
      
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
     
-     <li><a href='../sourcefile/novas_f3.1_solsys1.f.html'>NOVAS_F3.1_solsys1.f</a></li>
+     <li><a href='../sourcefile/novas_f3.1_solsys1.f90.html'>NOVAS_F3.1_solsys1.f90</a></li>
     
   
-     <li class="active">FILDEF</li>
+     <li class="active">fildef</li>
   </ol>
 </div>
 </div>
@@ -170,7 +170,7 @@
   <div id="common-0" class="panel-collapse collapse">
     <div class="list-group">
       
-      <a class="list-group-item" href="../proc/fildef.html#common-ssfile~2">SSFILE</a>
+      <a class="list-group-item" href="../proc/fildef.html#common-ssfile~2">ssfile</a>
       
     </div>
   </div>
@@ -203,7 +203,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-subroutine FILDEF(LUN, NBOD, FILNM, FMT)
+subroutine fildef(lun, nbod, filnm, fmt)
     
     
    
@@ -237,7 +237,7 @@ subroutine FILDEF(LUN, NBOD, FILNM, FMT)
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>LUN</strong></td><td></td>
+  <td><strong>lun</strong></td><td></td>
   
 </tr>
 
@@ -252,7 +252,7 @@ subroutine FILDEF(LUN, NBOD, FILNM, FMT)
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>NBOD</strong></td><td></td>
+  <td><strong>nbod</strong></td><td></td>
   
 </tr>
 
@@ -267,7 +267,7 @@ subroutine FILDEF(LUN, NBOD, FILNM, FMT)
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>FILNM</strong>*(*)</td><td></td>
+  <td><strong>filnm</strong>*(*)</td><td></td>
   
 </tr>
 
@@ -282,7 +282,7 @@ subroutine FILDEF(LUN, NBOD, FILNM, FMT)
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>FMT</strong>*(*)</td><td></td>
+  <td><strong>fmt</strong>*(*)</td><td></td>
   
 </tr>
 
@@ -309,7 +309,7 @@ subroutine FILDEF(LUN, NBOD, FILNM, FMT)
   <div id="common-1" class="panel-collapse collapse">
     <div class="list-group">
       
-      <a class="list-group-item" href="../proc/fildef.html#common-ssfile~2">SSFILE</a>
+      <a class="list-group-item" href="../proc/fildef.html#common-ssfile~2">ssfile</a>
       
     </div>
   </div>
@@ -348,7 +348,7 @@ subroutine FILDEF(LUN, NBOD, FILNM, FMT)
   <div class="panel-heading codesum"><span class="anchor" id="common-ssfile~2"></span><h3>
       <a data-toggle="popover" data-html="true" tabindex="0" 
      data-trigger="focus"
-   data-content="<h4>Used Elsewhere:</h4><a href='../proc/solsys.html#common-ssfile'>SOLSYS</a> (subroutine)<br><a href='../blockdata/ltemgtunnamedltSLASHemgt.html#common-ssfile~3'><em>unnamed</em></a> (blockdata)<br>">common /SSFILE/</a>
+   data-content="<h4>Used Elsewhere:</h4><a href='../proc/solsys~3.html#common-ssfile'>solsys</a> (subroutine)<br><a href='../blockdata/ltemgtunnamedltSLASHemgt.html#common-ssfile~3'><em>unnamed</em></a> (blockdata)<br>">common /ssfile/</a>
       
   </h3></div>
   <div class="panel-body">
@@ -375,7 +375,7 @@ subroutine FILDEF(LUN, NBOD, FILNM, FMT)
   
   
   <td></td><td>::</td>
-  <td><strong>LU</strong></td><td></td><td></td><td></td>
+  <td><strong>lu</strong></td><td></td><td></td><td></td>
   
 </tr>
 
@@ -385,11 +385,11 @@ subroutine FILDEF(LUN, NBOD, FILNM, FMT)
   
 <tr>
   
-  <td><span class="anchor" id="variable-n~3"></span>integer</td>
+  <td><span class="anchor" id="variable-n~2"></span>integer</td>
   
   
   <td></td><td>::</td>
-  <td><strong>N</strong></td><td></td><td></td><td></td>
+  <td><strong>n</strong></td><td></td><td></td><td></td>
   
 </tr>
 
@@ -399,11 +399,11 @@ subroutine FILDEF(LUN, NBOD, FILNM, FMT)
   
 <tr>
   
-  <td><span class="anchor" id="variable-filnam~2"></span>real</td>
+  <td><span class="anchor" id="variable-filnam~2"></span>character</td>
   
   
   <td></td><td>::</td>
-  <td><strong>FILNAM</strong></td><td></td><td></td><td></td>
+  <td><strong>filnam</strong>*80</td><td></td><td></td><td></td>
   
 </tr>
 
@@ -413,11 +413,11 @@ subroutine FILDEF(LUN, NBOD, FILNM, FMT)
   
 <tr>
   
-  <td><span class="anchor" id="variable-formt~2"></span>real</td>
+  <td><span class="anchor" id="variable-formt~2"></span>character</td>
   
   
   <td></td><td>::</td>
-  <td><strong>FORMT</strong></td><td></td><td></td><td></td>
+  <td><strong>formt</strong>*80</td><td></td><td></td><td></td>
   
 </tr>
 

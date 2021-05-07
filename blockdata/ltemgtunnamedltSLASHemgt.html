@@ -131,14 +131,14 @@
      
      
      
-    <li><i class="fa fa-code"></i><a href="../src/NOVAS_F3.1_solsys1.f"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/NOVAS_F3.1_solsys1.f90"> Source File</a></li>
      
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
     
-     <li><a href='../sourcefile/novas_f3.1_solsys1.f.html'>NOVAS_F3.1_solsys1.f</a></li>
+     <li><a href='../sourcefile/novas_f3.1_solsys1.f90.html'>NOVAS_F3.1_solsys1.f90</a></li>
     
   
      <li class="active"><em>unnamed</em></li>
@@ -170,26 +170,12 @@
   <div id="common-0" class="panel-collapse collapse">
     <div class="list-group">
       
-      <a class="list-group-item" href="../blockdata/ltemgtunnamedltSLASHemgt.html#common-ssfile~3">SSFILE</a>
+      <a class="list-group-item" href="../blockdata/ltemgtunnamedltSLASHemgt.html#common-ssfile~3">ssfile</a>
       
     </div>
   </div>
 </div>
 
-
-
-<div class="panel panel-primary">
-  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#vars-0">Variables</a></h3></div>
-  <div id="vars-0" class="panel-collapse collapse">
-    <div class="list-group">
-      
-      <a class="list-group-item" href="../blockdata/ltemgtunnamedltSLASHemgt.html#variable-filnam~3">FILNAM</a>
-      
-      <a class="list-group-item" href="../blockdata/ltemgtunnamedltSLASHemgt.html#variable-formt~3">FORMT</a>
-      
-    </div>
-  </div>
-</div>
 
 
 
@@ -235,26 +221,12 @@
   <div id="common-1" class="panel-collapse collapse">
     <div class="list-group">
       
-      <a class="list-group-item" href="../blockdata/ltemgtunnamedltSLASHemgt.html#common-ssfile~3">SSFILE</a>
+      <a class="list-group-item" href="../blockdata/ltemgtunnamedltSLASHemgt.html#common-ssfile~3">ssfile</a>
       
     </div>
   </div>
 </div>
 
-
-
-<div class="panel panel-primary">
-  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#vars-1">Variables</a></h3></div>
-  <div id="vars-1" class="panel-collapse collapse">
-    <div class="list-group">
-      
-      <a class="list-group-item" href="../blockdata/ltemgtunnamedltSLASHemgt.html#variable-filnam~3">FILNAM</a>
-      
-      <a class="list-group-item" href="../blockdata/ltemgtunnamedltSLASHemgt.html#variable-formt~3">FORMT</a>
-      
-    </div>
-  </div>
-</div>
 
 
 
@@ -288,7 +260,7 @@
   <div class="panel-heading codesum"><span class="anchor" id="common-ssfile~3"></span><h3>
       <a data-toggle="popover" data-html="true" tabindex="0" 
      data-trigger="focus"
-   data-content="<h4>Used Elsewhere:</h4><a href='../proc/solsys.html#common-ssfile'>SOLSYS</a> (subroutine)<br><a href='../proc/fildef.html#common-ssfile~2'>FILDEF</a> (subroutine)<br>">common /SSFILE/</a>
+   data-content="<h4>Used Elsewhere:</h4><a href='../proc/solsys~3.html#common-ssfile'>solsys</a> (subroutine)<br><a href='../proc/fildef.html#common-ssfile~2'>fildef</a> (subroutine)<br>">common /ssfile/</a>
       
   </h3></div>
   <div class="panel-body">
@@ -315,7 +287,7 @@
   
   
   <td></td><td>::</td>
-  <td><strong>LU</strong></td><td></td><td></td><td></td>
+  <td><strong>lu</strong></td><td></td><td></td><td></td>
   
 </tr>
 
@@ -329,7 +301,7 @@
   
   
   <td></td><td>::</td>
-  <td><strong>N</strong></td><td></td><td></td><td></td>
+  <td><strong>n</strong></td><td></td><td></td><td></td>
   
 </tr>
 
@@ -339,11 +311,11 @@
   
 <tr>
   
-  <td><span class="anchor" id="variable-filnam~4"></span>real</td>
+  <td><span class="anchor" id="variable-filnam~3"></span>character</td>
   
   
   <td></td><td>::</td>
-  <td><strong>FILNAM</strong></td><td></td><td></td><td></td>
+  <td><strong>filnam</strong>*80</td><td></td><td></td><td></td>
   
 </tr>
 
@@ -353,11 +325,11 @@
   
 <tr>
   
-  <td><span class="anchor" id="variable-formt~4"></span>real</td>
+  <td><span class="anchor" id="variable-formt~3"></span>character</td>
   
   
   <td></td><td>::</td>
-  <td><strong>FORMT</strong></td><td></td><td></td><td></td>
+  <td><strong>formt</strong>*80</td><td></td><td></td><td></td>
   
 </tr>
 
@@ -378,52 +350,6 @@
     </script>
     
 
-    
-    <section>
-    <h2>Variables</h2>
-    
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-
-<th>Attributes</th><th></th><th>Name</th><th></th><th>Initial</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-filnam~3"></span>character</td>
-  
-  
-  <td></td><td>::</td>
-  <td><strong>FILNAM</strong>*80</td><td></td><td></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-formt~3"></span>character</td>
-  
-  
-  <td></td><td>::</td>
-  <td><strong>FORMT</strong>*80</td><td></td><td></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-    </section>
-    <br>
     
     
     
