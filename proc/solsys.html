@@ -10,7 +10,7 @@
     <meta name="author" content="Jacob Williams" >
     <link rel="icon" href="../favicon.png">
 
-    <title>SOLSYS &ndash; slsqp</title>
+    <title>SOLSYS &ndash; NOVAS</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -44,7 +44,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.html">slsqp </a>
+          <a class="navbar-brand" href="../index.html">NOVAS </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -461,25 +461,10 @@ subroutine SOLSYS(TJD, M, K, POS, VEL, IERR)
 <polygon fill="none" stroke="black" points="327,-45 273,-45 273,-21 327,-21 327,-45"/>
 <text text-anchor="middle" x="300" y="-30.6" font-family="Helvetica,sans-Serif" font-size="10.50">SOLSYS</text>
 </g>
-<!-- proc~grvdef -->
-<g id="proc~~solsys~~CalledByGraph_node2" class="node">
-<title>proc~grvdef</title>
-<g id="a_proc~~solsys~~CalledByGraph_node2"><a xlink:href=".././proc/grvdef.html" xlink:title="GRVDEF">
-<polygon fill="#d9534f" stroke="#d9534f" points="237,-25 181,-25 181,-1 237,-1 237,-25"/>
-<text text-anchor="middle" x="209" y="-10.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">GRVDEF</text>
-</a>
-</g>
-</g>
-<!-- proc~grvdef&#45;&gt;proc~solsys -->
-<g id="proc~~solsys~~CalledByGraph_edge1" class="edge">
-<title>proc~grvdef&#45;&gt;proc~solsys</title>
-<path fill="none" stroke="#000000" d="M237.19,-19.11C245.34,-20.94 254.42,-22.98 263.05,-24.92"/>
-<polygon fill="#000000" stroke="#000000" points="262.37,-28.36 272.89,-27.13 263.91,-21.53 262.37,-28.36"/>
-</g>
 <!-- proc~place -->
-<g id="proc~~solsys~~CalledByGraph_node3" class="node">
+<g id="proc~~solsys~~CalledByGraph_node2" class="node">
 <title>proc~place</title>
-<g id="a_proc~~solsys~~CalledByGraph_node3"><a xlink:href=".././proc/place.html" xlink:title="PLACE">
+<g id="a_proc~~solsys~~CalledByGraph_node2"><a xlink:href=".././proc/place.html" xlink:title="PLACE">
 <polygon fill="#d9534f" stroke="#d9534f" points="145,-45 91,-45 91,-21 145,-21 145,-45"/>
 <text text-anchor="middle" x="118" y="-30.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">PLACE</text>
 </a>
@@ -491,11 +476,26 @@ subroutine SOLSYS(TJD, M, K, POS, VEL, IERR)
 <path fill="none" stroke="#000000" d="M145.24,-33.52C156.28,-33.71 169.27,-33.91 181,-34 205.89,-34.2 212.11,-34.2 237,-34 245.25,-33.93 254.12,-33.82 262.49,-33.69"/>
 <polygon fill="#000000" stroke="#000000" points="262.81,-37.18 272.76,-33.52 262.7,-30.18 262.81,-37.18"/>
 </g>
+<!-- proc~grvdef -->
+<g id="proc~~solsys~~CalledByGraph_node3" class="node">
+<title>proc~grvdef</title>
+<g id="a_proc~~solsys~~CalledByGraph_node3"><a xlink:href=".././proc/grvdef.html" xlink:title="GRVDEF">
+<polygon fill="#d9534f" stroke="#d9534f" points="237,-25 181,-25 181,-1 237,-1 237,-25"/>
+<text text-anchor="middle" x="209" y="-10.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">GRVDEF</text>
+</a>
+</g>
+</g>
 <!-- proc~place&#45;&gt;proc~grvdef -->
-<g id="proc~~solsys~~CalledByGraph_edge3" class="edge">
+<g id="proc~~solsys~~CalledByGraph_edge5" class="edge">
 <title>proc~place&#45;&gt;proc~grvdef</title>
 <path fill="none" stroke="#000000" d="M145.22,-27.11C153.26,-25.3 162.25,-23.28 170.87,-21.34"/>
 <polygon fill="#000000" stroke="#000000" points="171.74,-24.74 180.73,-19.13 170.21,-17.91 171.74,-24.74"/>
+</g>
+<!-- proc~grvdef&#45;&gt;proc~solsys -->
+<g id="proc~~solsys~~CalledByGraph_edge1" class="edge">
+<title>proc~grvdef&#45;&gt;proc~solsys</title>
+<path fill="none" stroke="#000000" d="M237.19,-19.11C245.34,-20.94 254.42,-22.98 263.05,-24.92"/>
+<polygon fill="#000000" stroke="#000000" points="262.37,-28.36 272.89,-27.13 263.91,-21.53 262.37,-28.36"/>
 </g>
 <!-- proc~places -->
 <g id="proc~~solsys~~CalledByGraph_node4" class="node">
@@ -507,7 +507,7 @@ subroutine SOLSYS(TJD, M, K, POS, VEL, IERR)
 </g>
 </g>
 <!-- proc~places&#45;&gt;proc~place -->
-<g id="proc~~solsys~~CalledByGraph_edge4" class="edge">
+<g id="proc~~solsys~~CalledByGraph_edge3" class="edge">
 <title>proc~places&#45;&gt;proc~place</title>
 <path fill="none" stroke="#000000" d="M54.57,-47.81C62.87,-45.84 72.2,-43.63 81.07,-41.53"/>
 <polygon fill="#000000" stroke="#000000" points="81.88,-44.93 90.81,-39.22 80.27,-38.12 81.88,-44.93"/>
@@ -522,7 +522,7 @@ subroutine SOLSYS(TJD, M, K, POS, VEL, IERR)
 </g>
 </g>
 <!-- proc~mpstar&#45;&gt;proc~place -->
-<g id="proc~~solsys~~CalledByGraph_edge5" class="edge">
+<g id="proc~~solsys~~CalledByGraph_edge4" class="edge">
 <title>proc~mpstar&#45;&gt;proc~place</title>
 <path fill="none" stroke="#000000" d="M55.05,-18.3C63.18,-20.23 72.25,-22.38 80.9,-24.43"/>
 <polygon fill="#000000" stroke="#000000" points="80.23,-27.87 90.77,-26.78 81.85,-21.06 80.23,-27.87"/>
@@ -770,7 +770,7 @@ subroutine SOLSYS(TJD, M, K, POS, VEL, IERR)
             
           </p>
         </div>
-        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> slsqp was developed by Jacob Williams</p></div>
+        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> NOVAS was developed by Jacob Williams</p></div>
       </div>
       <br>
       </div> <!-- /container -->    
