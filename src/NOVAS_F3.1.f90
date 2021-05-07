@@ -10,7 +10,9 @@
 !                                                                      *
 !***********************************************************************
 
+module novas_module
 
+contains 
 
 subroutine place ( tjd, object, locatn, icoord, star, observ, &
                    skypos )
@@ -3479,7 +3481,7 @@ double precision tjd,oblm,oblt,eqeq,dpsi,deps,pi,seccon, &
      t0,tlast,t,psi,eps,psicor,epscor,cterms,delpsi,deleps, &
      el,elp,f,d,omega,obm,obt,ee, &
      dpole1,dpole2,dx,dy,dz,sine,x,dp1,dp2,dp3, &
-     obliq,dabs,dsin,dcos,eect2000
+     obliq,dabs,dsin,dcos !,eect2000
 integer accdif
 dimension dp1(3), dp2(3), dp3(3)
 save
@@ -9487,7 +9489,7 @@ double precision t
 !  Miscellaneous
 integer i, j
 double precision a, s0, s1
-double precision anmp
+!double precision anmp
 
 !  Fundamental arguments
 double precision fa(14)
@@ -9702,3 +9704,5 @@ if ( abs(w) .ge. dpi ) w = w - sign(d2pi,a)
 anmp = w
 
 end
+
+end module novas_module

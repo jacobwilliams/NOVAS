@@ -61,6 +61,8 @@
         
         
         
+            <li><a href="../lists/modules.html">Modules</a></li>
+        
             
     <li><a href="../blockdata/ltemgtunnamedltSLASHemgt.html">Block Data</a></li>
     
@@ -78,6 +80,8 @@
 <li class="visible-xs hidden-sm visible-lg"><a href="../lists/files.html">Source Files</a></li>
 
 
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/modules.html">Modules</a></li>
 
 
 <li class="visible-xs hidden-sm visible-lg"><a href="../blockdata/ltemgtunnamedltSLASHemgt.html">Block Data</a></li>
@@ -140,6 +144,8 @@
     
      <li><a href='../sourcefile/novas_f3.1.f90.html'>NOVAS_F3.1.f90</a></li>
     
+     <li><a href='../module/novas_module.html'>novas_module</a></li>
+    
   
      <li class="active">erot</li>
   </ol>
@@ -191,7 +197,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-subroutine erot(date1, date2, theta)
+public subroutine erot(date1, date2, theta)
     
     
    
@@ -307,37 +313,31 @@ subroutine erot(date1, date2, theta)
 <polygon fill="#000000" stroke="#000000" points="351.39,-70.42 359.71,-63.86 349.11,-63.8 351.39,-70.42"/>
 </g>
 <!-- proc~sidtim -->
-<g id="proc~~erot~~CalledByGraph_node3" class="node">
+<g id="proc~~erot~~CalledByGraph_node4" class="node">
 <title>proc~sidtim</title>
-<g id="a_proc~~erot~~CalledByGraph_node3"><a xlink:href=".././proc/sidtim.html" xlink:title="sidtim">
+<g id="a_proc~~erot~~CalledByGraph_node4"><a xlink:href=".././proc/sidtim.html" xlink:title="sidtim">
 <polygon fill="#d9534f" stroke="#d9534f" points="324,-66 270,-66 270,-42 324,-42 324,-66"/>
 <text text-anchor="middle" x="297" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">sidtim</text>
 </a>
 </g>
 </g>
 <!-- proc~celter&#45;&gt;proc~sidtim -->
-<g id="proc~~erot~~CalledByGraph_edge4" class="edge">
+<g id="proc~~erot~~CalledByGraph_edge5" class="edge">
 <title>proc~celter&#45;&gt;proc~sidtim</title>
 <path fill="none" stroke="#000000" d="M233.45,-83.85C242.21,-79.67 252.17,-74.92 261.52,-70.46"/>
 <polygon fill="#000000" stroke="#000000" points="263.09,-73.59 270.6,-66.12 260.07,-67.27 263.09,-73.59"/>
 </g>
-<!-- proc~sidtim&#45;&gt;proc~erot -->
-<g id="proc~~erot~~CalledByGraph_edge2" class="edge">
-<title>proc~sidtim&#45;&gt;proc~erot</title>
-<path fill="none" stroke="#000000" d="M324.4,-54C332.39,-54 341.31,-54 349.82,-54"/>
-<polygon fill="#000000" stroke="#000000" points="349.92,-57.5 359.92,-54 349.92,-50.5 349.92,-57.5"/>
-</g>
 <!-- proc~tercel -->
-<g id="proc~~erot~~CalledByGraph_node4" class="node">
+<g id="proc~~erot~~CalledByGraph_node3" class="node">
 <title>proc~tercel</title>
-<g id="a_proc~~erot~~CalledByGraph_node4"><a xlink:href=".././proc/tercel.html" xlink:title="tercel">
+<g id="a_proc~~erot~~CalledByGraph_node3"><a xlink:href=".././proc/tercel.html" xlink:title="tercel">
 <polygon fill="#d9534f" stroke="#d9534f" points="234,-24 180,-24 180,0 234,0 234,-24"/>
 <text text-anchor="middle" x="207" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">tercel</text>
 </a>
 </g>
 </g>
 <!-- proc~tercel&#45;&gt;proc~erot -->
-<g id="proc~~erot~~CalledByGraph_edge3" class="edge">
+<g id="proc~~erot~~CalledByGraph_edge2" class="edge">
 <title>proc~tercel&#45;&gt;proc~erot</title>
 <path fill="none" stroke="#000000" d="M234.04,-15.59C257.7,-19.12 293.48,-25.12 324,-33 332.54,-35.21 341.6,-38.01 350.08,-40.84"/>
 <polygon fill="#000000" stroke="#000000" points="349.11,-44.2 359.71,-44.14 351.39,-37.58 349.11,-44.2"/>
@@ -347,6 +347,12 @@ subroutine erot(date1, date2, theta)
 <title>proc~tercel&#45;&gt;proc~sidtim</title>
 <path fill="none" stroke="#000000" d="M233.45,-24.15C242.21,-28.33 252.17,-33.08 261.52,-37.54"/>
 <polygon fill="#000000" stroke="#000000" points="260.07,-40.73 270.6,-41.88 263.09,-34.41 260.07,-40.73"/>
+</g>
+<!-- proc~sidtim&#45;&gt;proc~erot -->
+<g id="proc~~erot~~CalledByGraph_edge3" class="edge">
+<title>proc~sidtim&#45;&gt;proc~erot</title>
+<path fill="none" stroke="#000000" d="M324.4,-54C332.39,-54 341.31,-54 349.82,-54"/>
+<polygon fill="#000000" stroke="#000000" points="349.92,-57.5 359.92,-54 349.92,-50.5 349.92,-57.5"/>
 </g>
 <!-- proc~zdaz -->
 <g id="proc~~erot~~CalledByGraph_node5" class="node">
@@ -358,7 +364,7 @@ subroutine erot(date1, date2, theta)
 </g>
 </g>
 <!-- proc~zdaz&#45;&gt;proc~tercel -->
-<g id="proc~~erot~~CalledByGraph_edge7" class="edge">
+<g id="proc~~erot~~CalledByGraph_edge4" class="edge">
 <title>proc~zdaz&#45;&gt;proc~tercel</title>
 <path fill="none" stroke="#000000" d="M144.4,-12C152.39,-12 161.31,-12 169.82,-12"/>
 <polygon fill="#000000" stroke="#000000" points="169.92,-15.5 179.92,-12 169.92,-8.5 169.92,-15.5"/>
@@ -373,7 +379,7 @@ subroutine erot(date1, date2, theta)
 </g>
 </g>
 <!-- proc~geopos&#45;&gt;proc~sidtim -->
-<g id="proc~~erot~~CalledByGraph_edge5" class="edge">
+<g id="proc~~erot~~CalledByGraph_edge7" class="edge">
 <title>proc~geopos&#45;&gt;proc~sidtim</title>
 <path fill="none" stroke="#000000" d="M234.4,-54C242.39,-54 251.31,-54 259.82,-54"/>
 <polygon fill="#000000" stroke="#000000" points="259.92,-57.5 269.92,-54 259.92,-50.5 259.92,-57.5"/>
