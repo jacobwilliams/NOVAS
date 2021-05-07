@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.5% of total for procedures.">15 statements</a>
+    title=" 0.5% of total for procedures.">14 statements</a>
      </li> 
      
      
@@ -206,6 +206,33 @@ public subroutine dlight(pos1, pe, diflt)
   
 
 
+    
+    <p>THIS SUBROUTINE RETURNS THE DIFFERENCE IN LIGHT-TIME, FOR A STAR,
+  BETWEEN THE BARYCENTER OF THE SOLAR SYSTEM AND THE OBSERVER (OR
+  THE GEOCENTER).</p>
+<div class="codehilite"><pre><span></span><code>   POS1   = POSITION VECTOR OF STAR, WITH RESPECT TO ORIGIN AT
+            SOLAR SYSTEM BARYCENTER (IN)
+   PE     = POSITION VECTOR OF OBSERVER (OR THE GEOCENTER),
+            WITH RESPECT TO ORIGIN AT SOLAR SYSTEM BARYCENTER,
+            COMPONENTS IN AU (IN)
+   DIFLT  = DIFFERENCE IN LIGHT TIME, IN THE SENSE STAR TO
+            BARYCENTER MINUS STAR TO EARTH, IN DAYS (OUT)
+</code></pre></div>
+
+<p>-OR-</p>
+<p>THIS SUBROUTINE RETURNS THE LIGHT-TIME FROM THE OBSERVER (OR THE
+  GEOCENTER) TO A POINT ON A LIGHT RAY THAT IS CLOSEST TO A
+  SPECIFIC SOLAR SYSTEM BODY.</p>
+<div class="codehilite"><pre><span></span><code>   <span class="nv">POS1</span>   <span class="o">=</span> <span class="nv">POSITION</span> <span class="nv">VECTOR</span> <span class="nv">TOWARD</span> <span class="nv">OBSERVED</span> <span class="nv">OBJECT</span>, <span class="nv">WITH</span> <span class="nv">RESPECT</span>
+            <span class="nv">TO</span> <span class="nv">ORIGIN</span> <span class="nv">AT</span> <span class="nv">OBSERVER</span> <span class="ss">(</span><span class="nv">OR</span> <span class="nv">THE</span> <span class="nv">GEOCENTER</span><span class="ss">)</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+   <span class="nv">PE</span>     <span class="o">=</span> <span class="nv">POSITION</span> <span class="nv">VECTOR</span> <span class="nv">OF</span> <span class="nv">SOLAR</span> <span class="nv">SYSTEM</span> <span class="nv">BODY</span>, <span class="nv">WITH</span> <span class="nv">RESPECT</span>
+            <span class="nv">TO</span> <span class="nv">ORIGIN</span> <span class="nv">AT</span> <span class="nv">OBSERVER</span> <span class="ss">(</span><span class="nv">OR</span> <span class="nv">THE</span> <span class="nv">GEOCENTER</span><span class="ss">)</span>, <span class="nv">COMPONENTS</span>
+            <span class="nv">IN</span> <span class="nv">AU</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+   <span class="nv">DIFLT</span>  <span class="o">=</span> <span class="nv">LIGHT</span> <span class="nv">TIME</span> <span class="nv">TO</span> <span class="nv">POINT</span> <span class="nv">ON</span> <span class="nv">LINE</span> <span class="nv">DEFINED</span> <span class="nv">BY</span> <span class="nv">POS1</span> <span class="nv">THAT</span> <span class="nv">IS</span>
+            <span class="nv">CLOSEST</span> <span class="nv">TO</span> <span class="nv">SOLAR</span> <span class="nv">SYSTEM</span> <span class="nv">BODY</span> <span class="ss">(</span><span class="nv">POSITIVE</span> <span class="k">IF</span> <span class="nv">LIGHT</span>
+            <span class="nv">PASSES</span> <span class="nv">BODY</span> <span class="nv">BEFORE</span> <span class="nv">HITTING</span> <span class="nv">OBSERVER</span>, <span class="nv">I</span>.<span class="nv">E</span>., <span class="k">IF</span>
+            <span class="nv">POS1</span> <span class="nv">IS</span> <span class="nv">WITHIN</span> <span class="mi">90</span> <span class="nv">DEGREES</span> <span class="nv">OF</span> <span class="nv">PE</span><span class="ss">)(</span><span class="nv">OUT</span><span class="ss">)</span>
+</code></pre></div>
     
 
     <h3>Arguments</h3>
@@ -413,54 +440,54 @@ public subroutine dlight(pos1, pe, diflt)
 <path fill="none" stroke="#000000" d="M144.24,-33.52C155.28,-33.71 168.27,-33.91 180,-34 204,-34.19 210,-34.19 234,-34 242.25,-33.93 251.12,-33.82 259.49,-33.69"/>
 <polygon fill="#000000" stroke="#000000" points="259.81,-37.18 269.76,-33.52 259.7,-30.18 259.81,-37.18"/>
 </g>
-<!-- proc~grvdef~2 -->
+<!-- proc~grvdef -->
 <g id="proc~~dlight~~CalledByGraph_node3" class="node">
-<title>proc~grvdef~2</title>
-<g id="a_proc~~dlight~~CalledByGraph_node3"><a xlink:href=".././proc/grvdef~2.html" xlink:title="grvdef">
+<title>proc~grvdef</title>
+<g id="a_proc~~dlight~~CalledByGraph_node3"><a xlink:href=".././proc/grvdef.html" xlink:title="grvdef">
 <polygon fill="#d9534f" stroke="#d9534f" points="234,-25 180,-25 180,-1 234,-1 234,-25"/>
 <text text-anchor="middle" x="207" y="-10.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">grvdef</text>
 </a>
 </g>
 </g>
-<!-- proc~place&#45;&gt;proc~grvdef~2 -->
+<!-- proc~place&#45;&gt;proc~grvdef -->
 <g id="proc~~dlight~~CalledByGraph_edge5" class="edge">
-<title>proc~place&#45;&gt;proc~grvdef~2</title>
+<title>proc~place&#45;&gt;proc~grvdef</title>
 <path fill="none" stroke="#000000" d="M144.4,-27C152.48,-25.16 161.51,-23.11 170.1,-21.16"/>
 <polygon fill="#000000" stroke="#000000" points="170.94,-24.56 179.92,-18.93 169.39,-17.73 170.94,-24.56"/>
 </g>
-<!-- proc~grvdef~2&#45;&gt;proc~dlight -->
+<!-- proc~grvdef&#45;&gt;proc~dlight -->
 <g id="proc~~dlight~~CalledByGraph_edge2" class="edge">
-<title>proc~grvdef~2&#45;&gt;proc~dlight</title>
+<title>proc~grvdef&#45;&gt;proc~dlight</title>
 <path fill="none" stroke="#000000" d="M234.4,-19C242.48,-20.84 251.51,-22.89 260.1,-24.84"/>
 <polygon fill="#000000" stroke="#000000" points="259.39,-28.27 269.92,-27.07 260.94,-21.44 259.39,-28.27"/>
 </g>
-<!-- proc~mpstar -->
-<g id="proc~~dlight~~CalledByGraph_node4" class="node">
-<title>proc~mpstar</title>
-<g id="a_proc~~dlight~~CalledByGraph_node4"><a xlink:href=".././proc/mpstar.html" xlink:title="mpstar">
-<polygon fill="#d9534f" stroke="#d9534f" points="54,-66 0,-66 0,-42 54,-42 54,-66"/>
-<text text-anchor="middle" x="27" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpstar</text>
-</a>
-</g>
-</g>
-<!-- proc~mpstar&#45;&gt;proc~place -->
-<g id="proc~~dlight~~CalledByGraph_edge3" class="edge">
-<title>proc~mpstar&#45;&gt;proc~place</title>
-<path fill="none" stroke="#000000" d="M54.4,-47.7C62.48,-45.77 71.51,-43.62 80.1,-41.57"/>
-<polygon fill="#000000" stroke="#000000" points="81,-44.95 89.92,-39.22 79.38,-38.14 81,-44.95"/>
-</g>
 <!-- proc~places -->
-<g id="proc~~dlight~~CalledByGraph_node5" class="node">
+<g id="proc~~dlight~~CalledByGraph_node4" class="node">
 <title>proc~places</title>
-<g id="a_proc~~dlight~~CalledByGraph_node5"><a xlink:href=".././proc/places.html" xlink:title="places">
-<polygon fill="#d9534f" stroke="#d9534f" points="54,-24 0,-24 0,0 54,0 54,-24"/>
-<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">places</text>
+<g id="a_proc~~dlight~~CalledByGraph_node4"><a xlink:href=".././proc/places.html" xlink:title="places">
+<polygon fill="#d9534f" stroke="#d9534f" points="54,-66 0,-66 0,-42 54,-42 54,-66"/>
+<text text-anchor="middle" x="27" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">places</text>
 </a>
 </g>
 </g>
 <!-- proc~places&#45;&gt;proc~place -->
-<g id="proc~~dlight~~CalledByGraph_edge4" class="edge">
+<g id="proc~~dlight~~CalledByGraph_edge3" class="edge">
 <title>proc~places&#45;&gt;proc~place</title>
+<path fill="none" stroke="#000000" d="M54.4,-47.7C62.48,-45.77 71.51,-43.62 80.1,-41.57"/>
+<polygon fill="#000000" stroke="#000000" points="81,-44.95 89.92,-39.22 79.38,-38.14 81,-44.95"/>
+</g>
+<!-- proc~mpstar -->
+<g id="proc~~dlight~~CalledByGraph_node5" class="node">
+<title>proc~mpstar</title>
+<g id="a_proc~~dlight~~CalledByGraph_node5"><a xlink:href=".././proc/mpstar.html" xlink:title="mpstar">
+<polygon fill="#d9534f" stroke="#d9534f" points="54,-24 0,-24 0,0 54,0 54,-24"/>
+<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpstar</text>
+</a>
+</g>
+</g>
+<!-- proc~mpstar&#45;&gt;proc~place -->
+<g id="proc~~dlight~~CalledByGraph_edge4" class="edge">
+<title>proc~mpstar&#45;&gt;proc~place</title>
 <path fill="none" stroke="#000000" d="M54.4,-18.3C62.48,-20.23 71.51,-22.38 80.1,-24.43"/>
 <polygon fill="#000000" stroke="#000000" points="79.38,-27.86 89.92,-26.78 81,-21.05 79.38,-27.86"/>
 </g>

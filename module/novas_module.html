@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="100.0% of total for modules and submodules.">2445 statements</a>
+    title="100.0% of total for modules and submodules.">2432 statements</a>
      </li> 
      
      
@@ -242,7 +242,7 @@
       
       <a class="list-group-item" href="../module/novas_module.html#proc-dlight">dlight</a>
       
-      <a class="list-group-item" href="../module/novas_module.html#proc-grvdef~2">grvdef</a>
+      <a class="list-group-item" href="../module/novas_module.html#proc-grvdef">grvdef</a>
       
       <a class="list-group-item" href="../module/novas_module.html#proc-grvd">grvd</a>
       
@@ -417,7 +417,7 @@
       
       <a class="list-group-item" href="../module/novas_module.html#proc-dlight">dlight</a>
       
-      <a class="list-group-item" href="../module/novas_module.html#proc-grvdef~2">grvdef</a>
+      <a class="list-group-item" href="../module/novas_module.html#proc-grvdef">grvdef</a>
       
       <a class="list-group-item" href="../module/novas_module.html#proc-grvd">grvd</a>
       
@@ -1084,6 +1084,16 @@ public subroutine <a href='../proc/ciora.html'>ciora</a>(tjd, racio)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE COMPUTES THE TRUE RIGHT ASCENSION OF THE CELESTIAL
+  INTERMEDIATE ORIGIN (CIO) AT A GIVEN TT JULIAN DATE.  THIS IS
+  -(EQUATION OF THE ORIGINS).</p><a href="../proc/ciora.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -1150,6 +1160,19 @@ public subroutine <a href='../proc/tercel.html'>tercel</a>(tjdh, tjdl, xp, yp, v
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE ROTATES A VECTOR FROM THE TERRESTRIAL TO THE
+  CELESTIAL SYSTEM.  SPECIFICALLY, IT TRANSFORMS A VECTOR IN THE
+  ITRS (A ROTATING EARTH-FIXED SYSTEM) TO THE GCRS (A LOCAL
+  SPACE-FIXED SYSTEM) BY APPLYING ROTATIONS FOR POLAR MOTION,
+  EARTH ROTATION, NUTATION, PRECESSION, AND THE DYNAMICAL-TO-GCRS
+  FRAME TIE.</p><a href="../proc/tercel.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -1276,6 +1299,19 @@ public subroutine <a href='../proc/celter.html'>celter</a>(tjdh, tjdl, xp, yp, v
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE ROTATES A VECTOR FROM THE CELESTIAL TO THE
+  TERRESTRIAL SYSTEM.  SPECIFICALLY, IT TRANSFORMS A VECTOR IN THE
+  GCRS (A LOCAL SPACE-FIXED SYSTEM) TO THE ITRS (A ROTATING
+  EARTH-FIXED SYSTEM) BY APPLYING ROTATIONS FOR THE GCRS-TO-
+  DYNAMICAL FRAME TIE, PRECESSION, NUTATION, EARTH ROTATION,
+  AND POLAR MOTION.</p><a href="../proc/celter.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -1402,6 +1438,17 @@ public subroutine <a href='../proc/gethip.html'>gethip</a>(rah, dech, pmrah, pmd
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE CONVERTS HIPPARCOS DATA AT EPOCH J1991.25
+  TO EPOCH J2000.0.  TO BE USED ONLY FOR HIPPARCOS OR TYCHO STARS
+  WITH LINEAR SPACE MOTION.  BOTH INPUT AND OUTPUT DATA IS IN THE
+  ICRS.</p><a href="../proc/gethip.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -1618,6 +1665,17 @@ public subroutine <a href='../proc/catran.html'>catran</a>(it, date1, ra1, dec1,
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE TRANSFORMS A STAR'S CATALOG QUANTITIES FOR
+  A CHANGE OF EPOCH AND/OR EQUATOR AND EQUINOX.  IT CAN ALSO BE
+  USED TO ROTATE CATALOG QUANTITIES ON THE DYNAMICAL EQUATOR AND
+  EQUINOX OF J2000.0 TO THE ICRS OR VICE VERSA.</p><a href="../proc/catran.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -1879,6 +1937,18 @@ public subroutine <a href='../proc/zdaz.html'>zdaz</a>(ujd, xp, yp, glon, glat, 
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE TRANSFORMS TOPOCENTRIC RIGHT ASCENSION AND
+  DECLINATION TO ZENITH DISTANCE AND AZIMUTH.  THIS ROUTINE USES
+  A METHOD THAT PROPERLY ACCOUNTS FOR POLAR MOTION, WHICH IS
+  SIGNIFICANT AT THE SUB-ARCSECOND LEVEL.  THIS SUBROUTINE
+  CAN ALSO ADJUST COORDINATES FOR ATMOSPHERIC REFRACTION.</p><a href="../proc/zdaz.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -2110,6 +2180,18 @@ public subroutine <a href='../proc/gcrseq.html'>gcrseq</a>(tjd, icoord, rag, dec
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE CONVERTS GCRS RIGHT ASCENSION AND DECLINATION
+  TO COORDINATES WITH RESPECT TO THE EQUATOR OF DATE (MEAN OR TRUE).
+  FOR COORDINATES WITH RESPECT TO THE TRUE EQUATOR OF DATE, THE
+  ORIGIN OF RIGHT ASCENSION CAN BE EITHER THE TRUE EQUINOX OR THE
+  CELESTIAL INTERMEDIATE ORIGIN (CIO).</p><a href="../proc/gcrseq.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -2236,6 +2318,15 @@ public subroutine <a href='../proc/eqecl.html'>eqecl</a>(tjd, icoord, ra, dec, e
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE CONVERTS RIGHT ASCENSION AND DECLINATION
+  TO ECLIPTIC LONGITUDE AND LATITUDE.</p><a href="../proc/eqecl.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -2362,6 +2453,15 @@ public subroutine <a href='../proc/eqec.html'>eqec</a>(tjd, icoord, pos1, pos2)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE CONVERTS AN EQUATORIAL POSITION VECTOR TO
+  AN ECLIPTIC POSITION VECTOR.</p><a href="../proc/eqec.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -2458,6 +2558,15 @@ public subroutine <a href='../proc/eceq.html'>eceq</a>(tjd, icoord, pos1, pos2)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE CONVERTS AN ECLIPTIC POSITION VECTOR TO
+  AN EQUATORIAL POSITION VECTOR.</p><a href="../proc/eceq.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -2554,6 +2663,17 @@ public subroutine <a href='../proc/eqgal.html'>eqgal</a>(ra, dec, glon, glat)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE CONVERTS ICRS RIGHT ASCENSION AND DECLINATION
+  TO GALACTIC LONGITUDE AND LATITUDE.  IT USES THE TRANSFORMATION
+  GIVEN IN THE HIPPARCOS AND TYCHO CATALOGUES, VOL. 1,
+  SECTION 1.5.3.</p><a href="../proc/eqgal.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -2650,6 +2770,15 @@ public subroutine <a href='../proc/vectrs.html'>vectrs</a>(ra, dec, pmra, pmdec,
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE CONVERTS ANGULAR QUANTITIES RELATED TO A STAR'S
+  POSITION AND MOTION TO VECTORS.</p><a href="../proc/vectrs.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -2806,6 +2935,14 @@ public subroutine <a href='../proc/angles.html'>angles</a>(pos, ra, dec)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE CONVERTS A VECTOR TO ANGULAR QUANTITIES.</p><a href="../proc/angles.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -2887,6 +3024,15 @@ public subroutine <a href='../proc/propmo.html'>propmo</a>(tjd1, pos1, vel1, tjd
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE APPLIES PROPER MOTION, INCLUDING FORESHORTENING
+  EFFECTS, TO A STAR'S POSITION.</p><a href="../proc/propmo.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -2998,6 +3144,17 @@ public subroutine <a href='../proc/geocen.html'>geocen</a>(pos1, pe, pos2, tligh
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE MOVES THE ORIGIN OF COORDINATES FROM THE
+  BARYCENTER OF THE SOLAR SYSTEM TO THE OBSERVER (OR THE
+  GEOCENTER).  I.E., THIS SUBROUTINE ACCOUNTS FOR PARALLAX
+  (ANNUAL+GEOCENTRIC OR JUST ANNUAL).</p><a href="../proc/geocen.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -3094,6 +3251,16 @@ public subroutine <a href='../proc/geopos.html'>geopos</a>(tjd, locatn, observ, 
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE COMPUTES THE GEOCENTRIC POSITION AND VELOCITY
+  OF AN OBSERVER ON THE SURFACE OF THE EARTH OR ON A NEAR-EARTH
+  SPACECRAFT.  THE FINAL VECTORS ARE EXPRESSED IN THE GCRS.</p><a href="../proc/geopos.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -3205,6 +3372,15 @@ public subroutine <a href='../proc/littim.html'>littim</a>(tjd, idbody, pose, tl
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE COMPUTES THE POSITION OF A SOLAR SYSTEM BODY,
+  AS ANTEDATED FOR LIGHT-TIME.</p><a href="../proc/littim.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -3331,6 +3507,16 @@ public subroutine <a href='../proc/dlight.html'>dlight</a>(pos1, pe, diflt)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE RETURNS THE DIFFERENCE IN LIGHT-TIME, FOR A STAR,
+  BETWEEN THE BARYCENTER OF THE SOLAR SYSTEM AND THE OBSERVER (OR
+  THE GEOCENTER).</p><a href="../proc/dlight.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -3403,8 +3589,8 @@ public subroutine <a href='../proc/dlight.html'>dlight</a>(pos1, pe, diflt)
     
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-grvdef~2"></span><h3>
-public subroutine <a href='../proc/grvdef~2.html'>grvdef</a>(tjd, loc, pos1, pobs, pos2)
+  <div class="panel-heading codesum"><span class="anchor" id="proc-grvdef"></span><h3>
+public subroutine <a href='../proc/grvdef.html'>grvdef</a>(tjd, loc, pos1, pobs, pos2)
     
     
    
@@ -3412,6 +3598,18 @@ public subroutine <a href='../proc/grvdef~2.html'>grvdef</a>(tjd, loc, pos1, pob
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE COMPUTES THE TOTAL GRAVITATIONAL DEFLECTION OF
+  LIGHT FOR THE OBSERVED OBJECT DUE TO THE MAJOR GRAVITATING BODIES
+  IN THE SOLAR SYSTEM.  THIS SUBROUTINE VALID FOR AN OBSERVED BODY
+  WITHIN THE SOLAR SYSTEM AS WELL AS FOR A STAR.  SEE KLIONER
+  (2003), ASTRONOMICAL JOURNAL 125, 1580-1597, SECTION 6.</p><a href="../proc/grvdef.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -3523,6 +3721,20 @@ public subroutine <a href='../proc/grvd.html'>grvd</a>(pos1, pobs, pbody, rmass,
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE CORRECTS POSITION VECTOR FOR THE DEFLECTION
+  OF LIGHT IN THE GRAVITATIONAL FIELD OF AN ARBITRARY BODY.  ADAPTED
+  FROM MURRAY (1981) MON. NOTICES ROYAL AST. SOCIETY 195, 639-648.
+  SEE ALSO FORMULAE IN SECTION B OF THE ASTRONOMICAL ALMANAC, OR
+  KAPLAN ET AL. (1989) ASTRONOMICAL JOURNAL 97, 1197-1210, SECTION
+  III F.  THIS SUBROUTINE VALID FOR AN OBSERVED BODY WITHIN THE
+  SOLAR SYSTEM AS WELL AS FOR A STAR.</p><a href="../proc/grvd.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -3634,6 +3846,16 @@ public subroutine <a href='../proc/aberat.html'>aberat</a>(pos1, ve, tlight, pos
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE CORRECTS POSITION VECTOR FOR ABERRATION OF LIGHT.
+  ALGORITHM INCLUDES RELATIVISTIC TERMS.  ADAPTED FROM MURRAY (1981)
+  MON. NOTICES ROYAL AST. SOCIETY 195, 639-648.</p><a href="../proc/aberat.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -3730,6 +3952,26 @@ public subroutine <a href='../proc/radvl.html'>radvl</a>(pos, vel, velobs, star,
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE PREDICTS THE RADIAL VELOCITY OF THE OBSERVED
+  OBJECT AS IT WOULD BE MEASURED BY SPECTROSCOPIC MEANS.  RADIAL
+  VELOCITY IS HERE DEFINED AS THE RADIAL VELOCITY MEASURE (Z)
+  TIMES THE SPEED OF LIGHT.  FOR A SOLAR SYSTEM BODY, IT APPLIES
+  TO A FICTITIOUS EMITTER AT THE CENTER OF THE OBSERVED OBJECT,
+  ASSUMED MASSLESS (NO GRAVITATIONAL RED SHIFT), AND DOES NOT
+  IN GENERAL APPLY TO REFLECTED LIGHT.  FOR STARS, IT INCLUDES
+  ALL EFFECTS, SUCH AS GRAVITATIONAL RED SHIFT, CONTAINED
+  IN THE CATALOG BARYCENTRIC RADIAL VELOCITY MEASURE, A SCALAR
+  DERIVED FROM SPECTROSCOPY.  NEARBY STARS WITH A KNOWN KINEMATIC
+  VELOCITY VECTOR (OBTAINED INDEPENDENTLY OF SPECTROSCOPY) CAN BE
+  TREATED LIKE SOLAR SYSTEM OBJECTS.  SEE LINDEGREN &amp; DRAVINS
+  (2003), ASTRONOMY &amp; ASTROPHYSICS 401, 1185-1201.</p><a href="../proc/radvl.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     

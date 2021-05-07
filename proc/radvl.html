@@ -207,6 +207,65 @@ public subroutine radvl(pos, vel, velobs, star, dist, rv)
 
 
     
+    <p>THIS SUBROUTINE PREDICTS THE RADIAL VELOCITY OF THE OBSERVED
+  OBJECT AS IT WOULD BE MEASURED BY SPECTROSCOPIC MEANS.  RADIAL
+  VELOCITY IS HERE DEFINED AS THE RADIAL VELOCITY MEASURE (Z)
+  TIMES THE SPEED OF LIGHT.  FOR A SOLAR SYSTEM BODY, IT APPLIES
+  TO A FICTITIOUS EMITTER AT THE CENTER OF THE OBSERVED OBJECT,
+  ASSUMED MASSLESS (NO GRAVITATIONAL RED SHIFT), AND DOES NOT
+  IN GENERAL APPLY TO REFLECTED LIGHT.  FOR STARS, IT INCLUDES
+  ALL EFFECTS, SUCH AS GRAVITATIONAL RED SHIFT, CONTAINED
+  IN THE CATALOG BARYCENTRIC RADIAL VELOCITY MEASURE, A SCALAR
+  DERIVED FROM SPECTROSCOPY.  NEARBY STARS WITH A KNOWN KINEMATIC
+  VELOCITY VECTOR (OBTAINED INDEPENDENTLY OF SPECTROSCOPY) CAN BE
+  TREATED LIKE SOLAR SYSTEM OBJECTS.  SEE LINDEGREN &amp; DRAVINS
+  (2003), ASTRONOMY &amp; ASTROPHYSICS 401, 1185-1201.</p>
+<div class="codehilite"><pre><span></span><code>   <span class="nv">POS</span>    <span class="o">=</span> <span class="nv">GEOMETRIC</span> <span class="nv">POSITION</span> <span class="nv">VECTOR</span> <span class="nv">OF</span> <span class="nv">OBJECT</span> <span class="nv">WITH</span> <span class="nv">RESPECT</span> <span class="nv">TO</span>
+            <span class="nv">OBSERVER</span>, <span class="nv">CORRECTED</span> <span class="k">FOR</span> <span class="nv">LIGHT</span><span class="o">-</span><span class="nv">TIME</span>, <span class="nv">IN</span> <span class="nv">AU</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+   <span class="nv">VEL</span>    <span class="o">=</span> <span class="nv">VELOCITY</span> <span class="nv">VECTOR</span> <span class="nv">OF</span> <span class="nv">OBJECT</span> <span class="nv">WITH</span> <span class="nv">RESPECT</span> <span class="nv">TO</span> <span class="nv">SOLAR</span> 
+            <span class="nv">SYSTEM</span> <span class="nv">BARYCENTER</span>, <span class="nv">COMPONENTS</span> <span class="nv">IN</span> <span class="nv">AU</span><span class="o">/</span><span class="nv">DAY</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+   <span class="nv">VELOBS</span> <span class="o">=</span> <span class="nv">VELOCITY</span> <span class="nv">VECTOR</span> <span class="nv">OF</span> <span class="nv">OBSERVER</span> <span class="nv">WITH</span> <span class="nv">RESPECT</span> <span class="nv">TO</span> <span class="nv">SOLAR</span>
+            <span class="nv">SYSTEM</span> <span class="nv">BARYCENTER</span>, <span class="nv">COMPONENTS</span> <span class="nv">IN</span> <span class="nv">AU</span><span class="o">/</span><span class="nv">DAY</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+   <span class="nv">STAR</span>   <span class="o">=</span> <span class="mi">3</span><span class="o">-</span><span class="nv">ELEMENT</span> <span class="nv">ARRAY</span> <span class="nv">OF</span> <span class="nv">CATALOG</span> <span class="nv">DATA</span> <span class="k">FOR</span> <span class="nv">A</span> <span class="nv">STAR</span>, <span class="nv">TO</span> <span class="nv">BE</span>
+            <span class="nv">NON</span><span class="o">-</span><span class="nv">ZERO</span> <span class="k">IF</span> <span class="nv">OBSERVED</span> <span class="nv">OBJECT</span> <span class="nv">IS</span> <span class="nv">A</span> <span class="nv">STAR</span> <span class="k">FOR</span> <span class="nv">WHICH</span> <span class="nv">THE</span>
+            <span class="nv">CATALOG</span> <span class="nv">RADIAL</span> <span class="nv">VELOCITY</span> <span class="nv">IS</span> <span class="nv">CONSISTENT</span> <span class="nv">WITH</span>
+            <span class="nv">THE</span> <span class="nv">IAU</span> <span class="nv">DEFINITION</span> <span class="nv">OF</span> <span class="nv">BARYCENTRIC</span> <span class="nv">RADIAL</span> <span class="nv">VELOCITY</span>
+            <span class="nv">MEASURE</span> <span class="ss">(</span><span class="nv">OTHERWISE</span> <span class="nv">ALL</span> <span class="nv">ELEMENTS</span> <span class="nv">SHOULD</span> <span class="nv">BE</span> <span class="nv">SET</span> <span class="nv">TO</span> 
+            <span class="mi">0</span>.<span class="nv">D0</span> <span class="nv">EXACTLY</span><span class="ss">)</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+            <span class="nv">STAR</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span> <span class="o">=</span> <span class="nv">CATALOG</span> <span class="nv">RA</span> <span class="nv">IN</span> <span class="nv">HOURS</span> 
+            <span class="nv">STAR</span><span class="ss">(</span><span class="mi">2</span><span class="ss">)</span> <span class="o">=</span> <span class="nv">CATALOG</span> <span class="nv">DEC</span> <span class="nv">IN</span> <span class="nv">DEGREES</span>
+            <span class="nv">STAR</span><span class="ss">(</span><span class="mi">3</span><span class="ss">)</span> <span class="o">=</span> <span class="nv">Z</span><span class="o">*</span><span class="nv">C</span>, <span class="nv">THE</span> <span class="nv">CATALOG</span> <span class="nv">BARYCENTRIC</span> <span class="nv">RADIAL</span>
+                      <span class="nv">VELOCITY</span> <span class="nv">MEASURE</span> <span class="nv">TIMES</span> <span class="nv">THE</span> <span class="nv">SPEED</span> <span class="nv">OF</span> <span class="nv">LIGHT</span>,
+                      <span class="nv">IN</span> <span class="nv">KILOMETERS</span><span class="o">/</span><span class="nv">SECOND</span>
+            <span class="nv">ALL</span> <span class="nv">THREE</span> <span class="nv">DATA</span> <span class="nv">ELEMENTS</span> <span class="nv">MUST</span> <span class="nv">APPLY</span> <span class="nv">TO</span> <span class="nv">THE</span> <span class="nv">SAME</span> 
+            <span class="nv">EPOCH</span> <span class="ss">(</span><span class="nv">USUALLY</span> <span class="nv">J2000</span>.<span class="mi">0</span> <span class="o">=</span> <span class="nv">JD</span> <span class="mi">2451545</span>.<span class="mi">0</span> <span class="nv">TT</span><span class="ss">)</span>
+   <span class="nv">DIST</span>   <span class="o">=</span> <span class="mi">3</span><span class="o">-</span><span class="nv">ELEMENT</span> <span class="nv">ARRAY</span> <span class="nv">OF</span> <span class="nv">DISTANCES</span> <span class="nv">IN</span> <span class="nv">AU</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+            <span class="nv">DIST</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span> <span class="o">=</span> <span class="nv">DISTANCE</span> <span class="nv">OF</span> <span class="nv">OBSERVER</span> <span class="nv">FROM</span> <span class="nv">THE</span> <span class="nv">GEOCENTER</span>
+            <span class="nv">DIST</span><span class="ss">(</span><span class="mi">2</span><span class="ss">)</span> <span class="o">=</span> <span class="nv">DISTANCE</span> <span class="nv">OF</span> <span class="nv">OBSERVER</span> <span class="nv">FROM</span> <span class="nv">THE</span> <span class="nv">SUN</span>
+            <span class="nv">DIST</span><span class="ss">(</span><span class="mi">3</span><span class="ss">)</span> <span class="o">=</span> <span class="nv">DISTANCE</span> <span class="nv">OF</span> <span class="nv">OBJECT</span> <span class="nv">FROM</span> <span class="nv">THE</span> <span class="nv">SUN</span>
+   <span class="nv">RV</span>     <span class="o">=</span> <span class="nv">THE</span> <span class="nv">OBSERVED</span> <span class="nv">RADIAL</span> <span class="nv">VELOCITY</span> <span class="nv">MEASURE</span> <span class="nv">TIMES</span>
+            <span class="nv">THE</span> <span class="nv">SPEED</span> <span class="nv">OF</span> <span class="nv">LIGHT</span>, <span class="nv">IN</span> <span class="nv">KILOMETERS</span><span class="o">/</span><span class="nv">SECOND</span> <span class="ss">(</span><span class="nv">OUT</span><span class="ss">)</span>
+</code></pre></div>
+
+<p>NOTE 1:  ALL THE INPUT ARGUMENTS ARE BCRS QUANTITIES, EXPRESSED
+  WITH RESPECT TO THE ICRS AXES.  VEL AND VELOBS ARE KINEMATIC
+  VELOCITIES -- DERIVED FROM GEOMETRY OR DYNAMICS, NOT SPECTROSCOPY.</p>
+<p>NOTE 2:  IF ANY ELEMENT OF ARRAY STAR IS NON-ZERO, THE ALGORITHM
+  USED WILL BE CONSISTENT WITH THE IAU DEFINITION OF STELLAR
+  RADIAL VELOCITY, SPECIFICALLY, THE BARYCENTRIC RADIAL VELOCITY
+  MEASURE, WHICH IS DERIVED FROM SPECTROSCOPY.  IN THAT CASE,
+  THE VECTOR VEL CAN BE VERY APPROXIMATE -- OR, FOR DISTANT STARS
+  OR GALAXIES, ZERO -- AS IT WILL BE USED ONLY FOR A SMALL GEOMETRIC
+  CORRECTION THAT IS PROPORTIONAL TO PROPER MOTION.</p>
+<p>NOTE 3:  ANY OF THE DISTANCES IN ARRAY DIST CAN BE SET TO ZERO
+  (0.D0) IF THE CORRESPONDING GENERAL RELATIVISTIC GRAVITATIONAL
+  POTENTIAL TERM IS NOT TO BE EVALUATED.  THESE TERMS 
+  GENERALLY ARE IMPORTANT ONLY AT THE METER/SECOND LEVEL.  IF
+  THE FIRST TWO DISTANCES ARE BOTH ZERO, AN AVERAGE VALUE 
+  WILL BE USED FOR THE RELATIVISTIC TERM FOR THE OBSERVER, 
+  APPROPRIATE FOR AN OBSERVER ON THE SURFACE OF THE EARTH.  THE
+  THIRD DISTANCE, IF GIVEN, IS USED ONLY FOR SOLAR SYSTEM OBJECTS.</p>
+    
 
     <h3>Arguments</h3>
     
@@ -458,33 +517,33 @@ public subroutine radvl(pos, vel, velobs, star, dist, rv)
 <path fill="none" stroke="#000000" d="M144.4,-33C152.39,-33 161.31,-33 169.82,-33"/>
 <polygon fill="#000000" stroke="#000000" points="169.92,-36.5 179.92,-33 169.92,-29.5 169.92,-36.5"/>
 </g>
-<!-- proc~mpstar -->
-<g id="proc~~radvl~~CalledByGraph_node3" class="node">
-<title>proc~mpstar</title>
-<g id="a_proc~~radvl~~CalledByGraph_node3"><a xlink:href=".././proc/mpstar.html" xlink:title="mpstar">
-<polygon fill="#d9534f" stroke="#d9534f" points="54,-66 0,-66 0,-42 54,-42 54,-66"/>
-<text text-anchor="middle" x="27" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpstar</text>
-</a>
-</g>
-</g>
-<!-- proc~mpstar&#45;&gt;proc~place -->
-<g id="proc~~radvl~~CalledByGraph_edge2" class="edge">
-<title>proc~mpstar&#45;&gt;proc~place</title>
-<path fill="none" stroke="#000000" d="M54.4,-47.7C62.48,-45.77 71.51,-43.62 80.1,-41.57"/>
-<polygon fill="#000000" stroke="#000000" points="81,-44.95 89.92,-39.22 79.38,-38.14 81,-44.95"/>
-</g>
 <!-- proc~places -->
-<g id="proc~~radvl~~CalledByGraph_node4" class="node">
+<g id="proc~~radvl~~CalledByGraph_node3" class="node">
 <title>proc~places</title>
-<g id="a_proc~~radvl~~CalledByGraph_node4"><a xlink:href=".././proc/places.html" xlink:title="places">
-<polygon fill="#d9534f" stroke="#d9534f" points="54,-24 0,-24 0,0 54,0 54,-24"/>
-<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">places</text>
+<g id="a_proc~~radvl~~CalledByGraph_node3"><a xlink:href=".././proc/places.html" xlink:title="places">
+<polygon fill="#d9534f" stroke="#d9534f" points="54,-66 0,-66 0,-42 54,-42 54,-66"/>
+<text text-anchor="middle" x="27" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">places</text>
 </a>
 </g>
 </g>
 <!-- proc~places&#45;&gt;proc~place -->
-<g id="proc~~radvl~~CalledByGraph_edge3" class="edge">
+<g id="proc~~radvl~~CalledByGraph_edge2" class="edge">
 <title>proc~places&#45;&gt;proc~place</title>
+<path fill="none" stroke="#000000" d="M54.4,-47.7C62.48,-45.77 71.51,-43.62 80.1,-41.57"/>
+<polygon fill="#000000" stroke="#000000" points="81,-44.95 89.92,-39.22 79.38,-38.14 81,-44.95"/>
+</g>
+<!-- proc~mpstar -->
+<g id="proc~~radvl~~CalledByGraph_node4" class="node">
+<title>proc~mpstar</title>
+<g id="a_proc~~radvl~~CalledByGraph_node4"><a xlink:href=".././proc/mpstar.html" xlink:title="mpstar">
+<polygon fill="#d9534f" stroke="#d9534f" points="54,-24 0,-24 0,0 54,0 54,-24"/>
+<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpstar</text>
+</a>
+</g>
+</g>
+<!-- proc~mpstar&#45;&gt;proc~place -->
+<g id="proc~~radvl~~CalledByGraph_edge3" class="edge">
+<title>proc~mpstar&#45;&gt;proc~place</title>
 <path fill="none" stroke="#000000" d="M54.4,-18.3C62.48,-20.23 71.51,-22.38 80.1,-24.43"/>
 <polygon fill="#000000" stroke="#000000" points="79.38,-27.86 89.92,-26.78 81,-21.05 79.38,-27.86"/>
 </g>
