@@ -1,4 +1,4 @@
-project: slsqp
+project: NOVAS
 project_dir: ./src
 output_dir: ./doc
 project_github: https://github.com/jacobwilliams/NOVAS
