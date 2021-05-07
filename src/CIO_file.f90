@@ -42,7 +42,7 @@ n = 1
 n = n + 1
 write ( unit=19, rec=n ) tdbjd, ciora
 
-if ( mod ( n, 1000 ) .eq. 0 ) then
+if ( mod ( n, 1000 ) == 0 ) then
     iyear = nint ( ( tdbjd - 2451545.0 ) / 365.25d0 + 2000.d0 )
     write ( *, * ) 'DONE THROUGH RECORD ', n, '      YEAR ', iyear      !
 end if

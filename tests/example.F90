@@ -131,8 +131,8 @@ write ( *, 9030 ) zd, az
 !     GREENWICH APPARENT SIDEREAL TIME AND EARTH ROTATION ANGLE
 call sidtim ( ut1jd, 0.d0, 1, gast )
 st = gast + glon / 15.d0
-if ( st .ge. 24.d0 ) st = st - 24.d0
-if ( st .lt.  0.d0 ) st = st + 24.d0
+if ( st >= 24.d0 ) st = st - 24.d0
+if ( st <  0.d0 ) st = st + 24.d0
 call erot ( ut1jd, 0.d0,   era )
 write ( *, * )
 write ( *, * ) 'Greenwich and local sidereal time and ', &
@@ -145,7 +145,7 @@ tdbjd = ttjd
 !     APPROXIMATION COULD LEAD TO ERROR OF ~50 M IN POSITION OF MARS
 mars = idss ( 'MARS' )
 call solsys ( tdbjd, mars, 1,   pos, vel, ierr )
-if ( ierr .eq. 0 ) then
+if ( ierr == 0 ) then
     call eqec ( 0.d0, 0, pos,   pose )
     call angles ( pose,   elon, elat )
     write ( *, * )

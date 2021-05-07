@@ -105,7 +105,7 @@ vel(3) =  0.d0
 ierr = 0
 
 !---SET UP SPLIT JULIAN DATE      
-if ( dabs ( tjd ) .le. 1.d0 ) then
+if ( dabs ( tjd ) <= 1.d0 ) then
     tjd2(1) = tlast
     tjd2(2) = tjd
 else
@@ -116,10 +116,10 @@ end if
 tjd1 = tjd2(1) + tjd2(2) 
 
 !---PERFORM SANITY CHECKS ON THE INPUT BODY AND ORIGIN.
-if ( ( origin .lt. 0 ) .or. ( origin .gt. 1 ) ) then
+if ( ( origin < 0 ) .or. ( origin > 1 ) ) then
     ierr = 3
     go to 99
-else if ( ( body .lt. 1 ) .or. ( body .gt. 11 ) ) then
+else if ( ( body < 1 ) .or. ( body > 11 ) ) then
 !         CALL AUXPOS FOR AUXILIARY BODIES (IF ANY)
     call auxpos ( tjd1, body, origin,   pos, vel, jerr )
     ierr = jerr
@@ -127,27 +127,27 @@ else if ( ( body .lt. 1 ) .or. ( body .gt. 11 ) ) then
 endif
 
 !---CHECK THAT REQUESTED JULIAN DATE IS WITHIN RANGE OF EPHEMERIS.
-if ( tjd1 .lt. begjd ) then
+if ( tjd1 < begjd ) then
     ierr = 1
     go to 99
-else if ( tjd1 .gt. endjd ) then
+else if ( tjd1 > endjd ) then
     ierr = 2
     go to 99
 endif
 
 !---SELECT 'TARG' ACCORDING TO VALUE OF 'BODY'.
-if ( body .eq. 10 ) then
+if ( body == 10 ) then
     targ = 11
-else if ( body .eq. 11 ) then
+else if ( body == 11 ) then
     targ = 10
 else
     targ = body
 endif
 
 !---SELECT 'CENT' ACCORDING TO THE VALUE OF 'ORIGIN'.
-if ( origin .eq. 0 ) then
+if ( origin == 0 ) then
     cent = 12
-else if ( origin .eq. 1 ) then
+else if ( origin == 1 ) then
     cent = 11
 endif
 
@@ -170,7 +170,7 @@ do 10 i = 1, 3
 !     CALL FRAME (POSVEL(1),-1,POS)
 !     CALL FRAME (POSVEL(4),-1,VEL)
 
-99 if ( ierr .ne. 0 ) write ( *, 3 ) ierr, tjd1, body
+99 if ( ierr /= 0 ) write ( *, 3 ) ierr, tjd1, body
 
 return
 
@@ -289,14 +289,14 @@ namein = name
 
 !     LOOK THROUGH LIST OF BODY NAMES TO FIND MATCH
 do 20 i = 1, num
-    if ( namein .eq. names(i) ) then
+    if ( namein == names(i) ) then
         idss = ids(i)
         go to 30
     end if
 20 continue
 
 !     IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES   
-if ( namein .eq. 'JD ' ) then
+if ( namein == 'JD ' ) then
 !         IN THIS CASE, SET IDSS=2 IF SOLSYS PROCESSES SPLIT
 !         JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE 
     idss = 2

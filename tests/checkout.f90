@@ -49,7 +49,7 @@ open ( unit=8, file="checkout.out", status="unknown" )
 
 do 10 i = 1, nstars
 
-   if ( index (starid(i),"HIP") .ne. 0 ) then
+   if ( index (starid(i),"HIP") /= 0 ) then
        call gethip ( starda(1,i), starda(2,i), starda(3,i), &
                      starda(4,i), starda(5,i), starda(6,i), &
                      rai, deci, pmra, pmdec, parlax, radvel )
@@ -96,7 +96,7 @@ do 10 i = 1, nstars
 
    call ciotio
    call cioloc ( tjd(1),  racio, k )
-   if ( k .eq. 1 ) then
+   if ( k == 1 ) then
      method = "external"
    else
      method = "internal" 
