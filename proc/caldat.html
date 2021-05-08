@@ -207,6 +207,18 @@ public subroutine caldat(tjd, i, m, k, h)
 
 
     
+    <p>THIS SUBROUTINE COMPUTES CALENDAR DATE AND TIME, GIVEN JULIAN
+  DATE.  INPUT JULIAN DATE CAN BE BASED ON ANY UT-LIKE TIME SCALE
+  (UTC, UT1, TT, ETC.) - OUTPUT TIME VALUE WILL HAVE SAME BASIS.
+  OUTPUT CALENDAR DATE WILL BE GREGORIAN.  ALGORITHM BY FLIEGEL AND
+  VAN FLANDERN.</p>
+<div class="codehilite"><pre><span></span><code>   TJD    = JULIAN DATE (IN)
+   I      = YEAR (OUT)
+   M      = MONTH NUMBER (OUT)
+   K      = DAY OF MONTH (OUT)
+   H      = UT HOURS (OUT)
+</code></pre></div>
+    
 
     <h3>Arguments</h3>
     

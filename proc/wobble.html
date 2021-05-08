@@ -207,6 +207,34 @@ public subroutine wobble(tjd, xp, yp, pos1, pos2)
 
 
     
+    <p>THIS SUBROUTINE CORRECTS A VECTOR IN THE ITRS (A ROTATING EARTH-
+  FIXED SYSTEM) FOR POLAR MOTION, AND ALSO CORRECTS THE LONGITUDE
+  ORIGIN (BY A TINY AMOUNT) TO THE TERRESTRIAL INTERMEDIATE ORIGIN
+  (TIO).  THE ITRS VECTOR IS THEREBY TRANSFORMED TO THE TERRESTRIAL
+  INTERMEDIATE SYSTEM, BASED ON THE TRUE (ROTATIONAL) EQUATOR AND
+  THE TERRESTRIAL INTERMEDIATE ORIGIN (TIO).  SINCE THE TRUE EQUATOR
+  IS THE PLANE ORTHOGONAL TO THE DIRECTION OF THE CELESTIAL
+  INTERMEDIATE POLE (CIP), THE COMPONENTS OF THE OUTPUT VECTOR ARE
+  REFERRED TO Z AND X AXES TOWARD THE CIP AND TIO, RESPECTIVELY.</p>
+<div class="codehilite"><pre><span></span><code>   TJD    = TT OR UT1 JULIAN DATE (IN)
+   XP     = CONVENTIONALLY-DEFINED X COORDINATE OF CELESTIAL
+            INTERMEDIATE POLE WITH RESPECT TO ITRS POLE, IN
+            ARCSECONDS (IN)
+   YP     = CONVENTIONALLY-DEFINED Y COORDINATE OF CELESTIAL
+            INTERMEDIATE POLE WITH RESPECT TO ITRS POLE, IN
+            ARCSECONDS (IN)
+   POS1   = POSITION VECTOR, GEOCENTRIC EQUATORIAL RECTANGULAR
+            COORDINATES, REFERRED TO ITRS AXES (IN)
+   POS2   = POSITION VECTOR, GEOCENTRIC EQUATORIAL RECTANGULAR
+            COORDINATES, REFERRED TO TRUE EQUATOR AND TIO (OUT)
+</code></pre></div>
+
+<p>NOTE 1:  IF TJD IS NEGATIVE, THE INVERSE TRANSFORMATION (TERRESTRIAL
+  INTERMEDIATE SYSTEM TO ITRS) IS APPLIED.</p>
+<p>NOTE 2: INPUT PARAMETERS XP, YP WERE X, Y IN NOVAS F3.0.
+  THE NAMES WERE CHANGED FOR CONSISTANCY THROUGHOUT NOVAS AND WITH
+  IERS CONVENTIONS.</p>
+    
 
     <h3>Arguments</h3>
     
@@ -337,7 +365,7 @@ public subroutine wobble(tjd, xp, yp, pos1, pos2)
 </g>
 </g>
 <!-- proc~tercel&#45;&gt;proc~wobble -->
-<g id="proc~~wobble~~CalledByGraph_edge2" class="edge">
+<g id="proc~~wobble~~CalledByGraph_edge1" class="edge">
 <title>proc~tercel&#45;&gt;proc~wobble</title>
 <path fill="none" stroke="#000000" d="M144.4,-47.7C152.48,-45.77 161.51,-43.62 170.1,-41.57"/>
 <polygon fill="#000000" stroke="#000000" points="171,-44.95 179.92,-39.22 169.38,-38.14 171,-44.95"/>
@@ -352,7 +380,7 @@ public subroutine wobble(tjd, xp, yp, pos1, pos2)
 </g>
 </g>
 <!-- proc~celter&#45;&gt;proc~wobble -->
-<g id="proc~~wobble~~CalledByGraph_edge1" class="edge">
+<g id="proc~~wobble~~CalledByGraph_edge2" class="edge">
 <title>proc~celter&#45;&gt;proc~wobble</title>
 <path fill="none" stroke="#000000" d="M144.4,-18.3C152.48,-20.23 161.51,-22.38 170.1,-24.43"/>
 <polygon fill="#000000" stroke="#000000" points="169.38,-27.86 179.92,-26.78 171,-21.05 169.38,-27.86"/>

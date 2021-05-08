@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="100.0% of total for modules and submodules.">2427 statements</a>
+    title="100.0% of total for modules and submodules.">2424 statements</a>
      </li> 
      
      
@@ -294,7 +294,7 @@
       
       <a class="list-group-item" href="../module/novas_module.html#proc-astcon">astcon</a>
       
-      <a class="list-group-item" href="../module/novas_module.html#proc-nod~2">nod</a>
+      <a class="list-group-item" href="../module/novas_module.html#proc-nod">nod</a>
       
       <a class="list-group-item" href="../module/novas_module.html#proc-nu2000a">nu2000a</a>
       
@@ -469,7 +469,7 @@
       
       <a class="list-group-item" href="../module/novas_module.html#proc-astcon">astcon</a>
       
-      <a class="list-group-item" href="../module/novas_module.html#proc-nod~2">nod</a>
+      <a class="list-group-item" href="../module/novas_module.html#proc-nod">nod</a>
       
       <a class="list-group-item" href="../module/novas_module.html#proc-nu2000a">nu2000a</a>
       
@@ -518,6 +518,15 @@ public function <a href='../proc/eect2000.html'>eect2000</a>(date1, date2)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>Equation of the equinoxes complementary terms, consistent with
+  IAU 2000 resolutions.</p><a href="../proc/eect2000.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -593,6 +602,14 @@ public function <a href='../proc/anmp.html'>anmp</a>(a)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>Normalize angle into the range -pi &lt;= A &lt; +pi.</p>
     
     <h4>Arguments</h4>
     
@@ -4098,6 +4115,19 @@ public subroutine <a href='../proc/preces.html'>preces</a>(tjd1, pos1, tjd2, pos
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE PRECESSES EQUATORIAL RECTANGULAR COORDINATES FROM
+  ONE EPOCH TO ANOTHER.  THE COORDINATES ARE REFERRED TO THE MEAN
+  DYNAMICAL EQUATOR AND EQUINOX OF THE TWO RESPECTIVE EPOCHS.  SEE
+  EXPLANATORY SUPPLEMENT TO THE ASTRONOMICAL ALMANAC, PP. 103-104,
+  AND CAPITAINE ET AL. (2003), ASTRONOMY AND ASTROPHYSICS 412,
+  567-586.</p><a href="../proc/preces.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -4194,6 +4224,17 @@ public subroutine <a href='../proc/nutate.html'>nutate</a>(tjd, pos1, pos2)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE NUTATES EQUATORIAL RECTANGULAR COORDINATES FROM
+  THE MEAN DYNAMICAL EQUATOR AND EQUINOX OF EPOCH TO THE TRUE
+  EQUATOR AND EQUINOX OF EPOCH.  SEE EXPLANATORY SUPPLEMENT TO THE
+  ASTRONOMICAL ALMANAC, PP. 114-115.</p><a href="../proc/nutate.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -4275,6 +4316,16 @@ public subroutine <a href='../proc/spin.html'>spin</a>(angl, pos1, pos2)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE TRANSFORMS A VECTOR FROM ONE COORDINATE SYSTEM
+  TO ANOTHER WITH SAME ORIGIN AND AXES ROTATED ABOUT THE
+  Z AXIS.</p><a href="../proc/spin.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -4356,6 +4407,22 @@ public subroutine <a href='../proc/wobble.html'>wobble</a>(tjd, xp, yp, pos1, po
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE CORRECTS A VECTOR IN THE ITRS (A ROTATING EARTH-
+  FIXED SYSTEM) FOR POLAR MOTION, AND ALSO CORRECTS THE LONGITUDE
+  ORIGIN (BY A TINY AMOUNT) TO THE TERRESTRIAL INTERMEDIATE ORIGIN
+  (TIO).  THE ITRS VECTOR IS THEREBY TRANSFORMED TO THE TERRESTRIAL
+  INTERMEDIATE SYSTEM, BASED ON THE TRUE (ROTATIONAL) EQUATOR AND
+  THE TERRESTRIAL INTERMEDIATE ORIGIN (TIO).  SINCE THE TRUE EQUATOR
+  IS THE PLANE ORTHOGONAL TO THE DIRECTION OF THE CELESTIAL
+  INTERMEDIATE POLE (CIP), THE COMPONENTS OF THE OUTPUT VECTOR ARE
+  REFERRED TO Z AND X AXES TOWARD THE CIP AND TIO, RESPECTIVELY.</p><a href="../proc/wobble.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -4467,6 +4534,22 @@ public subroutine <a href='../proc/frame.html'>frame</a>(pos1, k, pos2)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE TRANSFORMS A VECTOR FROM THE DYNAMICAL REFERENCE
+  SYSTEM TO THE INTERNATIONAL CELESTIAL REFERENCE SYSTEM (ICRS),
+  OR VICE VERSA.  THE DYNAMICAL REFERENCE SYSTEM IS BASED ON THE
+  DYNAMICAL MEAN EQUATOR AND EQUINOX OF J2000.0.  THE ICRS IS
+  BASED ON THE SPACE-FIXED ICRS AXES DEFINED BY THE RADIO CATALOG
+  POSITIONS OF SEVERAL HUNDRED EXTRAGALACTIC OBJECTS.  THE ROTATION
+  MATRIX USED HERE IS EQUIVALENT TO THAT GIVEN BY HILTON AND
+  HOHENKERK (2004), ASTRONOMY AND ASTROPHYSICS 413, 765-770,
+  EQ. (6) AND (8).</p><a href="../proc/frame.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -4548,6 +4631,15 @@ public subroutine <a href='../proc/terra.html'>terra</a>(glon, glat, ht, st, pos
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE COMPUTES THE POSITION AND VELOCITY VECTORS OF
+  A TERRESTRIAL OBSERVER WITH RESPECT TO THE GEOCENTER.</p><a href="../proc/terra.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -4674,6 +4766,18 @@ public subroutine <a href='../proc/times.html'>times</a>(tdbjd, ttjd, secdif)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE COMPUTES THE TERRESTRIAL TIME (TT) JULIAN DATE
+  CORRESPONDING TO A BARYCENTRIC DYNAMICAL TIME (TDB) JULIAN DATE.
+  THE EXPRESSION USED IN THIS VERSION IS A TRUNCATED FORM OF A
+  LONGER AND MORE PRECISE SERIES GIVEN BY FAIRHEAD &amp; BRETAGNON
+  (1990) A&amp;A 229, 240.  THE RESULT IS GOOD TO ABOUT 10 MICROSECONDS.</p><a href="../proc/times.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -4755,6 +4859,15 @@ public subroutine <a href='../proc/etilt.html'>etilt</a>(tjd, oblm, oblt, eqeq, 
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE COMPUTES QUANTITIES RELATED TO THE ORIENTATION
+  OF THE EARTH'S ROTATION AXIS AT JULIAN DATE TJD.</p><a href="../proc/etilt.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -4881,6 +4994,16 @@ public subroutine <a href='../proc/funarg.html'>funarg</a>(t, el, elp, f, d, ome
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE COMPUTES FUNDAMENTAL ARGUMENTS (MEAN ELEMENTS)
+  OF THE SUN AND MOON.  SEE SIMON ET AL. (1994) ASTRONOMY AND
+  ASTROPHYSICS 282, 663-683, ESPECIALLY SECTIONS 3.4-3.5.</p><a href="../proc/funarg.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5007,6 +5130,21 @@ public subroutine <a href='../proc/refrac.html'>refrac</a>(height, zdobs, refr)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE COMPUTES ATMOSPHERIC REFRACTION IN ZENITH
+  DISTANCE.  THIS VERSION COMPUTES APPROXIMATE REFRACTION FOR
+  OPTICAL WAVELENGTHS.  IT CAN BE USED FOR PLANNING OBSERVATIONS
+  OR TELESCOPE POINTING, BUT SHOULD NOT BE USED FOR THE REDUCTION
+  OF PRECISE OBSERVATIONS.  BASIC ALGORITHM IS DESCRIBED IN THE
+  EXPLANATORY SUPPLEMENT TO THE ASTRONOMICAL ALMANAC, P. 144,
+  AND IS AN ADAPTATION OF A FORMULA IN BENNETT (1982), JOURNAL
+  OF NAVIGATION (ROYAL INSTITUTE) 35, 255-259.</p><a href="../proc/refrac.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5088,6 +5226,19 @@ public subroutine <a href='../proc/limang.html'>limang</a>(pos1, poso, alimb, af
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS FUNCTION DETERMINES THE ANGLE OF AN OBJECT ABOVE OR BELOW
+  THE EARTH'S LIMB (HORIZON).  THE GEOMETRIC LIMB IS COMPUTED,
+  ASSUMING THE EARTH TO BE AN AIRLESS SPHERE (NO REFRACTION OR
+  OBLATENESS IS INCLUDED).  THE OBSERVER CAN BE ON OR ABOVE THE
+  EARTH.  FOR AN OBSERVER ON THE SURFACE OF THE EARTH, THIS
+  SUBROUTINE RETURNS THE APPROXIMATE UNREFRACTED ALTITUDE.</p><a href="../proc/limang.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5184,6 +5335,18 @@ public subroutine <a href='../proc/cioloc.html'>cioloc</a>(tjd, racio, k)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE RETURNS THE LOCATION OF THE CELESTIAL
+  INTERMEDIATE ORIGIN (CIO) FOR A GIVEN JULIAN DATE, AS A
+  RIGHT ASCENSION WITH RESPECT TO EITHER THE GCRS (GEOCENTRIC ICRS)
+  ORIGIN OR THE TRUE EQUINOX OF DATE.  THE CIO IS ALWAYS LOCATED ON
+  THE TRUE EQUATOR (=INTERMEDIATE EQUATOR) OF DATE.</p><a href="../proc/cioloc.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5265,6 +5428,19 @@ public subroutine <a href='../proc/ciord.html'>ciord</a>(tjd, nvals, tlist, rali
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>GIVEN AN INPUT TDB JULIAN DATE AND THE NUMBER OF DATA POINTS
+  DESIRED, THIS SUBROUTINE RETURNS A SET OF JULIAN DATES AND
+  CORRESPONDING VALUES OF THE GCRS RIGHT ASCENSION OF THE CELESTIAL
+  INTERMEDIATE ORIGIN (CIO).  THE RANGE OF DATES IS CENTERED (AT LEAST
+  APPROXIMATELY) ON THE REQUESTED DATE.  THE SUBROUTINE OBTAINS THE
+  DATA FROM AN EXTERNAL DATA FILE.</p><a href="../proc/ciord.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5376,6 +5552,22 @@ public subroutine <a href='../proc/ciobas.html'>ciobas</a>(tjd, racio, k, x, y, 
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE RETURNS THE ORTHONORMAL BASIS VECTORS, WITH
+  RESPECT TO THE GCRS (GEOCENTRIC ICRS), OF THE CELESTIAL
+  INTERMEDIATE SYSTEM DEFINED BY THE CELESTIAL INTERMEDIATE POLE
+  (CIP) (IN THE Z DIRECTION) AND THE CELESTIAL INTERMEDIATE ORIGIN
+  (CIO) (IN THE X DIRECTION).  A TDB JULIAN DATE AND THE RIGHT
+  ASCENSION OF THE CIO AT THAT DATE IS REQUIRED AS INPUT.  THE
+  RIGHT ASCENSION OF THE CIO CAN BE WITH RESPECT TO EITHER THE
+  GCRS ORIGIN OR THE TRUE EQUINOX OF DATE -- DIFFERENT ALGORITHMS
+  ARE USED IN THE TWO CASES.</p><a href="../proc/ciobas.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5502,6 +5694,16 @@ public subroutine <a href='../proc/erot.html'>erot</a>(date1, date2, theta)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE RETURNS THE VALUE OF THE EARTH ROTATION ANGLE
+  (THETA) FOR A GIVEN UT1 JULIAN DATE.  THE EXPRESSION USED IS
+  TAKEN FROM THE NOTE TO IAU RESOLUTION B1.8 OF 2000.</p><a href="../proc/erot.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5583,6 +5785,17 @@ public subroutine <a href='../proc/eqxra.html'>eqxra</a>(tjd, k, raeq)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE COMPUTES THE INTERMEDIATE RIGHT ASCENSION
+  OF THE EQUINOX AT JULIAN DATE TJD, USING AN ANALYTICAL EXPRESSION
+  FOR THE ACCUMULATED PRECESSION IN RIGHT ASCENSION.  FOR THE
+  TRUE EQUINOX THE RESULT IS THE EQUATION OF THE ORIGINS.</p><a href="../proc/eqxra.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5664,6 +5877,23 @@ public subroutine <a href='../proc/setdt.html'>setdt</a>(delt)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE ALLOWS FOR THE SPECIFICATION OF THE DELTA-T VALUE
+  (DELTA-T = TT - UT1) TO BE USED IN THE CALCULATION OF SIDEREAL
+  TIME AND THE TERRESTRIAL-TO-CELESTIAL TRANSFORMATION.  IT ALLOWS
+  THESE CALCULATIONS TO BE PERFORMED, CORRECTLY, USING UT1 AS THE
+  TIME ARGUMENT FOR THE EARTH ROTATION ANGLE AND TDB AS THE TIME
+  ARGUMENT FOR THE PRECESSION AND NUTATION COMPONENTS.  THIS
+  SUBROUTINE, IF USED, SHOULD BE CALLED BEFORE ANY SUBROUTINE
+  RELATED TO EARTH ROTATION (E.G., SIDTIM OR TERCEL) FOR A GIVEN
+  DATE.  THE VALUE OF DELTA-T SPECIFIED HERE WILL BE USED UNTIL
+  EXPLICITLY CHANGED.</p><a href="../proc/setdt.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5715,6 +5945,17 @@ public subroutine <a href='../proc/setmod.html'>setmod</a>(mode)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE ALLOWS THE USER TO SPECIFY THE 'MODE' VALUE,
+  WHICH DETERMINES THE METHOD USED FOR THE COMPUTATION OF SIDEREAL
+  TIME AND THE TERRESTRIAL-TO-CELESTIAL TRANSFORMATION, AND THE
+  ACCURACY OF NUTATION AND RELATED CALCULATIONS.</p><a href="../proc/setmod.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5766,6 +6007,15 @@ public subroutine <a href='../proc/getvec.html'>getvec</a>(unitv)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE ALLOWS THE USER TO RETRIEVE THE LAST COMPUTED
+  POSITION ON THE SKY AS A UNIT VECTOR.</p><a href="../proc/getvec.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5817,6 +6067,18 @@ public subroutine <a href='../proc/juldat.html'>juldat</a>(i, m, k, h, tjd)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE COMPUTES JULIAN DATE, GIVEN CALENDAR DATE AND
+  TIME.  INPUT CALENDAR DATE MUST BE GREGORIAN.  INPUT TIME VALUE
+  CAN BE IN ANY UT-LIKE TIME SCALE (UTC, UT1, TT, ETC.) - OUTPUT
+  JULIAN DATE WILL HAVE SAME BASIS.  ALGORITHM BY FLIEGEL AND
+  VAN FLANDERN.</p><a href="../proc/juldat.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5928,6 +6190,18 @@ public subroutine <a href='../proc/caldat.html'>caldat</a>(tjd, i, m, k, h)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE COMPUTES CALENDAR DATE AND TIME, GIVEN JULIAN
+  DATE.  INPUT JULIAN DATE CAN BE BASED ON ANY UT-LIKE TIME SCALE
+  (UTC, UT1, TT, ETC.) - OUTPUT TIME VALUE WILL HAVE SAME BASIS.
+  OUTPUT CALENDAR DATE WILL BE GREGORIAN.  ALGORITHM BY FLIEGEL AND
+  VAN FLANDERN.</p><a href="../proc/caldat.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -6039,6 +6313,14 @@ public subroutine <a href='../proc/astcon.html'>astcon</a>(name, factor, const)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE SUPPLIES THE VALUES OF ASTRONOMICAL CONSTANTS.</p><a href="../proc/astcon.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -6111,8 +6393,8 @@ public subroutine <a href='../proc/astcon.html'>astcon</a>(name, factor, const)
     
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-nod~2"></span><h3>
-public subroutine <a href='../proc/nod~2.html'>nod</a>(t, dpsi, deps)
+  <div class="panel-heading codesum"><span class="anchor" id="proc-nod"></span><h3>
+public subroutine <a href='../proc/nod.html'>nod</a>(t, dpsi, deps)
     
     
    
@@ -6120,6 +6402,15 @@ public subroutine <a href='../proc/nod~2.html'>nod</a>(t, dpsi, deps)
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>THIS SUBROUTINE RETURNS THE VALUES FOR NUTATION IN LONGITUDE AND
+  NUTATION IN OBLIQUITY FOR A GIVEN TDB JULIAN DATE.</p><a href="../proc/nod.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -6201,6 +6492,14 @@ public subroutine <a href='../proc/nu2000a.html'>nu2000a</a>(date1, date2, dpsi,
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>Nutation, IAU 2000A model (MHB_2000 without FCN).</p><a href="../proc/nu2000a.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -6297,6 +6596,19 @@ public subroutine <a href='../proc/nu2000k.html'>nu2000k</a>(date1, date2, dpsi,
   <div class="panel-body">
        
     
+
+
+
+
+
+
+
+<p>Nutation, IAU 2000A model (MHB_2000 without FCN) MODIFIED.  Series
+     truncated for speed of execution, and using Simon et al. (1994)
+     fundamental arguments throughout.  Accuracy, compared to
+     IAU 2000 A series, is 0.1 mas in delta psi and 0.04 mas in
+     delta epsilon and delta psi sin(epsilon) over 6 centuries
+     centered at year 2000 (99% of errors less than these values).</p><a href="../proc/nu2000k.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     

@@ -207,6 +207,25 @@ public subroutine setmod(mode)
 
 
     
+    <p>THIS SUBROUTINE ALLOWS THE USER TO SPECIFY THE 'MODE' VALUE,
+  WHICH DETERMINES THE METHOD USED FOR THE COMPUTATION OF SIDEREAL
+  TIME AND THE TERRESTRIAL-TO-CELESTIAL TRANSFORMATION, AND THE
+  ACCURACY OF NUTATION AND RELATED CALCULATIONS.</p>
+<div class="codehilite"><pre><span></span><code>   <span class="nv">MODE</span>   <span class="o">=</span> <span class="nv">SELECTION</span> <span class="k">FOR</span> <span class="nv">METHOD</span> <span class="nv">AND</span> <span class="nv">ACCURACY</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+            <span class="nv">SET</span> <span class="nv">MODE</span><span class="o">=</span><span class="mi">0</span> <span class="k">FOR</span> <span class="nv">CIO</span><span class="o">-</span><span class="nv">BASED</span> <span class="nv">METHOD</span>, <span class="nv">FULL</span> <span class="nv">ACCURACY</span>
+            <span class="nv">SET</span> <span class="nv">MODE</span><span class="o">=</span><span class="mi">1</span> <span class="k">FOR</span> <span class="nv">CIO</span><span class="o">-</span><span class="nv">BASED</span> <span class="nv">METHOD</span>, <span class="nv">REDUCED</span> <span class="nv">ACCURACY</span>
+            <span class="nv">SET</span> <span class="nv">MODE</span><span class="o">=</span><span class="mi">2</span> <span class="k">FOR</span> <span class="nv">EQUINOX</span><span class="o">-</span><span class="nv">BASED</span> <span class="nv">METHOD</span>, <span class="nv">FULL</span> <span class="nv">ACCURACY</span>
+            <span class="nv">SET</span> <span class="nv">MODE</span><span class="o">=</span><span class="mi">3</span> <span class="k">FOR</span> <span class="nv">EQUINOX</span><span class="o">-</span><span class="nv">BASED</span> <span class="nv">METHOD</span>, <span class="nv">REDUCED</span>
+                           <span class="nv">ACCURACY</span>
+</code></pre></div>
+
+<p>NOTE: OTHER ENTRY POINTS ARE PROVIDED TO ALLOW THE METHOD AND
+  ACCURACY TO BE SPECIFIED IN A MORE OBVIOUS WAY:
+  MODE=0 CAN BE SET BY CALL CIOTIO AND CALL HIACC
+  MODE=1 CAN BE SET BY CALL CIOTIO AND CALL LOACC
+  MODE=2 CAN BE SET BY CALL EQINOX AND CALL HIACC
+  MODE=3 CAN BE SET BY CALL EQINOX AND CALL LOACC</p>
+    
 
     <h3>Arguments</h3>
     

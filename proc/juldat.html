@@ -207,6 +207,18 @@ public subroutine juldat(i, m, k, h, tjd)
 
 
     
+    <p>THIS SUBROUTINE COMPUTES JULIAN DATE, GIVEN CALENDAR DATE AND
+  TIME.  INPUT CALENDAR DATE MUST BE GREGORIAN.  INPUT TIME VALUE
+  CAN BE IN ANY UT-LIKE TIME SCALE (UTC, UT1, TT, ETC.) - OUTPUT
+  JULIAN DATE WILL HAVE SAME BASIS.  ALGORITHM BY FLIEGEL AND
+  VAN FLANDERN.</p>
+<div class="codehilite"><pre><span></span><code>   I      = YEAR (IN)
+   M      = MONTH NUMBER (IN)
+   K      = DAY OF MONTH (IN)
+   H      = UT HOURS (IN)
+   TJD    = JULIAN DATE (OUT)
+</code></pre></div>
+    
 
     <h3>Arguments</h3>
     
