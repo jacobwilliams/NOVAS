@@ -644,6 +644,7 @@ dis = skypos(6)
 return
 
 end
+!***********************************************************************
 
 !***********************************************************************
 !>
@@ -721,6 +722,7 @@ call vectrs (rai,deci,0.d0,0.d0,0.d0,0.d0,p,v)
 call setvec (p)
 
 end
+!***********************************************************************
 
 !***********************************************************************
 !>
@@ -1016,7 +1018,7 @@ end if
 !     STORE COMPUTED POSITION VECTOR FOR POSSIBLE LATER RETRIEVAL
 call setvec ( vec2 )
 
-end
+end subroutine tercel
 !***********************************************************************
 
 !***********************************************************************
@@ -4498,7 +4500,7 @@ mode = imode
 
 return
 
-end
+end subroutine setmod
 !***********************************************************************
 
 !***********************************************************************
@@ -4524,7 +4526,6 @@ end do
 
 return
 
-
 entry setvec ( pos )
 !
 !     THIS ENTRY STORES THE LAST COMPUTED POSITION ON THE SKY.
@@ -4532,78 +4533,80 @@ entry setvec ( pos )
 !          POS    = VECTOR TOWARD LAST COMPUTED POSITION ON THE
 !                   SKY, IN THE COORDINATE SYSTEM USED FOR THAT
 !                   POSITION (IN)
-!
-!
+
 do j = 1, 3
     p(j) = pos(j)
 end do
 
 return
 
-end
+end subroutine getvec
 !***********************************************************************
 
 !***********************************************************************
 !>
-!  THIS SUBROUTINE COMPUTES JULIAN DATE, GIVEN CALENDAR DATE AND
-!  TIME.  INPUT CALENDAR DATE MUST BE GREGORIAN.  INPUT TIME VALUE
-!  CAN BE IN ANY UT-LIKE TIME SCALE (UTC, UT1, TT, ETC.) - OUTPUT
-!  JULIAN DATE WILL HAVE SAME BASIS.  ALGORITHM BY FLIEGEL AND
-!  VAN FLANDERN.
-!
-!       I      = YEAR (IN)
-!       M      = MONTH NUMBER (IN)
-!       K      = DAY OF MONTH (IN)
-!       H      = UT HOURS (IN)
-!       TJD    = JULIAN DATE (OUT)
+!  This subroutine computes julian date, given calendar date and
+!  time.  input calendar date must be gregorian.  input time value
+!  can be in any ut-like time scale (utc, ut1, tt, etc.) - output
+!  julian date will have same basis.  algorithm by fliegel and
+!  van flandern.
 
-subroutine juldat (i,m,k,h,tjd)
+    pure subroutine juldat (i,m,k,h,tjd)
 
-real(wp) :: h,tjd
+    implicit none
 
-!     JD=JULIAN DAY NO FOR DAY BEGINNING AT GREENWICH NOON ON GIVEN DATE
-jd = k-32075+1461*(i+4800+(m-14)/12)/4+367*(m-2-(m-14)/12*12)/12 &
-     -3*((i+4900+(m-14)/12)/100)/4
-tjd = jd - 0.5d0 + h/24.d0
+    integer,intent(in) :: i !! year
+    integer,intent(in) :: m !! month number
+    integer,intent(in) :: k !! day of month
+    real(wp),intent(in) :: h !! ut hours
+    real(wp),intent(out) :: tjd !! julian date
 
-end
+    integer :: jd !! julian day no for day beginning at greenwich noon on given date
+
+    jd = k-32075+1461*(i+4800+(m-14)/12)/4+367*(m-2-(m-14)/12*12)/12 &
+        -3*((i+4900+(m-14)/12)/100)/4
+    tjd = jd - 0.5_wp + h/24.0_wp
+
+    end subroutine juldat
 !***********************************************************************
 
 !***********************************************************************
 !>
-!  THIS SUBROUTINE COMPUTES CALENDAR DATE AND TIME, GIVEN JULIAN
-!  DATE.  INPUT JULIAN DATE CAN BE BASED ON ANY UT-LIKE TIME SCALE
-!  (UTC, UT1, TT, ETC.) - OUTPUT TIME VALUE WILL HAVE SAME BASIS.
-!  OUTPUT CALENDAR DATE WILL BE GREGORIAN.  ALGORITHM BY FLIEGEL AND
-!  VAN FLANDERN.
-!
-!       TJD    = JULIAN DATE (IN)
-!       I      = YEAR (OUT)
-!       M      = MONTH NUMBER (OUT)
-!       K      = DAY OF MONTH (OUT)
-!       H      = UT HOURS (OUT)
+!  This subroutine computes calendar date and time, given julian
+!  date.  input julian date can be based on any ut-like time scale
+!  (utc, ut1, tt, etc.) - output time value will have same basis.
+!  output calendar date will be gregorian.  algorithm by fliegel and
+!  van flandern.
 
-subroutine caldat (tjd,i,m,k,h)
+    pure subroutine caldat (tjd,i,m,k,h)
 
-real(wp) :: tjd,h,djd,dmod
+    implicit none
 
-djd = tjd + 0.5d0
-jd = djd
-h = dmod (djd,1.d0) * 24.d0
-!     JD=JULIAN DAY NO FOR DAY BEGINNING AT GREENWICH NOON ON GIVEN DATE
-l = jd + 68569
-n = 4*l/146097
-l = l - (146097*n+3)/4
-!     I=YEAR, M=MONTH, K=DAY
-i = 4000*(l+1)/1461001
-l = l - 1461*i/4 + 31
-m = 80*l/2447
-k = l - 2447*m/80
-l = m / 11
-m = m + 2 - 12*l
-i = 100*(n-49) + i + l
+    real(wp),intent(in) :: tjd !! julian date
+    integer,intent(out) :: i !! year
+    integer,intent(out) :: m !! month number
+    integer,intent(out) :: k !! day of month
+    real(wp),intent(out) :: h !! ut hours
 
-end subroutine caldat
+    integer :: jd !! julian day no for day beginning at greenwich noon on given date
+    integer :: l,n
+    real(wp) :: djd
+
+    djd = tjd + 0.5d0
+    jd = djd
+    h = mod (djd,1.0_wp) * 24.0_wp
+    l = jd + 68569
+    n = 4*l/146097
+    l = l - (146097*n+3)/4
+    i = 4000*(l+1)/1461001
+    l = l - 1461*i/4 + 31
+    m = 80*l/2447
+    k = l - 2447*m/80
+    l = m / 11
+    m = m + 2 - 12*l
+    i = 100*(n-49) + i + l
+
+    end subroutine caldat
 !***********************************************************************
 
 !***********************************************************************
@@ -4635,17 +4638,14 @@ end subroutine caldat
 
 subroutine astcon (name,factor,const)
 
-real(wp) :: factor,const,c,ausec
+real(wp) :: factor,const
 character name*(*)
 
 !     NOTE:  THESE CONSTANT VALUES ARE BASED ON THE TDB SECOND WHERE
 !     APPLICABLE.
 
-!     SPEED OF LIGHT IN METERS/SECOND IS A DEFINING PHYSICAL CONSTANT
-data c / 299792458.d0 /
-
-!     LIGHT-TIME FOR ONE ASTRONOMICAL UNIT IN SECONDS, FROM DE-405
-data ausec / 499.0047838061d0 /
+real(wp),parameter :: c = 299792458.0_wp  !! speed of light in meters/second is a defining physical constant
+real(wp),parameter :: ausec = 499.0047838061_wp  !! light-time for one astronomical unit in seconds, from DE-405
 
 !     SPEED OF LIGHT IN METERS/SECOND
 if ( name == 'C' ) then
@@ -4713,39 +4713,37 @@ end subroutine astcon
 
 !***********************************************************************
 !>
-!  THIS SUBROUTINE RETURNS THE VALUES FOR NUTATION IN LONGITUDE AND
-!  NUTATION IN OBLIQUITY FOR A GIVEN TDB JULIAN DATE.
-!
-!       T     = TDB TIME IN JULIAN CENTURIES SINCE J2000.0 (IN)
-!       DPSI  = NUTATION IN LONGITUDE IN ARCSECONDS (OUT)
-!       DEPS  = NUTATION IN OBLIQUITY IN ARCSECONDS (OUT)
+!  This subroutine returns the values for nutation in longitude and
+!  nutation in obliquity for a given TDB Julian date.
 
-subroutine nod (t,dpsi,deps)
+    subroutine nod (t,dpsi,deps)
 
-real(wp) :: t,dpsi,deps,t1,dp,de
-save
+    real(wp),intent(in) :: t !! tdb time in julian centuries since j2000.0
+    real(wp),intent(out) :: dpsi !! nutation in longitude in arcseconds
+    real(wp),intent(out) :: deps !! nutation in obliquity in arcseconds
 
-!     GET METHOD/ACCURACY MODE
-call getmod ( mode )
+    real(wp) :: t1,dp,de
 
-t1 = t * 36525.d0
+    ! get method/accuracy mode
+    call getmod ( mode )
 
-!     =================================================================
-!     EVALUATE NUTATION SERIES
-!     RESULTING NUTATION IN LONGITUDE AND OBLIQUITY IN ARCSECONDS
+    t1 = t * 36525.0_wp
 
-!     CALL SUBROUTINE TO EVALUATE NUTATION SERIES
-if ( mod ( mode, 2 ) == 0 ) then
-!         HIGH ACCURACY MODE -- IERS SUBROUTINE
-    call nu2000a ( jd_j2000, t1, dp, de )
-else
-!         LOW ACCURACY MODE -- MODIFICATION OF IERS SUBROUTINE
-    call nu2000k ( jd_j2000, t1, dp, de )
-end if
-dpsi = dp * seccon
-deps = de * seccon
+    ! evaluate nutation series
+    ! resulting nutation in longitude and obliquity in arcseconds
 
-end subroutine nod
+    ! call subroutine to evaluate nutation series
+    if ( mod ( mode, 2 ) == 0 ) then
+        ! high accuracy mode -- iers subroutine
+        call nu2000a ( jd_j2000, t1, dp, de )
+    else
+        ! low accuracy mode -- modification of iers subroutine
+        call nu2000k ( jd_j2000, t1, dp, de )
+    end if
+    dpsi = dp * seccon
+    deps = de * seccon
+
+    end subroutine nod
 !***********************************************************************
 
 !***********************************************************************

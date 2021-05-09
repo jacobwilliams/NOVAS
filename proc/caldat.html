@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.6% of total for procedures.">16 statements</a>
+    title=" 0.8% of total for procedures.">24 statements</a>
      </li> 
      
      
@@ -203,7 +203,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-public subroutine caldat(tjd, i, m, k, h)
+public pure subroutine caldat(tjd, i, m, k, h)
     
     
    
@@ -213,17 +213,11 @@ public subroutine caldat(tjd, i, m, k, h)
 
 
     
-    <p>THIS SUBROUTINE COMPUTES CALENDAR DATE AND TIME, GIVEN JULIAN
-  DATE.  INPUT JULIAN DATE CAN BE BASED ON ANY UT-LIKE TIME SCALE
-  (UTC, UT1, TT, ETC.) - OUTPUT TIME VALUE WILL HAVE SAME BASIS.
-  OUTPUT CALENDAR DATE WILL BE GREGORIAN.  ALGORITHM BY FLIEGEL AND
-  VAN FLANDERN.</p>
-<div class="codehilite"><pre><span></span><code>   TJD    = JULIAN DATE (IN)
-   I      = YEAR (OUT)
-   M      = MONTH NUMBER (OUT)
-   K      = DAY OF MONTH (OUT)
-   H      = UT HOURS (OUT)
-</code></pre></div>
+    <p>This subroutine computes calendar date and time, given julian
+  date.  input julian date can be based on any ut-like time scale
+  (utc, ut1, tt, etc.) - output time value will have same basis.
+  output calendar date will be gregorian.  algorithm by fliegel and
+  van flandern.</p>
     
 
     <h3>Arguments</h3>
@@ -244,12 +238,12 @@ public subroutine caldat(tjd, i, m, k, h)
   
 <tr>
   
-  <td><span class="anchor" id="variable-tjd~24"></span>real(kind=wp)</td>
-  <td></td>
+  <td><span class="anchor" id="variable-tjd~24"></span>real(kind=wp),</td>
+  <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>tjd</strong></td><td></td>
+  <td><strong>tjd</strong></td><td><p>julian date</p></td>
   
 </tr>
 
@@ -259,12 +253,12 @@ public subroutine caldat(tjd, i, m, k, h)
   
 <tr>
   
-  <td><span class="anchor" id="variable-i~2"></span>integer</td>
-  <td></td>
+  <td><span class="anchor" id="variable-i~2"></span>integer,</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>i</strong></td><td></td>
+  <td><strong>i</strong></td><td><p>year</p></td>
   
 </tr>
 
@@ -274,12 +268,12 @@ public subroutine caldat(tjd, i, m, k, h)
   
 <tr>
   
-  <td><span class="anchor" id="variable-m~5"></span>integer</td>
-  <td></td>
+  <td><span class="anchor" id="variable-m~5"></span>integer,</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>m</strong></td><td></td>
+  <td><strong>m</strong></td><td><p>month number</p></td>
   
 </tr>
 
@@ -289,12 +283,12 @@ public subroutine caldat(tjd, i, m, k, h)
   
 <tr>
   
-  <td><span class="anchor" id="variable-k~10"></span>integer</td>
-  <td></td>
+  <td><span class="anchor" id="variable-k~10"></span>integer,</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>k</strong></td><td></td>
+  <td><strong>k</strong></td><td><p>day of month</p></td>
   
 </tr>
 
@@ -304,12 +298,12 @@ public subroutine caldat(tjd, i, m, k, h)
   
 <tr>
   
-  <td><span class="anchor" id="variable-h~2"></span>real(kind=wp)</td>
-  <td></td>
+  <td><span class="anchor" id="variable-h~2"></span>real(kind=wp),</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>h</strong></td><td></td>
+  <td><strong>h</strong></td><td><p>ut hours</p></td>
   
 </tr>
 
@@ -380,27 +374,35 @@ public subroutine caldat(tjd, i, m, k, h)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span><span class="k">subroutine </span><span class="n">caldat</span> <span class="p">(</span><span class="n">tjd</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">pure subroutine </span><span class="n">caldat</span> <span class="p">(</span><span class="n">tjd</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
 
-<span class="kt">real</span><span class="p">(</span><span class="n">wp</span><span class="p">)</span> <span class="kd">::</span> <span class="n">tjd</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="n">djd</span><span class="p">,</span><span class="nb">dmod</span>
+    <span class="k">implicit none</span>
 
-<span class="n">djd</span> <span class="o">=</span> <span class="n">tjd</span> <span class="o">+</span> <span class="mf">0.5d0</span>
-<span class="n">jd</span> <span class="o">=</span> <span class="n">djd</span>
-<span class="n">h</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">djd</span><span class="p">,</span><span class="mf">1.d0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="mf">4.d0</span>
-<span class="c">!     JD=JULIAN DAY NO FOR DAY BEGINNING AT GREENWICH NOON ON GIVEN DATE</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">jd</span> <span class="o">+</span> <span class="mi">68569</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">l</span><span class="o">/</span><span class="mi">146097</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">-</span> <span class="p">(</span><span class="mi">146097</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>
-<span class="c">!     I=YEAR, M=MONTH, K=DAY</span>
-<span class="n">i</span> <span class="o">=</span> <span class="mi">4000</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">1461001</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">-</span> <span class="mi">1461</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">31</span>
-<span class="n">m</span> <span class="o">=</span> <span class="mi">80</span><span class="o">*</span><span class="n">l</span><span class="o">/</span><span class="mi">2447</span>
-<span class="n">k</span> <span class="o">=</span> <span class="n">l</span> <span class="o">-</span> <span class="mi">2447</span><span class="o">*</span><span class="n">m</span><span class="o">/</span><span class="mi">80</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">m</span> <span class="o">/</span> <span class="mi">11</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">12</span><span class="o">*</span><span class="n">l</span>
-<span class="n">i</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">49</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="n">l</span>
+<span class="k">    </span><span class="kt">real</span><span class="p">(</span><span class="n">wp</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">tjd</span> <span class="c">!! julian date</span>
+    <span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">i</span> <span class="c">!! year</span>
+    <span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">m</span> <span class="c">!! month number</span>
+    <span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">k</span> <span class="c">!! day of month</span>
+    <span class="kt">real</span><span class="p">(</span><span class="n">wp</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">h</span> <span class="c">!! ut hours</span>
 
-<span class="k">end subroutine </span><span class="n">caldat</span>
+    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">jd</span> <span class="c">!! julian day no for day beginning at greenwich noon on given date</span>
+    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">l</span><span class="p">,</span><span class="n">n</span>
+    <span class="kt">real</span><span class="p">(</span><span class="n">wp</span><span class="p">)</span> <span class="kd">::</span> <span class="n">djd</span>
+
+    <span class="n">djd</span> <span class="o">=</span> <span class="n">tjd</span> <span class="o">+</span> <span class="mf">0.5d0</span>
+    <span class="n">jd</span> <span class="o">=</span> <span class="n">djd</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="nb">mod</span> <span class="p">(</span><span class="n">djd</span><span class="p">,</span><span class="mf">1.0_wp</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="mf">4.0_wp</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">jd</span> <span class="o">+</span> <span class="mi">68569</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">l</span><span class="o">/</span><span class="mi">146097</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">-</span> <span class="p">(</span><span class="mi">146097</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">4000</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">1461001</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">-</span> <span class="mi">1461</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">31</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="mi">80</span><span class="o">*</span><span class="n">l</span><span class="o">/</span><span class="mi">2447</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">l</span> <span class="o">-</span> <span class="mi">2447</span><span class="o">*</span><span class="n">m</span><span class="o">/</span><span class="mi">80</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">m</span> <span class="o">/</span> <span class="mi">11</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">12</span><span class="o">*</span><span class="n">l</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">49</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="n">l</span>
+
+    <span class="k">end subroutine </span><span class="n">caldat</span>
 </pre></div>
 
     </section>

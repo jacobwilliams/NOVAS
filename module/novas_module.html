@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="100.0% of total for modules and submodules.">2344 statements</a>
+    title="100.0% of total for modules and submodules.">2360 statements</a>
      </li> 
      
      
@@ -318,7 +318,7 @@
       
       <a class="list-group-item" href="../module/novas_module.html#proc-astcon">astcon</a>
       
-      <a class="list-group-item" href="../module/novas_module.html#proc-nod">nod</a>
+      <a class="list-group-item" href="../module/novas_module.html#proc-nod~2">nod</a>
       
       <a class="list-group-item" href="../module/novas_module.html#proc-nu2000a">nu2000a</a>
       
@@ -737,7 +737,7 @@
       
       <a class="list-group-item" href="../module/novas_module.html#proc-astcon">astcon</a>
       
-      <a class="list-group-item" href="../module/novas_module.html#proc-nod">nod</a>
+      <a class="list-group-item" href="../module/novas_module.html#proc-nod~2">nod</a>
       
       <a class="list-group-item" href="../module/novas_module.html#proc-nu2000a">nu2000a</a>
       
@@ -6447,7 +6447,7 @@ public subroutine <a href='../proc/getvec.html'>getvec</a>(unitv)
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-juldat"></span><h3>
-public subroutine <a href='../proc/juldat.html'>juldat</a>(i, m, k, h, tjd)
+public pure subroutine <a href='../proc/juldat.html'>juldat</a>(i, m, k, h, tjd)
     
     
    
@@ -6462,11 +6462,11 @@ public subroutine <a href='../proc/juldat.html'>juldat</a>(i, m, k, h, tjd)
 
 
 
-<p>THIS SUBROUTINE COMPUTES JULIAN DATE, GIVEN CALENDAR DATE AND
-  TIME.  INPUT CALENDAR DATE MUST BE GREGORIAN.  INPUT TIME VALUE
-  CAN BE IN ANY UT-LIKE TIME SCALE (UTC, UT1, TT, ETC.) - OUTPUT
-  JULIAN DATE WILL HAVE SAME BASIS.  ALGORITHM BY FLIEGEL AND
-  VAN FLANDERN.</p><a href="../proc/juldat.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+<p>This subroutine computes julian date, given calendar date and
+  time.  input calendar date must be gregorian.  input time value
+  can be in any ut-like time scale (utc, ut1, tt, etc.) - output
+  julian date will have same basis.  algorithm by fliegel and
+  van flandern.</p>
     
     <h4>Arguments</h4>
     
@@ -6487,12 +6487,12 @@ public subroutine <a href='../proc/juldat.html'>juldat</a>(i, m, k, h, tjd)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer</td>
-  <td></td>
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>i</strong></td><td></td>
+  <td><strong>i</strong></td><td><p>year</p></td>
   
 </tr>
 
@@ -6502,12 +6502,12 @@ public subroutine <a href='../proc/juldat.html'>juldat</a>(i, m, k, h, tjd)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer</td>
-  <td></td>
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>m</strong></td><td></td>
+  <td><strong>m</strong></td><td><p>month number</p></td>
   
 </tr>
 
@@ -6517,12 +6517,12 @@ public subroutine <a href='../proc/juldat.html'>juldat</a>(i, m, k, h, tjd)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer</td>
-  <td></td>
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>k</strong></td><td></td>
+  <td><strong>k</strong></td><td><p>day of month</p></td>
   
 </tr>
 
@@ -6532,12 +6532,12 @@ public subroutine <a href='../proc/juldat.html'>juldat</a>(i, m, k, h, tjd)
   
 <tr>
   
-  <td><span class="anchor" ></span>real(kind=wp)</td>
-  <td></td>
+  <td><span class="anchor" ></span>real(kind=wp),</td>
+  <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>h</strong></td><td></td>
+  <td><strong>h</strong></td><td><p>ut hours</p></td>
   
 </tr>
 
@@ -6547,12 +6547,12 @@ public subroutine <a href='../proc/juldat.html'>juldat</a>(i, m, k, h, tjd)
   
 <tr>
   
-  <td><span class="anchor" ></span>real(kind=wp)</td>
-  <td></td>
+  <td><span class="anchor" ></span>real(kind=wp),</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>tjd</strong></td><td></td>
+  <td><strong>tjd</strong></td><td><p>julian date</p></td>
   
 </tr>
 
@@ -6570,7 +6570,7 @@ public subroutine <a href='../proc/juldat.html'>juldat</a>(i, m, k, h, tjd)
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-caldat"></span><h3>
-public subroutine <a href='../proc/caldat.html'>caldat</a>(tjd, i, m, k, h)
+public pure subroutine <a href='../proc/caldat.html'>caldat</a>(tjd, i, m, k, h)
     
     
    
@@ -6585,11 +6585,11 @@ public subroutine <a href='../proc/caldat.html'>caldat</a>(tjd, i, m, k, h)
 
 
 
-<p>THIS SUBROUTINE COMPUTES CALENDAR DATE AND TIME, GIVEN JULIAN
-  DATE.  INPUT JULIAN DATE CAN BE BASED ON ANY UT-LIKE TIME SCALE
-  (UTC, UT1, TT, ETC.) - OUTPUT TIME VALUE WILL HAVE SAME BASIS.
-  OUTPUT CALENDAR DATE WILL BE GREGORIAN.  ALGORITHM BY FLIEGEL AND
-  VAN FLANDERN.</p><a href="../proc/caldat.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+<p>This subroutine computes calendar date and time, given julian
+  date.  input julian date can be based on any ut-like time scale
+  (utc, ut1, tt, etc.) - output time value will have same basis.
+  output calendar date will be gregorian.  algorithm by fliegel and
+  van flandern.</p>
     
     <h4>Arguments</h4>
     
@@ -6610,12 +6610,12 @@ public subroutine <a href='../proc/caldat.html'>caldat</a>(tjd, i, m, k, h)
   
 <tr>
   
-  <td><span class="anchor" ></span>real(kind=wp)</td>
-  <td></td>
+  <td><span class="anchor" ></span>real(kind=wp),</td>
+  <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>tjd</strong></td><td></td>
+  <td><strong>tjd</strong></td><td><p>julian date</p></td>
   
 </tr>
 
@@ -6625,12 +6625,12 @@ public subroutine <a href='../proc/caldat.html'>caldat</a>(tjd, i, m, k, h)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer</td>
-  <td></td>
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>i</strong></td><td></td>
+  <td><strong>i</strong></td><td><p>year</p></td>
   
 </tr>
 
@@ -6640,12 +6640,12 @@ public subroutine <a href='../proc/caldat.html'>caldat</a>(tjd, i, m, k, h)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer</td>
-  <td></td>
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>m</strong></td><td></td>
+  <td><strong>m</strong></td><td><p>month number</p></td>
   
 </tr>
 
@@ -6655,12 +6655,12 @@ public subroutine <a href='../proc/caldat.html'>caldat</a>(tjd, i, m, k, h)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer</td>
-  <td></td>
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>k</strong></td><td></td>
+  <td><strong>k</strong></td><td><p>day of month</p></td>
   
 </tr>
 
@@ -6670,12 +6670,12 @@ public subroutine <a href='../proc/caldat.html'>caldat</a>(tjd, i, m, k, h)
   
 <tr>
   
-  <td><span class="anchor" ></span>real(kind=wp)</td>
-  <td></td>
+  <td><span class="anchor" ></span>real(kind=wp),</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>h</strong></td><td></td>
+  <td><strong>h</strong></td><td><p>ut hours</p></td>
   
 </tr>
 
@@ -6781,8 +6781,8 @@ public subroutine <a href='../proc/astcon.html'>astcon</a>(name, factor, const)
     
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-nod"></span><h3>
-public subroutine <a href='../proc/nod.html'>nod</a>(t, dpsi, deps)
+  <div class="panel-heading codesum"><span class="anchor" id="proc-nod~2"></span><h3>
+public subroutine <a href='../proc/nod~2.html'>nod</a>(t, dpsi, deps)
     
     
    
@@ -6797,8 +6797,8 @@ public subroutine <a href='../proc/nod.html'>nod</a>(t, dpsi, deps)
 
 
 
-<p>THIS SUBROUTINE RETURNS THE VALUES FOR NUTATION IN LONGITUDE AND
-  NUTATION IN OBLIQUITY FOR A GIVEN TDB JULIAN DATE.</p><a href="../proc/nod.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+<p>This subroutine returns the values for nutation in longitude and
+  nutation in obliquity for a given TDB Julian date.</p>
     
     <h4>Arguments</h4>
     
@@ -6819,12 +6819,12 @@ public subroutine <a href='../proc/nod.html'>nod</a>(t, dpsi, deps)
   
 <tr>
   
-  <td><span class="anchor" ></span>real(kind=wp)</td>
-  <td></td>
+  <td><span class="anchor" ></span>real(kind=wp),</td>
+  <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>t</strong></td><td></td>
+  <td><strong>t</strong></td><td><p>tdb time in julian centuries since j2000.0</p></td>
   
 </tr>
 
@@ -6834,12 +6834,12 @@ public subroutine <a href='../proc/nod.html'>nod</a>(t, dpsi, deps)
   
 <tr>
   
-  <td><span class="anchor" ></span>real(kind=wp)</td>
-  <td></td>
+  <td><span class="anchor" ></span>real(kind=wp),</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>dpsi</strong></td><td></td>
+  <td><strong>dpsi</strong></td><td><p>nutation in longitude in arcseconds</p></td>
   
 </tr>
 
@@ -6849,12 +6849,12 @@ public subroutine <a href='../proc/nod.html'>nod</a>(t, dpsi, deps)
   
 <tr>
   
-  <td><span class="anchor" ></span>real(kind=wp)</td>
-  <td></td>
+  <td><span class="anchor" ></span>real(kind=wp),</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>deps</strong></td><td></td>
+  <td><strong>deps</strong></td><td><p>nutation in obliquity in arcseconds</p></td>
   
 </tr>
 
