@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 1.1% of total for procedures.">33 statements</a>
+    title=" 1.0% of total for procedures.">30 statements</a>
      </li> 
      
      
@@ -245,7 +245,7 @@ public subroutine limang(pos1, poso, alimb, afrac)
   
 <tr>
   
-  <td><span class="anchor" id="variable-pos1~15"></span>double precision</td>
+  <td><span class="anchor" id="variable-pos1~15"></span>real(kind=wp)</td>
   <td></td>
   <td></td>
   
@@ -260,7 +260,7 @@ public subroutine limang(pos1, poso, alimb, afrac)
   
 <tr>
   
-  <td><span class="anchor" id="variable-poso"></span>double precision</td>
+  <td><span class="anchor" id="variable-poso"></span>real(kind=wp)</td>
   <td></td>
   <td></td>
   
@@ -275,7 +275,7 @@ public subroutine limang(pos1, poso, alimb, afrac)
   
 <tr>
   
-  <td><span class="anchor" id="variable-alimb"></span>double precision</td>
+  <td><span class="anchor" id="variable-alimb"></span>real(kind=wp)</td>
   <td></td>
   <td></td>
   
@@ -290,7 +290,7 @@ public subroutine limang(pos1, poso, alimb, afrac)
   
 <tr>
   
-  <td><span class="anchor" id="variable-afrac"></span>double precision</td>
+  <td><span class="anchor" id="variable-afrac"></span>real(kind=wp)</td>
   <td></td>
   <td></td>
   
@@ -330,30 +330,30 @@ public subroutine limang(pos1, poso, alimb, afrac)
 <polygon fill="none" stroke="black" points="54,-45 0,-45 0,-21 54,-21 54,-45"/>
 <text text-anchor="middle" x="27" y="-30.6" font-family="Helvetica,sans-Serif" font-size="10.50">limang</text>
 </g>
-<!-- proc~astcon -->
+<!-- dasin -->
 <g id="proc~~limang~~CallsGraph_node2" class="node">
+<title>dasin</title>
+<polygon fill="#777777" stroke="#777777" points="144,-66 90,-66 90,-42 144,-42 144,-66"/>
+<text text-anchor="middle" x="117" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dasin</text>
+</g>
+<!-- proc~limang&#45;&gt;dasin -->
+<g id="proc~~limang~~CallsGraph_edge1" class="edge">
+<title>proc~limang&#45;&gt;dasin</title>
+<path fill="none" stroke="#000000" d="M54.4,-39.3C62.48,-41.23 71.51,-43.38 80.1,-45.43"/>
+<polygon fill="#000000" stroke="#000000" points="79.38,-48.86 89.92,-47.78 81,-42.05 79.38,-48.86"/>
+</g>
+<!-- proc~astcon -->
+<g id="proc~~limang~~CallsGraph_node3" class="node">
 <title>proc~astcon</title>
-<g id="a_proc~~limang~~CallsGraph_node2"><a xlink:href=".././proc/astcon.html" xlink:title="astcon">
-<polygon fill="#d9534f" stroke="#d9534f" points="144,-66 90,-66 90,-42 144,-42 144,-66"/>
-<text text-anchor="middle" x="117" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">astcon</text>
+<g id="a_proc~~limang~~CallsGraph_node3"><a xlink:href=".././proc/astcon.html" xlink:title="astcon">
+<polygon fill="#d9534f" stroke="#d9534f" points="144,-24 90,-24 90,0 144,0 144,-24"/>
+<text text-anchor="middle" x="117" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">astcon</text>
 </a>
 </g>
 </g>
 <!-- proc~limang&#45;&gt;proc~astcon -->
-<g id="proc~~limang~~CallsGraph_edge1" class="edge">
-<title>proc~limang&#45;&gt;proc~astcon</title>
-<path fill="none" stroke="#000000" d="M54.4,-39.3C62.48,-41.23 71.51,-43.38 80.1,-45.43"/>
-<polygon fill="#000000" stroke="#000000" points="79.38,-48.86 89.92,-47.78 81,-42.05 79.38,-48.86"/>
-</g>
-<!-- dasin -->
-<g id="proc~~limang~~CallsGraph_node3" class="node">
-<title>dasin</title>
-<polygon fill="#777777" stroke="#777777" points="144,-24 90,-24 90,0 144,0 144,-24"/>
-<text text-anchor="middle" x="117" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dasin</text>
-</g>
-<!-- proc~limang&#45;&gt;dasin -->
 <g id="proc~~limang~~CallsGraph_edge2" class="edge">
-<title>proc~limang&#45;&gt;dasin</title>
+<title>proc~limang&#45;&gt;proc~astcon</title>
 <path fill="none" stroke="#000000" d="M54.4,-26.7C62.48,-24.77 71.51,-22.62 80.1,-20.57"/>
 <polygon fill="#000000" stroke="#000000" points="81,-23.95 89.92,-18.22 79.38,-17.14 81,-23.95"/>
 </g>
