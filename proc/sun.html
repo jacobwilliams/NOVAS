@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 5.1% of total for procedures.">151 statements</a>
+    title=" 5.1% of total for procedures.">150 statements</a>
      </li> 
      
      
@@ -186,7 +186,13 @@
 
 
 
-<em>None</em>
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../proc/sun.html#src">sun</a>
+  </div>
+</div>
+
 
 
 </div>
@@ -204,6 +210,23 @@ subroutine sun(dj, el, c)
   
 
 
+    
+    <p>FOR USE WITH SUBROUTINE SOLSYS VERSION 3.
+  THIS SUBROUTINE COMPUTES THE COORDINATES OF THE EARTH-SUN
+  POSITION VECTOR WITH RESPECT TO THE ECLIPTIC AND EQUATOR
+  OF DATE.  A MODIFIED FORM OF NEWCOMB'S THEORY ('TABLES OF THE
+  SUN', 1898) IS USED.  ONLY THE LARGEST PERIODIC PERTURBATIONS
+  ARE EVALUATED, AND VAN FLANDERN'S EXPRESSIONS FOR THE FUNDAMENTAL
+  ARGUMENTS ('IMPROVED MEAN ELEMENTS FOR THE EARTH AND MOON', 1981)
+  ARE USED.  THE ABSOLUTE ACCURACY IS NO WORSE THAN 1 ARCSECOND
+  (AVERAGE ERROR ABOUT 0.2 ARCSECOND) OVER 1800-2200.
+  (ADAPTED FROM SUBROUTINE IAUSUN BY P. M. JANICZEK, USNO.)</p>
+<div class="codehilite"><pre><span></span><code>   <span class="nv">DJ</span>   <span class="o">=</span> <span class="nv">TDB</span> <span class="nv">JULIAN</span> <span class="nv">DATE</span> <span class="nv">OF</span> <span class="nv">DESIRED</span> <span class="nv">EPOCH</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+   <span class="nv">EL</span>   <span class="o">=</span> <span class="nv">ARRAY</span> <span class="nv">OF</span> <span class="nv">ORBITAL</span> <span class="nv">ELEMENTS</span> <span class="ss">(</span><span class="nv">SEE</span> <span class="nv">BELOW</span><span class="ss">)</span> <span class="k">FOR</span>
+          <span class="nv">EPOCH</span> <span class="nv">DJ</span> <span class="ss">(</span><span class="nv">OUT</span><span class="ss">)</span>
+   <span class="nv">C</span>    <span class="o">=</span> <span class="nv">ARRAY</span> <span class="nv">OF</span> <span class="nv">COORDINATES</span> <span class="ss">(</span><span class="nv">SEE</span> <span class="nv">BELOW</span><span class="ss">)</span> <span class="k">FOR</span>
+          <span class="nv">EPOCH</span> <span class="nv">DJ</span> <span class="ss">(</span><span class="nv">OUT</span><span class="ss">)</span>
+</code></pre></div>
     
 
     <h3>Arguments</h3>
@@ -294,27 +317,27 @@ subroutine sun(dj, el, c)
 <polygon fill="none" stroke="black" points="54,-129 0,-129 0,-105 54,-105 54,-129"/>
 <text text-anchor="middle" x="27" y="-114.6" font-family="Helvetica,sans-Serif" font-size="10.50">sun</text>
 </g>
-<!-- x4 -->
+<!-- x2 -->
 <g id="proc~~sun~~CallsGraph_node2" class="node">
-<title>x4</title>
+<title>x2</title>
 <polygon fill="#777777" stroke="#777777" points="144,-234 90,-234 90,-210 144,-210 144,-234"/>
-<text text-anchor="middle" x="117" y="-219.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">x4</text>
+<text text-anchor="middle" x="117" y="-219.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">x2</text>
 </g>
-<!-- proc~sun&#45;&gt;x4 -->
+<!-- proc~sun&#45;&gt;x2 -->
 <g id="proc~~sun~~CallsGraph_edge1" class="edge">
-<title>proc~sun&#45;&gt;x4</title>
+<title>proc~sun&#45;&gt;x2</title>
 <path fill="none" stroke="#000000" d="M35.55,-129.15C46.43,-146.19 67.69,-177.69 90,-201 90.65,-201.68 91.32,-202.36 92.01,-203.03"/>
 <polygon fill="#000000" stroke="#000000" points="89.97,-205.9 99.76,-209.95 94.64,-200.68 89.97,-205.9"/>
 </g>
-<!-- x -->
+<!-- x4 -->
 <g id="proc~~sun~~CallsGraph_node3" class="node">
-<title>x</title>
+<title>x4</title>
 <polygon fill="#777777" stroke="#777777" points="144,-192 90,-192 90,-168 144,-168 144,-192"/>
-<text text-anchor="middle" x="117" y="-177.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">x</text>
+<text text-anchor="middle" x="117" y="-177.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">x4</text>
 </g>
-<!-- proc~sun&#45;&gt;x -->
+<!-- proc~sun&#45;&gt;x4 -->
 <g id="proc~~sun~~CallsGraph_edge2" class="edge">
-<title>proc~sun&#45;&gt;x</title>
+<title>proc~sun&#45;&gt;x4</title>
 <path fill="none" stroke="#000000" d="M44.97,-129.15C57.99,-138.47 76.18,-151.49 90.89,-162.02"/>
 <polygon fill="#000000" stroke="#000000" points="88.92,-164.91 99.08,-167.89 92.99,-159.22 88.92,-164.91"/>
 </g>
@@ -330,27 +353,27 @@ subroutine sun(dj, el, c)
 <path fill="none" stroke="#000000" d="M54.4,-123.3C62.48,-125.23 71.51,-127.38 80.1,-129.43"/>
 <polygon fill="#000000" stroke="#000000" points="79.38,-132.86 89.92,-131.78 81,-126.05 79.38,-132.86"/>
 </g>
-<!-- x2 -->
+<!-- x5 -->
 <g id="proc~~sun~~CallsGraph_node5" class="node">
-<title>x2</title>
+<title>x5</title>
 <polygon fill="#777777" stroke="#777777" points="144,-108 90,-108 90,-84 144,-84 144,-108"/>
-<text text-anchor="middle" x="117" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">x2</text>
+<text text-anchor="middle" x="117" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">x5</text>
 </g>
-<!-- proc~sun&#45;&gt;x2 -->
+<!-- proc~sun&#45;&gt;x5 -->
 <g id="proc~~sun~~CallsGraph_edge4" class="edge">
-<title>proc~sun&#45;&gt;x2</title>
+<title>proc~sun&#45;&gt;x5</title>
 <path fill="none" stroke="#000000" d="M54.4,-110.7C62.48,-108.77 71.51,-106.62 80.1,-104.57"/>
 <polygon fill="#000000" stroke="#000000" points="81,-107.95 89.92,-102.22 79.38,-101.14 81,-107.95"/>
 </g>
-<!-- x5 -->
+<!-- x -->
 <g id="proc~~sun~~CallsGraph_node6" class="node">
-<title>x5</title>
+<title>x</title>
 <polygon fill="#777777" stroke="#777777" points="144,-66 90,-66 90,-42 144,-42 144,-66"/>
-<text text-anchor="middle" x="117" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">x5</text>
+<text text-anchor="middle" x="117" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">x</text>
 </g>
-<!-- proc~sun&#45;&gt;x5 -->
+<!-- proc~sun&#45;&gt;x -->
 <g id="proc~~sun~~CallsGraph_edge5" class="edge">
-<title>proc~sun&#45;&gt;x5</title>
+<title>proc~sun&#45;&gt;x</title>
 <path fill="none" stroke="#000000" d="M44.97,-104.85C57.99,-95.53 76.18,-82.51 90.89,-71.98"/>
 <polygon fill="#000000" stroke="#000000" points="92.99,-74.78 99.08,-66.11 88.92,-69.09 92.99,-74.78"/>
 </g>
@@ -483,32 +506,17 @@ subroutine sun(dj, el, c)
 <path fill="none" stroke="#000000" d="M234.4,-54C242.39,-54 251.31,-54 259.82,-54"/>
 <polygon fill="#000000" stroke="#000000" points="259.92,-57.5 269.92,-54 259.92,-50.5 259.92,-57.5"/>
 </g>
-<!-- proc~grvdef -->
-<g id="proc~~sun~~CalledByGraph_node4" class="node">
-<title>proc~grvdef</title>
-<g id="a_proc~~sun~~CalledByGraph_node4"><a xlink:href=".././proc/grvdef.html" xlink:title="grvdef">
-<polygon fill="#d9534f" stroke="#d9534f" points="234,-24 180,-24 180,0 234,0 234,-24"/>
-<text text-anchor="middle" x="207" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">grvdef</text>
-</a>
-</g>
-</g>
-<!-- proc~grvdef&#45;&gt;proc~solsys -->
-<g id="proc~~sun~~CalledByGraph_edge3" class="edge">
-<title>proc~grvdef&#45;&gt;proc~solsys</title>
-<path fill="none" stroke="#000000" d="M233.45,-24.15C242.21,-28.33 252.17,-33.08 261.52,-37.54"/>
-<polygon fill="#000000" stroke="#000000" points="260.07,-40.73 270.6,-41.88 263.09,-34.41 260.07,-40.73"/>
-</g>
 <!-- proc~place -->
-<g id="proc~~sun~~CalledByGraph_node5" class="node">
+<g id="proc~~sun~~CalledByGraph_node4" class="node">
 <title>proc~place</title>
-<g id="a_proc~~sun~~CalledByGraph_node5"><a xlink:href=".././proc/place.html" xlink:title="place">
+<g id="a_proc~~sun~~CalledByGraph_node4"><a xlink:href=".././proc/place.html" xlink:title="place">
 <polygon fill="#d9534f" stroke="#d9534f" points="144,-66 90,-66 90,-42 144,-42 144,-66"/>
 <text text-anchor="middle" x="117" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">place</text>
 </a>
 </g>
 </g>
 <!-- proc~place&#45;&gt;proc~solsys -->
-<g id="proc~~sun~~CalledByGraph_edge4" class="edge">
+<g id="proc~~sun~~CalledByGraph_edge3" class="edge">
 <title>proc~place&#45;&gt;proc~solsys</title>
 <path fill="none" stroke="#000000" d="M144.06,-64.94C154.96,-68.96 167.89,-73 180,-75 203.68,-78.9 210.32,-78.9 234,-75 242.7,-73.57 251.83,-71.07 260.32,-68.29"/>
 <polygon fill="#000000" stroke="#000000" points="261.64,-71.54 269.94,-64.94 259.34,-64.93 261.64,-71.54"/>
@@ -519,11 +527,26 @@ subroutine sun(dj, el, c)
 <path fill="none" stroke="#000000" d="M144.4,-54C152.39,-54 161.31,-54 169.82,-54"/>
 <polygon fill="#000000" stroke="#000000" points="169.92,-57.5 179.92,-54 169.92,-50.5 169.92,-57.5"/>
 </g>
+<!-- proc~grvdef -->
+<g id="proc~~sun~~CalledByGraph_node5" class="node">
+<title>proc~grvdef</title>
+<g id="a_proc~~sun~~CalledByGraph_node5"><a xlink:href=".././proc/grvdef.html" xlink:title="grvdef">
+<polygon fill="#d9534f" stroke="#d9534f" points="234,-24 180,-24 180,0 234,0 234,-24"/>
+<text text-anchor="middle" x="207" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">grvdef</text>
+</a>
+</g>
+</g>
 <!-- proc~place&#45;&gt;proc~grvdef -->
-<g id="proc~~sun~~CalledByGraph_edge6" class="edge">
+<g id="proc~~sun~~CalledByGraph_edge8" class="edge">
 <title>proc~place&#45;&gt;proc~grvdef</title>
 <path fill="none" stroke="#000000" d="M143.45,-41.85C152.21,-37.67 162.17,-32.92 171.52,-28.46"/>
 <polygon fill="#000000" stroke="#000000" points="173.09,-31.59 180.6,-24.12 170.07,-25.27 173.09,-31.59"/>
+</g>
+<!-- proc~grvdef&#45;&gt;proc~solsys -->
+<g id="proc~~sun~~CalledByGraph_edge4" class="edge">
+<title>proc~grvdef&#45;&gt;proc~solsys</title>
+<path fill="none" stroke="#000000" d="M233.45,-24.15C242.21,-28.33 252.17,-33.08 261.52,-37.54"/>
+<polygon fill="#000000" stroke="#000000" points="260.07,-40.73 270.6,-41.88 263.09,-34.41 260.07,-40.73"/>
 </g>
 <!-- proc~places -->
 <g id="proc~~sun~~CalledByGraph_node6" class="node">
@@ -535,7 +558,7 @@ subroutine sun(dj, el, c)
 </g>
 </g>
 <!-- proc~places&#45;&gt;proc~place -->
-<g id="proc~~sun~~CalledByGraph_edge7" class="edge">
+<g id="proc~~sun~~CalledByGraph_edge6" class="edge">
 <title>proc~places&#45;&gt;proc~place</title>
 <path fill="none" stroke="#000000" d="M54.4,-68.7C62.48,-66.77 71.51,-64.62 80.1,-62.57"/>
 <polygon fill="#000000" stroke="#000000" points="81,-65.95 89.92,-60.22 79.38,-59.14 81,-65.95"/>
@@ -550,7 +573,7 @@ subroutine sun(dj, el, c)
 </g>
 </g>
 <!-- proc~mpstar&#45;&gt;proc~place -->
-<g id="proc~~sun~~CalledByGraph_edge8" class="edge">
+<g id="proc~~sun~~CalledByGraph_edge7" class="edge">
 <title>proc~mpstar&#45;&gt;proc~place</title>
 <path fill="none" stroke="#000000" d="M54.4,-39.3C62.48,-41.23 71.51,-43.38 80.1,-45.43"/>
 <polygon fill="#000000" stroke="#000000" points="79.38,-48.86 89.92,-47.78 81,-42.05 79.38,-48.86"/>
@@ -646,7 +669,13 @@ subroutine sun(dj, el, c)
 
 
 
-<em>None</em>
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../proc/sun.html#src">sun</a>
+  </div>
+</div>
+
 
 
     </section>
@@ -669,6 +698,361 @@ subroutine sun(dj, el, c)
 
     
     
+    
+    <section>
+    <h2><span class="anchor" id="src"></span>Source Code</h2>
+    <div class="highlight"><pre><span></span><span class="k">subroutine </span><span class="n">sun</span> <span class="p">(</span><span class="n">dj</span><span class="p">,</span><span class="n">el</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+
+<span class="kt">double precision </span><span class="n">dj</span><span class="p">,</span><span class="n">el</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">tp</span><span class="p">,</span><span class="n">t20</span><span class="p">,</span><span class="n">ro</span><span class="p">,</span><span class="n">gv</span><span class="p">,</span><span class="n">gm</span><span class="p">,</span><span class="n">gj</span><span class="p">,</span><span class="n">gs</span><span class="p">,</span><span class="n">dl</span><span class="p">,</span><span class="n">dr</span><span class="p">,</span><span class="n">db</span><span class="p">,</span><span class="n">dg</span><span class="p">,</span> <span class="p">&amp;</span>
+ <span class="n">dblarg</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">twopi</span><span class="p">,</span><span class="n">str</span><span class="p">,</span><span class="n">rtd</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">tr</span><span class="p">,</span> <span class="p">&amp;</span>
+ <span class="n">sino</span><span class="p">,</span><span class="n">coso</span><span class="p">,</span><span class="n">sinl</span><span class="p">,</span><span class="n">cosl</span><span class="p">,</span><span class="n">sinb</span><span class="p">,</span><span class="n">cosb</span><span class="p">,</span> <span class="p">&amp;</span>
+ <span class="nb">dsin</span><span class="p">,</span><span class="nb">dcos</span><span class="p">,</span><span class="nb">dmod</span>
+<span class="c">!</span>
+<span class="k">dimension </span><span class="n">el</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="c">!     EL( 1)= SEMI-MAJOR AXIS, AU</span>
+<span class="c">!     EL( 2)= ORBITAL ECCENTRICITY</span>
+<span class="c">!     EL( 5)= LONGITUDE OF PERIGEE, RADIANS</span>
+<span class="c">!     EL( 9)= UNPERTURBED MEAN LONGITUDE, RADIANS</span>
+<span class="c">!     EL(10)= MEAN ANOMALY, AFFECTED BY LONG-PD PERTURBATIONS, RADIANS</span>
+<span class="c">!     EL(11)= UNPERTURBED RADIUS, AU</span>
+<span class="c">!     EL(12)= EQUATION OF THE CENTER, RADIANS</span>
+<span class="c">!     EL(13)= MEAN OBLIQUITY OF ECLIPTIC, RADIANS</span>
+<span class="c">!     EL(14)= MEAN LONGITUDE OF MOON, RADIANS</span>
+<span class="c">!     EL(15)= MEAN ANOMALY OF MOON, RADIANS</span>
+<span class="c">!     EL(16)= LUNAR MEAN ARGUMENT OF LATITUDE, RADIANS</span>
+<span class="c">!     EL(17)= MEAN LONGITUDE OF LUNAR ASCENDING NODE, RADIANS</span>
+<span class="c">!     EL(21)= MEAN LONGITUDE OF MOON&#39;S PERIGEE, RADIANS</span>
+<span class="c">!             (REMAINING ELEMENTS OF ARRAY EL NOT USED)</span>
+<span class="c">!</span>
+<span class="k">dimension </span><span class="n">c</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="c">!     C( 1) = PERTURBED RADIUS VECTOR, AU</span>
+<span class="c">!     C( 2) = SAME AS C(4), DEGREES</span>
+<span class="c">!     C( 3) = SAME AS C(5), DEGREES</span>
+<span class="c">!     C( 4) = ECLIPTIC LONGITUDE WRT MEAN ECL &amp; EQUX OF DATE, RADIANS</span>
+<span class="c">!     C( 5) = ECLIPTIC LATITUDE  WRT MEAN ECL        OF DATE, RADIANS</span>
+<span class="c">!     C(11) = EQUATORIAL X WRT MEAN EQU &amp; EQUX OF DATE, AU</span>
+<span class="c">!     C(12) = EQUATORIAL Y WRT MEAN EQU &amp; EQUX OF DATE, AU</span>
+<span class="c">!     C(13) = EQUATORIAL Z WRT MEAN EQU &amp; EQUX OF DATE, AU</span>
+<span class="c">!             (REMAINING ELEMENTS OF ARRAY C NOT USED)</span>
+<span class="c">!</span>
+<span class="c">!</span>
+<span class="c">!***********************************************************************</span>
+<span class="c">!</span>
+<span class="c">!     PART I    TABLES OF THE PERTURBATIONS</span>
+<span class="c">!</span>
+<span class="k">dimension </span><span class="n">x</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">46</span><span class="p">),</span> <span class="n">x1</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span> <span class="n">x2</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span> <span class="n">x3</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span> <span class="n">x4</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span> <span class="n">x5</span><span class="p">(</span><span class="mi">48</span><span class="p">)</span>
+<span class="k">equivalence</span> <span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span><span class="n">x1</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="k">equivalence</span> <span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span><span class="n">x2</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="k">equivalence</span> <span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span><span class="n">x3</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="k">equivalence</span> <span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">31</span><span class="p">),</span><span class="n">x4</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="k">equivalence</span> <span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">41</span><span class="p">),</span><span class="n">x5</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="c">!</span>
+<span class="c">!     PERTURBATIONS BY VENUS</span>
+<span class="c">!                  J    I     VC      VS    RHOC    RHOS      BC     BS</span>
+<span class="k">data </span><span class="n">x1</span> <span class="o">/</span>  <span class="o">-</span> <span class="mf">1.</span><span class="p">,</span>  <span class="mf">0.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">3</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">6</span><span class="mf">7.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">8</span><span class="mf">5.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">3</span><span class="mf">9.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">2</span><span class="mf">4.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">1</span><span class="mf">7.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">1.</span><span class="p">,</span><span class="o">+</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">+</span><span class="mi">235</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span><span class="mi">422</span><span class="mf">8.</span><span class="p">,</span> <span class="o">-</span><span class="mi">206</span><span class="mf">2.</span><span class="p">,</span><span class="o">-</span><span class="mi">114</span><span class="mf">6.</span><span class="p">,</span> <span class="o">-</span>   <span class="mf">4.</span><span class="p">,</span><span class="o">+</span>   <span class="mf">3.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">1.</span><span class="p">,</span><span class="o">+</span> <span class="mf">2.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">6</span><span class="mf">5.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">3</span><span class="mf">4.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">6</span><span class="mf">8.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">1</span><span class="mf">4.</span><span class="p">,</span> <span class="o">+</span>   <span class="mf">6.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">9</span><span class="mf">2.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">2.</span><span class="p">,</span><span class="o">+</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">9</span><span class="mf">9.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">6</span><span class="mf">0.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">8</span><span class="mf">4.</span><span class="p">,</span><span class="o">+</span> <span class="mi">13</span><span class="mf">6.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">2</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span>   <span class="mf">3.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">2.</span><span class="p">,</span><span class="o">+</span> <span class="mf">2.</span><span class="p">,</span> <span class="o">-</span><span class="mi">470</span><span class="mf">2.</span><span class="p">,</span><span class="o">+</span><span class="mi">290</span><span class="mf">3.</span><span class="p">,</span> <span class="o">+</span><span class="mi">359</span><span class="mf">3.</span><span class="p">,</span><span class="o">+</span><span class="mi">582</span><span class="mf">2.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">1</span><span class="mf">0.</span><span class="p">,</span><span class="o">-</span>   <span class="mf">6.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">2.</span><span class="p">,</span><span class="o">+</span> <span class="mf">3.</span><span class="p">,</span> <span class="o">+</span><span class="mi">179</span><span class="mf">5.</span><span class="p">,</span><span class="o">-</span><span class="mi">173</span><span class="mf">7.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">59</span><span class="mf">6.</span><span class="p">,</span><span class="o">-</span> <span class="mi">63</span><span class="mf">2.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">3</span><span class="mf">7.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">5</span><span class="mf">6.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">3.</span><span class="p">,</span><span class="o">+</span> <span class="mf">3.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">66</span><span class="mf">6.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">2</span><span class="mf">7.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">4</span><span class="mf">4.</span><span class="p">,</span><span class="o">+</span><span class="mi">104</span><span class="mf">4.</span><span class="p">,</span> <span class="o">+</span>   <span class="mf">8.</span><span class="p">,</span><span class="o">+</span>   <span class="mf">1.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">3.</span><span class="p">,</span><span class="o">+</span> <span class="mf">4.</span><span class="p">,</span> <span class="o">+</span><span class="mi">150</span><span class="mf">8.</span><span class="p">,</span><span class="o">-</span> <span class="mi">39</span><span class="mf">7.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">38</span><span class="mf">1.</span><span class="p">,</span><span class="o">-</span><span class="mi">144</span><span class="mf">8.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">18</span><span class="mf">5.</span><span class="p">,</span><span class="o">-</span> <span class="mi">10</span><span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">3.</span><span class="p">,</span><span class="o">+</span> <span class="mf">5.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">76</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span> <span class="mi">68</span><span class="mf">4.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">12</span><span class="mf">6.</span><span class="p">,</span><span class="o">+</span> <span class="mi">14</span><span class="mf">8.</span><span class="p">,</span> <span class="o">+</span>   <span class="mf">6.</span><span class="p">,</span><span class="o">-</span>   <span class="mf">3.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">4.</span><span class="p">,</span><span class="o">+</span> <span class="mf">4.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">18</span><span class="mf">8.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">9</span><span class="mf">3.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">16</span><span class="mf">6.</span><span class="p">,</span><span class="o">+</span> <span class="mi">33</span><span class="mf">7.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="o">/</span>      <span class="c">!</span>
+<span class="k">data </span><span class="n">x2</span> <span class="o">/</span>  <span class="o">-</span> <span class="mf">4.</span><span class="p">,</span><span class="o">+</span> <span class="mf">5.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">13</span><span class="mf">9.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">3</span><span class="mf">8.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">5</span><span class="mf">1.</span><span class="p">,</span><span class="o">+</span> <span class="mi">18</span><span class="mf">9.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">3</span><span class="mf">1.</span><span class="p">,</span><span class="o">-</span>   <span class="mf">1.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">4.</span><span class="p">,</span><span class="o">+</span> <span class="mf">6.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">14</span><span class="mf">6.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">4</span><span class="mf">2.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">2</span><span class="mf">5.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">9</span><span class="mf">1.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">1</span><span class="mf">2.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">5.</span><span class="p">,</span><span class="o">+</span> <span class="mf">5.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">4</span><span class="mf">7.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">6</span><span class="mf">9.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">13</span><span class="mf">4.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">9</span><span class="mf">3.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">5.</span><span class="p">,</span><span class="o">+</span> <span class="mf">7.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">11</span><span class="mf">9.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">3</span><span class="mf">3.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">3</span><span class="mf">7.</span><span class="p">,</span><span class="o">+</span> <span class="mi">13</span><span class="mf">6.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">1</span><span class="mf">8.</span><span class="p">,</span><span class="o">-</span>   <span class="mf">6.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">5.</span><span class="p">,</span><span class="o">+</span> <span class="mf">8.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">15</span><span class="mf">4.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">2</span><span class="mf">6.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">-</span> <span class="mf">6.</span><span class="p">,</span><span class="o">+</span> <span class="mf">6.</span><span class="p">,</span> <span class="o">-</span>   <span class="mf">4.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">3</span><span class="mf">8.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">8</span><span class="mf">0.</span><span class="p">,</span><span class="o">+</span>   <span class="mf">8.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+<span class="c">!</span>
+<span class="c">!     PERTURBATIONS BY MARS</span>
+<span class="c">!                  J    I     VC      VS    RHOC    RHOS      BC     BS</span>
+           <span class="o">+</span> <span class="mf">1.</span><span class="p">,</span><span class="o">-</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">21</span><span class="mf">6.</span><span class="p">,</span><span class="o">-</span> <span class="mi">16</span><span class="mf">7.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">9</span><span class="mf">2.</span><span class="p">,</span><span class="o">+</span> <span class="mi">11</span><span class="mf">9.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">2.</span><span class="p">,</span><span class="o">-</span> <span class="mf">2.</span><span class="p">,</span> <span class="o">+</span><span class="mi">196</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span> <span class="mi">56</span><span class="mf">7.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">57</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span><span class="mi">197</span><span class="mf">6.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span><span class="o">-</span>   <span class="mf">8.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">2.</span><span class="p">,</span><span class="o">-</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mi">165</span><span class="mf">9.</span><span class="p">,</span><span class="o">-</span> <span class="mi">61</span><span class="mf">7.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">6</span><span class="mf">4.</span><span class="p">,</span><span class="o">-</span> <span class="mi">13</span><span class="mf">7.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">3.</span><span class="p">,</span><span class="o">-</span> <span class="mf">3.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">5</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span> <span class="mi">11</span><span class="mf">8.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">15</span><span class="mf">4.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">6</span><span class="mf">7.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="o">/</span>      <span class="c">!</span>
+<span class="k">data </span><span class="n">x3</span> <span class="o">/</span>  <span class="o">+</span> <span class="mf">3.</span><span class="p">,</span><span class="o">-</span> <span class="mf">2.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">39</span><span class="mf">6.</span><span class="p">,</span><span class="o">-</span> <span class="mi">15</span><span class="mf">3.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">7</span><span class="mf">7.</span><span class="p">,</span><span class="o">-</span> <span class="mi">20</span><span class="mf">1.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">4.</span><span class="p">,</span><span class="o">-</span> <span class="mf">3.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">13</span><span class="mf">1.</span><span class="p">,</span><span class="o">+</span> <span class="mi">48</span><span class="mf">3.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">46</span><span class="mf">1.</span><span class="p">,</span><span class="o">+</span> <span class="mi">12</span><span class="mf">5.</span><span class="p">,</span> <span class="o">+</span>   <span class="mf">7.</span><span class="p">,</span><span class="o">+</span>   <span class="mf">1.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">4.</span><span class="p">,</span><span class="o">-</span> <span class="mf">2.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">52</span><span class="mf">6.</span><span class="p">,</span><span class="o">-</span> <span class="mi">25</span><span class="mf">6.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">4</span><span class="mf">3.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">9</span><span class="mf">6.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">5.</span><span class="p">,</span><span class="o">-</span> <span class="mf">4.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">4</span><span class="mf">9.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">6</span><span class="mf">9.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">8</span><span class="mf">7.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">6</span><span class="mf">2.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">5.</span><span class="p">,</span><span class="o">-</span> <span class="mf">3.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">3</span><span class="mf">8.</span><span class="p">,</span><span class="o">+</span> <span class="mi">20</span><span class="mf">0.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">8</span><span class="mf">7.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">1</span><span class="mf">7.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">6.</span><span class="p">,</span><span class="o">-</span> <span class="mf">4.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">10</span><span class="mf">4.</span><span class="p">,</span><span class="o">-</span> <span class="mi">11</span><span class="mf">3.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">10</span><span class="mf">2.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">9</span><span class="mf">4.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">6.</span><span class="p">,</span><span class="o">-</span> <span class="mf">3.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">1</span><span class="mf">1.</span><span class="p">,</span><span class="o">+</span> <span class="mi">10</span><span class="mf">0.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">2</span><span class="mf">7.</span><span class="p">,</span><span class="o">-</span>   <span class="mf">4.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">7.</span><span class="p">,</span><span class="o">-</span> <span class="mf">4.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">7</span><span class="mf">8.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">7</span><span class="mf">2.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">2</span><span class="mf">6.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">2</span><span class="mf">8.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">9.</span><span class="p">,</span><span class="o">-</span> <span class="mf">5.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">6</span><span class="mf">0.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">1</span><span class="mf">5.</span><span class="p">,</span> <span class="o">-</span>   <span class="mf">4.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">1</span><span class="mf">7.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span><span class="mi">1</span><span class="mf">5.</span><span class="p">,</span><span class="o">-</span> <span class="mf">8.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">20</span><span class="mf">0.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">3</span><span class="mf">0.</span><span class="p">,</span> <span class="o">-</span>   <span class="mf">1.</span><span class="p">,</span><span class="o">-</span>   <span class="mf">6.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="o">/</span>      <span class="c">!</span>
+<span class="c">!</span>
+<span class="c">!     PERTURBATIONS BY JUPITER</span>
+<span class="c">!                  J    I     VC      VS    RHOC    RHOS      BC     BS</span>
+<span class="k">data </span><span class="n">x4</span> <span class="o">/</span>  <span class="o">+</span> <span class="mf">1.</span><span class="p">,</span><span class="o">-</span> <span class="mf">2.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">15</span><span class="mf">5.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">5</span><span class="mf">2.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">7</span><span class="mf">8.</span><span class="p">,</span><span class="o">+</span> <span class="mi">19</span><span class="mf">3.</span><span class="p">,</span> <span class="o">+</span>   <span class="mf">7.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">1.</span><span class="p">,</span><span class="o">-</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mi">720</span><span class="mf">8.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">5</span><span class="mf">9.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">5</span><span class="mf">6.</span><span class="p">,</span><span class="o">+</span><span class="mi">706</span><span class="mf">7.</span><span class="p">,</span> <span class="o">-</span>   <span class="mf">1.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">1</span><span class="mf">7.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">1.</span><span class="p">,</span>  <span class="mf">0.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">30</span><span class="mf">7.</span><span class="p">,</span><span class="o">-</span><span class="mi">258</span><span class="mf">2.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">22</span><span class="mf">7.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">8</span><span class="mf">9.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">1</span><span class="mf">6.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">1.</span><span class="p">,</span><span class="o">+</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">+</span>   <span class="mf">8.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">7</span><span class="mf">3.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">7</span><span class="mf">9.</span><span class="p">,</span><span class="o">+</span>   <span class="mf">9.</span><span class="p">,</span> <span class="o">+</span>   <span class="mf">1.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">2</span><span class="mf">3.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">2.</span><span class="p">,</span><span class="o">-</span> <span class="mf">3.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">1</span><span class="mf">1.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">6</span><span class="mf">8.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">10</span><span class="mf">2.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">1</span><span class="mf">7.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">2.</span><span class="p">,</span><span class="o">-</span> <span class="mf">2.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">13</span><span class="mf">6.</span><span class="p">,</span><span class="o">+</span><span class="mi">272</span><span class="mf">8.</span><span class="p">,</span> <span class="o">+</span><span class="mi">402</span><span class="mf">1.</span><span class="p">,</span><span class="o">-</span> <span class="mi">20</span><span class="mf">3.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">2.</span><span class="p">,</span><span class="o">-</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">53</span><span class="mf">7.</span><span class="p">,</span><span class="o">+</span><span class="mi">151</span><span class="mf">8.</span><span class="p">,</span> <span class="o">+</span><span class="mi">137</span><span class="mf">6.</span><span class="p">,</span><span class="o">+</span> <span class="mi">48</span><span class="mf">6.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">1</span><span class="mf">3.</span><span class="p">,</span><span class="o">+</span> <span class="mi">16</span><span class="mf">6.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">3.</span><span class="p">,</span><span class="o">-</span> <span class="mf">3.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">16</span><span class="mf">2.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">2</span><span class="mf">7.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">4</span><span class="mf">3.</span><span class="p">,</span><span class="o">+</span> <span class="mi">27</span><span class="mf">8.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">3.</span><span class="p">,</span><span class="o">-</span> <span class="mf">2.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">7</span><span class="mf">1.</span><span class="p">,</span><span class="o">+</span> <span class="mi">55</span><span class="mf">1.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">79</span><span class="mf">6.</span><span class="p">,</span><span class="o">-</span> <span class="mi">10</span><span class="mf">4.</span><span class="p">,</span> <span class="o">+</span>   <span class="mf">6.</span><span class="p">,</span><span class="o">-</span>   <span class="mf">1.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">3.</span><span class="p">,</span><span class="o">-</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">3</span><span class="mf">1.</span><span class="p">,</span><span class="o">+</span> <span class="mi">20</span><span class="mf">8.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">17</span><span class="mf">2.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">2</span><span class="mf">6.</span><span class="p">,</span> <span class="o">+</span>   <span class="mf">1.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">1</span><span class="mf">8.</span><span class="o">/</span>      <span class="c">!</span>
+<span class="k">data </span><span class="n">x5</span> <span class="o">/</span>  <span class="o">+</span> <span class="mf">4.</span><span class="p">,</span><span class="o">-</span> <span class="mf">3.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">4</span><span class="mf">3.</span><span class="p">,</span><span class="o">+</span>   <span class="mf">9.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">1</span><span class="mf">3.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">7</span><span class="mf">3.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">4.</span><span class="p">,</span><span class="o">-</span> <span class="mf">2.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">1</span><span class="mf">7.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">7</span><span class="mf">8.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">11</span><span class="mf">0.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">2</span><span class="mf">4.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+<span class="c">!</span>
+<span class="c">!     PERTURBATIONS BY SATURN</span>
+<span class="c">!                  J    I     VC      VS    RHOC    RHOS      BC     BS</span>
+           <span class="o">+</span> <span class="mf">1.</span><span class="p">,</span><span class="o">-</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span>  <span class="mi">7</span><span class="mf">7.</span><span class="p">,</span><span class="o">+</span> <span class="mi">41</span><span class="mf">2.</span><span class="p">,</span> <span class="o">+</span> <span class="mi">42</span><span class="mf">2.</span><span class="p">,</span><span class="o">+</span>  <span class="mi">7</span><span class="mf">9.</span><span class="p">,</span> <span class="o">+</span>   <span class="mf">1.</span><span class="p">,</span><span class="o">+</span>   <span class="mf">6.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">1.</span><span class="p">,</span>  <span class="mf">0.</span><span class="p">,</span> <span class="o">-</span>   <span class="mf">3.</span><span class="p">,</span><span class="o">-</span> <span class="mi">32</span><span class="mf">0.</span><span class="p">,</span> <span class="o">+</span>   <span class="mf">8.</span><span class="p">,</span><span class="o">-</span>   <span class="mf">1.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">2.</span><span class="p">,</span><span class="o">-</span> <span class="mf">2.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">3</span><span class="mf">8.</span><span class="p">,</span><span class="o">-</span> <span class="mi">10</span><span class="mf">1.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">15</span><span class="mf">2.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">5</span><span class="mf">7.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span> <span class="p">&amp;</span>    <span class="c">!</span>
+           <span class="o">+</span> <span class="mf">2.</span><span class="p">,</span><span class="o">-</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">+</span>  <span class="mi">4</span><span class="mf">5.</span><span class="p">,</span><span class="o">-</span> <span class="mi">10</span><span class="mf">3.</span><span class="p">,</span> <span class="o">-</span> <span class="mi">10</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span>  <span class="mi">4</span><span class="mf">4.</span><span class="p">,</span>     <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="o">/</span>      <span class="c">!</span>
+<span class="c">!</span>
+<span class="c">!</span>
+<span class="c">!***********************************************************************</span>
+<span class="c">!</span>
+<span class="c">!     PART II   NECESSARY PRELIMINARIES</span>
+<span class="c">!</span>
+<span class="k">data </span><span class="n">twopi</span> <span class="o">/</span><span class="mf">6.283185307179586d0</span><span class="o">/</span>
+<span class="k">data </span><span class="n">str</span>   <span class="o">/</span><span class="mi">20626480</span><span class="mf">6.2470964d0</span><span class="o">/</span>
+<span class="k">data </span><span class="n">rtd</span>   <span class="o">/</span><span class="mi">5</span><span class="mf">7.295779513082321d0</span><span class="o">/</span>
+<span class="k">data </span><span class="n">r</span>     <span class="o">/</span><span class="mi">129600</span><span class="mf">0.0d0</span><span class="o">/</span>
+<span class="n">tr</span> <span class="o">=</span> <span class="mi">100</span><span class="mf">0.0d0</span> <span class="o">/</span> <span class="n">str</span>
+<span class="c">!</span>
+<span class="c">!     T  = TIME IN JULIAN CENTURIES FROM 1900 JANUARY 0</span>
+<span class="n">t</span>  <span class="o">=</span> <span class="p">(</span><span class="n">dj</span> <span class="o">-</span> <span class="mi">241502</span><span class="mf">0.d0</span><span class="p">)</span><span class="o">/</span><span class="mi">3652</span><span class="mf">5.d0</span>
+<span class="c">!</span>
+<span class="c">!     TP = TIME IN JULIAN YEARS     FROM 1850 JANUARY 0</span>
+<span class="n">tp</span> <span class="o">=</span> <span class="p">(</span><span class="n">dj</span> <span class="o">-</span> <span class="mi">239675</span><span class="mf">8.d0</span><span class="p">)</span><span class="o">/</span><span class="mi">36</span><span class="mf">5.25d0</span>
+<span class="c">!</span>
+<span class="c">!     T20= TIME IN JULIAN CENTURIES FROM J2000.0</span>
+<span class="n">t20</span><span class="o">=</span> <span class="p">(</span><span class="n">dj</span> <span class="o">-</span> <span class="mi">245154</span><span class="mf">5.d0</span><span class="p">)</span><span class="o">/</span><span class="mi">3652</span><span class="mf">5.d0</span>
+<span class="c">!</span>
+<span class="c">!</span>
+<span class="c">!***********************************************************************</span>
+<span class="c">!</span>
+<span class="c">!     PART III  COMPUTATION OF ELLIPTIC ELEMENTS AND SECULAR TERMS</span>
+<span class="c">!</span>
+<span class="c">!     VAN FLANDERN&#39;S EXPRESSIONS FOR MEAN ELEMENTS</span>
+<span class="n">el</span><span class="p">(</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.00000030007166d0</span>
+<span class="n">el</span><span class="p">(</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.016708320d0</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.42229d-04</span> <span class="o">-</span> <span class="mf">0.126d-06</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span>
+<span class="n">el</span><span class="p">(</span> <span class="mi">5</span><span class="p">)</span> <span class="o">=</span> <span class="mi">101857</span><span class="mf">8.046d0</span> <span class="o">+</span> <span class="p">(</span><span class="mi">619</span><span class="mf">0.046d0</span> <span class="o">+</span> <span class="p">&amp;</span>
+                <span class="p">(</span><span class="mf">1.666d0</span> <span class="o">+</span> <span class="mf">0.012d0</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span>
+<span class="n">el</span><span class="p">(</span> <span class="mi">5</span><span class="p">)</span> <span class="o">=</span> <span class="n">el</span><span class="p">(</span> <span class="mi">5</span><span class="p">)</span> <span class="o">*</span> <span class="n">tr</span>
+<span class="n">el</span><span class="p">(</span> <span class="mi">9</span><span class="p">)</span> <span class="o">=</span> <span class="mi">100967</span><span class="mf">7.850d0</span> <span class="o">+</span> <span class="p">(</span><span class="mi">10</span><span class="mf">0.0d0</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">277</span><span class="mf">1.27d0</span> <span class="o">+</span> <span class="p">&amp;</span>
+                <span class="mf">1.089d0</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span>
+<span class="n">el</span><span class="p">(</span> <span class="mi">9</span><span class="p">)</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">el</span><span class="p">(</span> <span class="mi">9</span><span class="p">)</span> <span class="o">*</span> <span class="n">tr</span><span class="p">,</span> <span class="n">twopi</span><span class="p">)</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">=</span> <span class="mi">128709</span><span class="mf">9.804d0</span> <span class="o">+</span> <span class="p">(</span><span class="mi">9</span><span class="mf">9.0d0</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">129258</span><span class="mf">1.224d0</span> <span class="o">+</span> <span class="p">&amp;</span>
+                <span class="p">(</span><span class="o">-</span><span class="mf">0.577d0</span> <span class="o">-</span> <span class="mf">0.012d0</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="n">tr</span><span class="p">,</span> <span class="n">twopi</span><span class="p">)</span>
+
+<span class="c">!     EXPRESSION FOR OBLIQUITY FROM P03 (IAU 2006) PRECESSION</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span> <span class="o">=</span> <span class="mi">8438</span><span class="mf">1.406d0</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="mf">6.836769d0</span> <span class="o">+</span> <span class="p">&amp;</span>
+               <span class="p">(</span><span class="o">-</span><span class="mf">0.0001831d0</span> <span class="o">+</span> <span class="mf">0.00200340d0</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span> <span class="o">=</span> <span class="n">el</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span> <span class="o">*</span> <span class="n">tr</span>
+
+<span class="c">!     KAPLAN CORRECTION TO SUN&#39;S MEAN LONGITUDE TO FIT DE405 OVER</span>
+<span class="c">!     INTERVAL 1800-2200, USING P03 (IAU 2006) PRECESSION</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="o">=</span> <span class="n">el</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="p">&amp;</span>
+      <span class="o">+</span> <span class="p">(</span> <span class="mf">0.1320d0</span> <span class="o">-</span> <span class="mf">0.1355d0</span> <span class="o">*</span> <span class="n">t20</span> <span class="p">)</span> <span class="o">*</span> <span class="n">tr</span>
+
+<span class="c">!</span>
+<span class="c">!***********************************************************************</span>
+<span class="c">!</span>
+<span class="c">!     PART IV   LUNAR TERMS</span>
+<span class="c">!</span>
+<span class="c">!     VAN FLANDERN&#39;S EXPRESSIONS FOR MEAN ELEMENTS</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span> <span class="o">=</span> <span class="mi">78593</span><span class="mf">9.157d0</span> <span class="o">+</span> <span class="p">(</span><span class="mi">133</span><span class="mf">6.0d0</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">110837</span><span class="mf">2.598d0</span> <span class="p">&amp;</span>
+                <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mf">5.802d0</span> <span class="o">+</span> <span class="mf">0.019d0</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">el</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span> <span class="o">*</span> <span class="n">tr</span><span class="p">,</span> <span class="n">twopi</span><span class="p">)</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span> <span class="o">=</span> <span class="mi">45016</span><span class="mf">0.280d0</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mf">5.0d0</span> <span class="o">*</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">48289</span><span class="mf">0.539d0</span> <span class="o">+</span> <span class="p">&amp;</span>
+                <span class="p">(</span><span class="mf">7.455d0</span> <span class="o">+</span> <span class="mf">0.008d0</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">el</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span> <span class="o">*</span> <span class="n">tr</span><span class="p">,</span> <span class="n">twopi</span><span class="p">)</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span> <span class="o">=</span> <span class="mi">30007</span><span class="mf">2.424d0</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="mf">1.0d0</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">39244</span><span class="mf">9.965d0</span> <span class="o">+</span> <span class="p">&amp;</span>
+                <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="mf">7.112d0</span> <span class="o">-</span> <span class="mf">0.045d0</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span><span class="p">)</span> <span class="o">*</span> <span class="n">t20</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">el</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span> <span class="o">*</span> <span class="n">tr</span><span class="p">,</span> <span class="n">twopi</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="c">!     DERIVED ARGUMENTS</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">=</span> <span class="n">el</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span> <span class="o">-</span> <span class="n">el</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="o">=</span> <span class="n">el</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span> <span class="o">-</span> <span class="n">el</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">el</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">el</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span><span class="n">twopi</span><span class="p">)</span>
+<span class="c">!     MEAN ELONGATION</span>
+<span class="n">d</span>      <span class="o">=</span> <span class="n">el</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span> <span class="o">-</span> <span class="n">el</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="c">!     COMBINATIONS OF ARGUMENTS AND THE PERTURBATIONS</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">arg</span> <span class="o">=</span> <span class="n">d</span>
+<span class="n">dl</span> <span class="o">=</span>    <span class="o">+</span>  <span class="mi">646</span><span class="mf">9.</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="o">+</span>  <span class="mi">1</span><span class="mf">3.</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="mf">3.</span><span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">dr</span> <span class="o">=</span>    <span class="o">+</span> <span class="mi">1339</span><span class="mf">0.</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="o">+</span>  <span class="mi">3</span><span class="mf">0.</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="mf">3.</span><span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="n">el</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">dblarg</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">arg</span> <span class="o">=</span> <span class="n">dblarg</span>
+<span class="n">dl</span> <span class="o">=</span> <span class="n">dl</span> <span class="o">+</span>  <span class="mi">17</span><span class="mf">7.</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">dr</span> <span class="o">=</span> <span class="n">dr</span> <span class="o">+</span>  <span class="mi">37</span><span class="mf">0.</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="n">d</span> <span class="o">-</span> <span class="n">el</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">dblarg</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">arg</span> <span class="o">=</span> <span class="n">dblarg</span>
+<span class="n">dl</span> <span class="o">=</span> <span class="n">dl</span> <span class="o">-</span>  <span class="mi">42</span><span class="mf">4.</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">dr</span> <span class="o">=</span> <span class="n">dr</span> <span class="o">-</span> <span class="mi">133</span><span class="mf">0.</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="mf">3.d0</span><span class="o">*</span><span class="n">d</span> <span class="o">-</span> <span class="n">el</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">dblarg</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">arg</span> <span class="o">=</span> <span class="n">dblarg</span>
+<span class="n">dl</span> <span class="o">=</span> <span class="n">dl</span> <span class="o">+</span>   <span class="mi">3</span><span class="mf">9.</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">dr</span> <span class="o">=</span> <span class="n">dr</span> <span class="o">+</span>   <span class="mi">8</span><span class="mf">0.</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">dblarg</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">arg</span> <span class="o">=</span> <span class="n">dblarg</span>
+<span class="n">dl</span> <span class="o">=</span> <span class="n">dl</span> <span class="o">-</span>   <span class="mi">6</span><span class="mf">4.</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">dr</span> <span class="o">=</span> <span class="n">dr</span> <span class="o">-</span>  <span class="mi">14</span><span class="mf">0.</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="n">d</span> <span class="o">-</span> <span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">dblarg</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">arg</span> <span class="o">=</span> <span class="n">dblarg</span>
+<span class="n">dl</span> <span class="o">=</span> <span class="n">dl</span> <span class="o">+</span>  <span class="mi">17</span><span class="mf">2.</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">dr</span> <span class="o">=</span> <span class="n">dr</span> <span class="o">+</span>  <span class="mi">36</span><span class="mf">0.</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">el</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">arg</span> <span class="o">=</span> <span class="n">el</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span>    <span class="o">+</span> <span class="mi">57</span><span class="mf">6.</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="c">!</span>
+<span class="c">!***********************************************************************</span>
+<span class="c">!</span>
+<span class="c">!     PART V    COMPUTATION OF PERIODIC PERTURBATIONS</span>
+<span class="c">!</span>
+<span class="c">!     THE PERTURBING MEAN ANOMALIES</span>
+<span class="c">!</span>
+<span class="n">gv</span>  <span class="o">=</span> <span class="mf">0.19984020d+01</span> <span class="o">+</span> <span class="p">.</span><span class="mi">1021322923</span><span class="n">d</span><span class="o">+</span><span class="mi">02</span><span class="o">*</span><span class="n">tp</span>
+<span class="n">gm</span>  <span class="o">=</span> <span class="mf">0.19173489d+01</span> <span class="o">+</span> <span class="p">.</span><span class="mi">3340556174</span><span class="n">d</span><span class="o">+</span><span class="mi">01</span><span class="o">*</span><span class="n">tp</span>
+<span class="n">gj</span>  <span class="o">=</span> <span class="mf">0.25836283d+01</span> <span class="o">+</span> <span class="p">.</span><span class="mi">5296346478</span><span class="n">d</span><span class="o">+</span><span class="mi">00</span><span class="o">*</span><span class="n">tp</span>
+<span class="n">gs</span>  <span class="o">=</span> <span class="mf">0.49692316d+01</span> <span class="o">+</span> <span class="p">.</span><span class="mi">2132432808</span><span class="n">d</span><span class="o">+</span><span class="mi">00</span><span class="o">*</span><span class="n">tp</span>
+<span class="n">gv</span>  <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">gv</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">gm</span>  <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">gm</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">gj</span>  <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">gj</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">gs</span>  <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">gs</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="c">!</span>
+<span class="c">!     MODIFICATION OF FUNDAMENTAL ARGUMENTS</span>
+<span class="c">!</span>
+<span class="c">!     APPLICATION OF THE JUPITER-SATURN GREAT INEQUALITY</span>
+<span class="c">!     TO JUPITER&#39;S MEAN ANOMALY</span>
+<span class="c">!</span>
+<span class="n">gj</span> <span class="o">=</span> <span class="n">gj</span> <span class="o">+</span> <span class="mf">0.579904067d-02</span> <span class="o">*</span> <span class="nb">dsin</span> <span class="p">(</span><span class="mf">5.d0</span><span class="o">*</span><span class="n">gs</span> <span class="o">-</span> <span class="mf">2.d0</span><span class="o">*</span><span class="n">gj</span> <span class="p">&amp;</span>
+                 <span class="o">+</span> <span class="mf">1.1719644977d0</span> <span class="o">-</span> <span class="mf">0.397401726d-03</span><span class="o">*</span><span class="n">tp</span><span class="p">)</span>
+<span class="n">gj</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">gj</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="c">!     LONG PERIOD PERTURBATIONS OF MEAN ANOMALY</span>
+<span class="c">!</span>
+<span class="n">st</span> <span class="o">=</span> <span class="n">t</span>
+<span class="c">!                ARGUMENT IS ( 4 MARS - 7 EARTH + 3 VENUS )</span>
+<span class="n">dg</span> <span class="o">=</span> <span class="mi">26</span><span class="mf">6.</span><span class="o">*</span> <span class="nb">sin</span> <span class="p">(</span><span class="mf">0.555015</span> <span class="o">+</span> <span class="mf">2.076942</span><span class="o">*</span><span class="n">st</span><span class="p">)</span> <span class="p">&amp;</span>
+<span class="c">!                ARGUMENT IS ( 3 JUPITER - 8 MARS + 4 EARTH )</span>
+    <span class="o">+</span> <span class="mi">640</span><span class="mf">0.</span><span class="o">*</span> <span class="nb">sin</span> <span class="p">(</span><span class="mf">4.035027</span> <span class="o">+</span> <span class="mf">0.3525565</span><span class="o">*</span><span class="n">st</span><span class="p">)</span> <span class="p">&amp;</span>
+<span class="c">!                ARGUMENT IS ( 13 EARTH - 8 VENUS )</span>
+    <span class="o">+</span> <span class="p">(</span><span class="mi">188</span><span class="mf">2.</span><span class="o">-</span><span class="mi">1</span><span class="mf">6.</span><span class="o">*</span><span class="n">st</span><span class="p">)</span> <span class="o">*</span> <span class="nb">sin</span> <span class="p">(</span><span class="mf">0.9990265</span> <span class="o">+</span> <span class="mf">2.622706</span><span class="o">*</span><span class="n">st</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="c">!</span>
+<span class="c">!     COMPUTATION OF THE EQUATION OF THE CENTER</span>
+<span class="c">!</span>
+<span class="c">!     FORM PERTURBED MEAN ANOMALY</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">=</span> <span class="n">dg</span><span class="o">/</span><span class="n">str</span> <span class="o">+</span> <span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">=</span>   <span class="nb">dsin</span><span class="p">(</span>     <span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mi">691005</span><span class="mf">7.d0</span> <span class="o">-</span><span class="p">(</span><span class="mi">1724</span><span class="mf">0.d0</span><span class="o">+</span><span class="mi">5</span><span class="mf">2.d0</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">&amp;</span>
+         <span class="o">+</span> <span class="nb">dsin</span><span class="p">(</span><span class="mf">2.d0</span><span class="o">*</span><span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>  <span class="mi">7233</span><span class="mf">8.d0</span> <span class="o">-</span>    <span class="mi">36</span><span class="mf">1.d0</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">&amp;</span>
+         <span class="o">+</span> <span class="nb">dsin</span><span class="p">(</span><span class="mf">3.d0</span><span class="o">*</span><span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>   <span class="mi">105</span><span class="mf">4.d0</span> <span class="o">-</span>      <span class="mf">1.d0</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="c">!     THE UNPERTURBED RADIUS VECTOR</span>
+<span class="n">ro</span>     <span class="o">=</span>                          <span class="mi">3057</span><span class="mf">0.d0</span> <span class="o">-</span>    <span class="mi">15</span><span class="mf">0.d0</span><span class="o">*</span><span class="n">t</span> <span class="p">&amp;</span>
+         <span class="o">-</span> <span class="nb">dcos</span><span class="p">(</span>     <span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mi">727412</span><span class="mf">0.d0</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1814</span><span class="mf">0.d0</span><span class="o">+</span><span class="mi">5</span><span class="mf">0.d0</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">&amp;</span>    <span class="c">!</span>
+         <span class="o">-</span> <span class="nb">dcos</span><span class="p">(</span><span class="mf">2.d0</span><span class="o">*</span><span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>  <span class="mi">9138</span><span class="mf">0.d0</span> <span class="o">-</span>    <span class="mi">46</span><span class="mf">0.d0</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">&amp;</span>
+         <span class="o">-</span> <span class="nb">dcos</span><span class="p">(</span><span class="mf">3.d0</span><span class="o">*</span><span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>   <span class="mi">145</span><span class="mf">0.d0</span> <span class="o">-</span>     <span class="mi">1</span><span class="mf">0.d0</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="n">el</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="mf">0.d0</span><span class="o">**</span><span class="p">(</span><span class="n">ro</span><span class="o">*</span><span class="mf">1.d-09</span><span class="p">)</span>
+<span class="c">!</span>
+<span class="c">!</span>
+<span class="c">!     SELECTED PLANETARY PERTURBATIONS FROM NEWCOMB&#39;S THEORY FOLLOW</span>
+<span class="c">!</span>
+<span class="c">!     PERTURBATIONS BY VENUS</span>
+<span class="k">do </span><span class="mi">20</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="mi">16</span>
+<span class="c">!     ARGUMENT J * VENUS +   I * EARTH</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">gv</span> <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">dblarg</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">arg</span> <span class="o">=</span> <span class="n">dblarg</span>
+<span class="n">cs</span>  <span class="o">=</span> <span class="nb">cos</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">ss</span>  <span class="o">=</span> <span class="nb">sin</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">dl</span>  <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">cs</span>  <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span> <span class="p">)</span><span class="o">+</span> <span class="n">dl</span>
+<span class="n">dr</span>  <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">cs</span>  <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span> <span class="p">)</span><span class="o">+</span> <span class="n">dr</span>
+<span class="n">db</span>  <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">cs</span>  <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span> <span class="p">)</span><span class="o">+</span> <span class="n">db</span>
+<span class="mi">20</span> <span class="k">continue</span>
+<span class="c">!</span>
+<span class="c">!     PERTURBATIONS BY MARS</span>
+<span class="k">do </span><span class="mi">30</span> <span class="n">k</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span><span class="mi">30</span>
+<span class="c">!     ARGUMENT  J * MARS +   I * EARTH</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">gm</span> <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">dblarg</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">arg</span> <span class="o">=</span> <span class="n">dblarg</span>
+<span class="n">cs</span>  <span class="o">=</span> <span class="nb">cos</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">ss</span>  <span class="o">=</span> <span class="nb">sin</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">dl</span>  <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">cs</span>  <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span> <span class="p">)</span><span class="o">+</span> <span class="n">dl</span>
+<span class="n">dr</span>  <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">cs</span>  <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span> <span class="p">)</span><span class="o">+</span> <span class="n">dr</span>
+<span class="n">db</span>  <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">cs</span>  <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span> <span class="p">)</span><span class="o">+</span> <span class="n">db</span>
+<span class="mi">30</span> <span class="k">continue</span>
+<span class="c">!</span>
+<span class="c">!     PERTURBATIONS BY JUPITER</span>
+<span class="k">do </span><span class="mi">40</span> <span class="n">k</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span><span class="mi">42</span>
+<span class="c">!     ARGUMENT J*JUPITER +   I * EARTH</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">gj</span> <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">dblarg</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">arg</span> <span class="o">=</span> <span class="n">dblarg</span>
+<span class="n">cs</span>  <span class="o">=</span> <span class="nb">cos</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">ss</span>  <span class="o">=</span> <span class="nb">sin</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">dl</span>  <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">cs</span>  <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span> <span class="p">)</span><span class="o">+</span> <span class="n">dl</span>
+<span class="n">dr</span>  <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">cs</span>  <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span> <span class="p">)</span><span class="o">+</span> <span class="n">dr</span>
+<span class="n">db</span>  <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">cs</span>  <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span> <span class="p">)</span><span class="o">+</span> <span class="n">db</span>
+<span class="mi">40</span> <span class="k">continue</span>
+<span class="c">!</span>
+<span class="c">!     PERTURBATIONS BY SATURN</span>
+<span class="k">do </span><span class="mi">50</span> <span class="n">k</span><span class="o">=</span><span class="mi">43</span><span class="p">,</span><span class="mi">46</span>
+<span class="c">!     ARGUMENT J*SATURN  +   I * EARTH</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">gs</span> <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">el</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">dblarg</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">dblarg</span><span class="p">,</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">arg</span> <span class="o">=</span> <span class="n">dblarg</span>
+<span class="n">cs</span>  <span class="o">=</span> <span class="nb">cos</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">ss</span>  <span class="o">=</span> <span class="nb">sin</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="n">dl</span>  <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">cs</span>  <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span> <span class="p">)</span><span class="o">+</span> <span class="n">dl</span>
+<span class="n">dr</span>  <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">cs</span>  <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span> <span class="p">)</span><span class="o">+</span> <span class="n">dr</span>
+<span class="n">db</span>  <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">cs</span>  <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span> <span class="p">)</span><span class="o">+</span> <span class="n">db</span>
+<span class="mi">50</span> <span class="k">continue</span>
+<span class="c">!</span>
+<span class="c">!</span>
+<span class="c">!***********************************************************************</span>
+<span class="c">!</span>
+<span class="c">!     PART VI   COMPUTATION OF ECLIPTIC AND EQUATORIAL COORDINATES</span>
+<span class="c">!</span>
+<span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">el</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="mf">0.d0</span><span class="o">**</span><span class="p">(</span><span class="n">dr</span><span class="o">*</span><span class="mf">1.d-09</span><span class="p">)</span>
+<span class="n">c</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">dl</span> <span class="o">+</span> <span class="n">dg</span> <span class="o">+</span> <span class="n">el</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span><span class="o">/</span><span class="n">str</span> <span class="o">+</span> <span class="n">el</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">c</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="nb">dmod</span> <span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span><span class="n">twopi</span><span class="p">)</span>
+<span class="n">c</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">=</span> <span class="n">db</span><span class="o">/</span><span class="n">str</span>
+<span class="n">c</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="n">rtd</span>
+<span class="n">c</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">*</span><span class="n">rtd</span>
+<span class="n">sino</span> <span class="o">=</span> <span class="nb">dsin</span> <span class="p">(</span><span class="n">el</span><span class="p">(</span><span class="mi">13</span><span class="p">))</span>
+<span class="n">coso</span> <span class="o">=</span> <span class="nb">dcos</span> <span class="p">(</span><span class="n">el</span><span class="p">(</span><span class="mi">13</span><span class="p">))</span>
+<span class="n">sinl</span> <span class="o">=</span> <span class="nb">dsin</span> <span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">cosl</span> <span class="o">=</span> <span class="nb">dcos</span> <span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">sinb</span> <span class="o">=</span> <span class="nb">dsin</span> <span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">cosb</span> <span class="o">=</span> <span class="nb">dcos</span> <span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">c</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">cosb</span> <span class="o">*</span> <span class="n">cosl</span><span class="p">)</span>
+<span class="n">c</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">cosb</span> <span class="o">*</span> <span class="n">sinl</span> <span class="o">*</span> <span class="n">coso</span> <span class="o">-</span> <span class="n">sinb</span> <span class="o">*</span> <span class="n">sino</span><span class="p">)</span>
+<span class="n">c</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">cosb</span> <span class="o">*</span> <span class="n">sinl</span> <span class="o">*</span> <span class="n">sino</span> <span class="o">+</span> <span class="n">sinb</span> <span class="o">*</span> <span class="n">coso</span><span class="p">)</span>
+
+<span class="k">end subroutine </span><span class="n">sun</span>
+</pre></div>
+
+    </section>
+    <br>
     
     
     </div>

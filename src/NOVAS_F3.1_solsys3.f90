@@ -1,32 +1,35 @@
 !** SOLSYS VERSION 3 PACKAGE: SOLSYS, SUN, IDSS ***
 
+!***********************************************************************
+!>
+!  SUBROUTINE SOLSYS VERSION 3.
+!  THIS SUBROUTINE PROVIDES THE POSITION AND VELOCITY OF THE
+!  EARTH AT EPOCH TJD BY EVALUATING A CLOSED-FORM THEORY WITHOUT
+!  REFERENCE TO AN EXTERNAL FILE.  THIS ROUTINE CAN ALSO PROVIDE
+!  THE POSITION AND VELOCITY OF THE SUN.
+!
+!       TJD  = TDB JULIAN DATE OF DESIRED EPOCH (IN)
+!       M    = BODY IDENTIFICATION NUMBER (IN)
+!              SET M=0 OR M=1 FOR THE SUN
+!              SET M=2 OR M=3 FOR THE EARTH
+!       K    = ORIGIN SELECTION CODE (IN)
+!              SET K=0 FOR ORIGIN AT SOLAR SYSTEM BARYCENTER
+!              SET K=1 FOR ORIGIN AT CENTER OF SUN
+!       POS  = POSITION VECTOR, EQUATORIAL RECTANGULAR
+!              COORDINATES, REFERRED TO MEAN EQUATOR AND EQUINOX
+!              OF J2000.0, COMPONENTS IN AU (OUT)
+!       VEL  = VELOCITY VECTOR, EQUATORIAL RECTANGULAR
+!              COORDINATES, REFERRED TO MEAN EQUATOR AND EQUINOX
+!              OF J2000.0, COMPONENTS IN AU/DAY (OUT)
+!       IERR = ERROR INDICATOR (OUT)
+!              IERR=0 MEANS EVERYTHING OK
+!              IERR=1 MEANS TJD BEFORE FIRST ALLOWED DATE
+!              IERR=2 MEANS TJD AFTER LAST ALLOWED DATE
+
 subroutine solsys (tjd,m,k,pos,vel,ierr)
-!
-!     SUBROUTINE SOLSYS VERSION 3.
-!     THIS SUBROUTINE PROVIDES THE POSITION AND VELOCITY OF THE
-!     EARTH AT EPOCH TJD BY EVALUATING A CLOSED-FORM THEORY WITHOUT
-!     REFERENCE TO AN EXTERNAL FILE.  THIS ROUTINE CAN ALSO PROVIDE
-!     THE POSITION AND VELOCITY OF THE SUN.
-!
-!          TJD  = TDB JULIAN DATE OF DESIRED EPOCH (IN)
-!          M    = BODY IDENTIFICATION NUMBER (IN)
-!                 SET M=0 OR M=1 FOR THE SUN
-!                 SET M=2 OR M=3 FOR THE EARTH
-!          K    = ORIGIN SELECTION CODE (IN)
-!                 SET K=0 FOR ORIGIN AT SOLAR SYSTEM BARYCENTER
-!                 SET K=1 FOR ORIGIN AT CENTER OF SUN
-!          POS  = POSITION VECTOR, EQUATORIAL RECTANGULAR
-!                 COORDINATES, REFERRED TO MEAN EQUATOR AND EQUINOX
-!                 OF J2000.0, COMPONENTS IN AU (OUT)
-!          VEL  = VELOCITY VECTOR, EQUATORIAL RECTANGULAR
-!                 COORDINATES, REFERRED TO MEAN EQUATOR AND EQUINOX
-!                 OF J2000.0, COMPONENTS IN AU/DAY (OUT)
-!          IERR = ERROR INDICATOR (OUT)
-!                 IERR=0 MEANS EVERYTHING OK
-!                 IERR=1 MEANS TJD BEFORE FIRST ALLOWED DATE
-!                 IERR=2 MEANS TJD AFTER LAST ALLOWED DATE
-!
-!
+
+ use novas_module, only: preces
+
  double precision tjd,pos,vel,pi,twopi,t0,obl,el,c,p,tlast, &
      pm,pa,pe,pj,po,pw,pl,pn, &
      tmass,se,ce,si,ci,sn,cn,sw,cw,p1,p2,p3,q1,q2,q3,roote,a,b, &
@@ -51,38 +54,38 @@ data el, c, p / 43*0.d0 /,   tlast / 0.d0 /
 !     WITH ANGLES IN RADIANS
 !     THIS DATA USED FOR BARYCENTER COMPUTATIONS ONLY
 !                 JUPITER        SATURN        URANUS       NEPTUNE
-data pm /  1047.349d 0,  3497.898d 0,   22903.0d 0,   19412.2d 0 /      !
-data pa /  5.203363d 0,  9.537070d 0, 19.191264d 0, 30.068963d 0 /      !
-data pe /  0.048393d 0,  0.054151d 0,  0.047168d 0,  0.008586d 0 /      !
-data pj /  0.022782d 0,  0.043362d 0,  0.013437d 0,  0.030878d 0 /      !
-data po /  1.755036d 0,  1.984702d 0,  1.295556d 0,  2.298977d 0 /      ! 
-data pw /  0.257503d 0,  1.613242d 0,  2.983889d 0,  0.784898d 0 /      !
-data pl /  0.600470d 0,  0.871693d 0,  5.466933d 0,  5.321160d 0 /      !
+data pm /  1047.349d+0,  3497.898d+0,   22903.0d+0,   19412.2d+0 /      !
+data pa /  5.203363d+0,  9.537070d+0, 19.191264d+0, 30.068963d+0 /      !
+data pe /  0.048393d+0,  0.054151d+0,  0.047168d+0,  0.008586d+0 /      !
+data pj /  0.022782d+0,  0.043362d+0,  0.013437d+0,  0.030878d+0 /      !
+data po /  1.755036d+0,  1.984702d+0,  1.295556d+0,  2.298977d+0 /      !
+data pw /  0.257503d+0,  1.613242d+0,  2.983889d+0,  0.784898d+0 /      !
+data pl /  0.600470d+0,  0.871693d+0,  5.466933d+0,  5.321160d+0 /      !
 data pn /  1.450138d-3,  5.841727d-4,  2.047497d-4,  1.043891d-4 /      !
 
 if ( tlast < 1.d0 ) then
-!         FIRST TIME COMPUTATIONS
-!         MASS OF SUN PLUS FOUR INNER PLANETS
+    ! first time computations
+    ! mass of sun plus four inner planets
     tmass = 1.d0 + 5.977d-6
     se = dsin ( obl * pi / 180.d0 )
     ce = dcos ( obl * pi / 180.d0 )
-    do 15 i = 1, 4
-        tmass = tmass + 1.d0 / pm(i) &
-!             COMPUTE SINE AND COSINE OF ORBITAL ANGLES
-i = dsin ( pj(i) ) &
-i = dcos ( pj(i) ) &
-n = dsin ( po(i) ) &
-n = dcos ( po(i) ) &
-w = dsin ( pw(i) - po(i) ) &
-w = dcos ( pw(i) - po(i) ) &
-!             COMPUTE P AND Q VECTORS (SEE BROUWER & CLEMENCE (1961), 
-!             METHODS OF CELESTIAL MECHANICS, PP. 35-36.)
-1 =    cw * cn - sw * sn * ci &
-2 = (  cw * sn + sw * cn * ci ) * ce - sw * si * se &
-3 = (  cw * sn + sw * cn * ci ) * se + sw * si * ce &
-1 =   -sw * cn - cw * sn * ci &
-2 = ( -sw * sn + cw * cn * ci ) * ce - cw * si * se &
-3 = ( -sw * sn + cw * cn * ci ) * se + cw * si * ce
+    do i = 1, 4
+        tmass = tmass + 1.d0 / pm(i)
+        ! compute sine and cosine of orbital angles
+        si = dsin ( pj(i) )
+        ci = dcos ( pj(i) )
+        sn = dsin ( po(i) )
+        cn = dcos ( po(i) )
+        sw = dsin ( pw(i) - po(i) )
+        cw = dcos ( pw(i) - po(i) )
+        ! compute p and q vectors (see brouwer & clemence (1961),
+        ! methods of celestial mechanics, pp. 35-36.)
+        p1 =    cw * cn - sw * sn * ci
+        p2 = (  cw * sn + sw * cn * ci ) * ce - sw * si * se
+        p3 = (  cw * sn + sw * cn * ci ) * se + sw * si * ce
+        q1 =   -sw * cn - cw * sn * ci
+        q2 = ( -sw * sn + cw * cn * ci ) * ce - cw * si * se
+        q3 = ( -sw * sn + cw * cn * ci ) * se + cw * si * ce
         roote = dsqrt ( 1.d0 - pe(i)**2 )
         a(1,i) = pa(i) * p1
         a(2,i) = pa(i) * p2
@@ -90,13 +93,13 @@ w = dcos ( pw(i) - po(i) ) &
         b(1,i) = pa(i) * roote * q1
         b(2,i) = pa(i) * roote * q2
         b(3,i) = pa(i) * roote * q3
-15     continue
+    end do
     tlast = 1.d0
-end if 
+end if
 
 ierr = 0
 !     VALID DATES ARE WITHIN 3 CENTURIES OF J2000, ALTHOUGH RESULTS
-!     DETERIORATE GRADUALLY      
+!     DETERIORATE GRADUALLY
 if ( tjd < 2340000.5d0 ) ierr = 1
 if ( tjd > 2560000.5d0 ) ierr = 2
 if ( ierr /= 0 ) go to 110
@@ -123,7 +126,7 @@ go to 90
 35 continue
 do 40 j=1,3
     pos(j) =   p(2,j)
-    vel(j) = ( p(3,j) - p(1,j) ) / 0.2d0  
+    vel(j) = ( p(3,j) - p(1,j) ) / 0.2d0
 40 continue
 if ( k >= 1 ) go to 110
 
@@ -134,7 +137,7 @@ if ( k >= 1 ) go to 110
 do 92 j = 1, 3
     pbary(j) = 0.d0
     vbary(j) = 0.d0
-92 continue 
+92 continue
 !     THE FOLLOWING LOOP CYCLES ONCE FOR EACH OF THE FOUR LARGE PLANETS
 do 98 i = 1, 4
 !         COMPUTE MEAN LONGITUDE, MEAN ANOMALY, AND ECCENTRIC ANOMOLY
@@ -144,16 +147,16 @@ do 98 i = 1, 4
     u = ma + e * dsin ( ma ) + 0.5d0 * e * e * dsin ( 2.d0 * ma )
     sinu = dsin ( u )
     cosu = dcos ( u )
-!         COMPUTE VELOCITY FACTOR     
+!         COMPUTE VELOCITY FACTOR
     anr = pn(i) / ( 1.d0 - e * cosu )
 !         COMPUTE PLANET'S POSITION AND VELOCITY WRT EQ & EQ J2000
-    pplan(1) = a(1,i) * ( cosu - e ) + b(1,i) * sinu 
+    pplan(1) = a(1,i) * ( cosu - e ) + b(1,i) * sinu
     pplan(2) = a(2,i) * ( cosu - e ) + b(2,i) * sinu
     pplan(3) = a(3,i) * ( cosu - e ) + b(3,i) * sinu
     vplan(1) = anr * ( -a(1,i) * sinu + b(1,i) * cosu )
     vplan(2) = anr * ( -a(2,i) * sinu + b(2,i) * cosu )
     vplan(3) = anr * ( -a(3,i) * sinu + b(3,i) * cosu )
-!         COMPUTE MASS FACTOR AND ADD IN TO TOTAL DISPLACEMENT      
+!         COMPUTE MASS FACTOR AND ADD IN TO TOTAL DISPLACEMENT
     f = 1.d0 / ( pm(i) * tmass )
     pbary(1) = pbary(1) + pplan(1) * f
     pbary(2) = pbary(2) + pplan(2) * f
@@ -166,34 +169,34 @@ tlast = tjd
 99 do 100 j=1,3
     pos(j) = pos(j) - pbary(j)
     vel(j) = vel(j) - vbary(j)
-100 continue 
+100 continue
 
 110 return
 
 end
+!***********************************************************************
 
-
+!***********************************************************************
+!>
+!  FOR USE WITH SUBROUTINE SOLSYS VERSION 3.
+!  THIS SUBROUTINE COMPUTES THE COORDINATES OF THE EARTH-SUN
+!  POSITION VECTOR WITH RESPECT TO THE ECLIPTIC AND EQUATOR
+!  OF DATE.  A MODIFIED FORM OF NEWCOMB'S THEORY ('TABLES OF THE
+!  SUN', 1898) IS USED.  ONLY THE LARGEST PERIODIC PERTURBATIONS
+!  ARE EVALUATED, AND VAN FLANDERN'S EXPRESSIONS FOR THE FUNDAMENTAL
+!  ARGUMENTS ('IMPROVED MEAN ELEMENTS FOR THE EARTH AND MOON', 1981)
+!  ARE USED.  THE ABSOLUTE ACCURACY IS NO WORSE THAN 1 ARCSECOND
+!  (AVERAGE ERROR ABOUT 0.2 ARCSECOND) OVER 1800-2200.
+!  (ADAPTED FROM SUBROUTINE IAUSUN BY P. M. JANICZEK, USNO.)
+!
+!       DJ   = TDB JULIAN DATE OF DESIRED EPOCH (IN)
+!       EL   = ARRAY OF ORBITAL ELEMENTS (SEE BELOW) FOR
+!              EPOCH DJ (OUT)
+!       C    = ARRAY OF COORDINATES (SEE BELOW) FOR
+!              EPOCH DJ (OUT)
 
 subroutine sun (dj,el,c)
-!
-!     FOR USE WITH SUBROUTINE SOLSYS VERSION 3.
-!     THIS SUBROUTINE COMPUTES THE COORDINATES OF THE EARTH-SUN
-!     POSITION VECTOR WITH RESPECT TO THE ECLIPTIC AND EQUATOR
-!     OF DATE.  A MODIFIED FORM OF NEWCOMB'S THEORY ('TABLES OF THE
-!     SUN', 1898) IS USED.  ONLY THE LARGEST PERIODIC PERTURBATIONS
-!     ARE EVALUATED, AND VAN FLANDERN'S EXPRESSIONS FOR THE FUNDAMENTAL
-!     ARGUMENTS ('IMPROVED MEAN ELEMENTS FOR THE EARTH AND MOON', 1981)
-!     ARE USED.  THE ABSOLUTE ACCURACY IS NO WORSE THAN 1 ARCSECOND
-!     (AVERAGE ERROR ABOUT 0.2 ARCSECOND) OVER 1800-2200.
-!     (ADAPTED FROM SUBROUTINE IAUSUN BY P. M. JANICZEK, USNO.)
-!
-!          DJ   = TDB JULIAN DATE OF DESIRED EPOCH (IN)
-!          EL   = ARRAY OF ORBITAL ELEMENTS (SEE BELOW) FOR
-!                 EPOCH DJ (OUT)
-!          C    = ARRAY OF COORDINATES (SEE BELOW) FOR
-!                 EPOCH DJ (OUT)
-!
-!
+
 double precision dj,el,c,t,tp,t20,ro,gv,gm,gj,gs,dl,dr,db,dg, &
  dblarg,d,twopi,str,rtd,r,tr, &
  sino,coso,sinl,cosl,sinb,cosb, &
@@ -336,7 +339,7 @@ el(10) = 1287099.804d0 + (99.0d0 * r + 1292581.224d0 + &
                 (-0.577d0 - 0.012d0 * t20) * t20) * t20
 el(10) = dmod (el(10) * tr, twopi)
 
-!     EXPRESSION FOR OBLIQUITY FROM P03 (IAU 2006) PRECESSION       
+!     EXPRESSION FOR OBLIQUITY FROM P03 (IAU 2006) PRECESSION
 el(13) = 84381.406d0 + (-46.836769d0 + &
                (-0.0001831d0 + 0.00200340d0 * t20) * t20) * t20
 el(13) = el(13) * tr
@@ -538,39 +541,33 @@ cosb = dcos (c(5))
 c(11) = c(1) * (cosb * cosl)
 c(12) = c(1) * (cosb * sinl * coso - sinb * sino)
 c(13) = c(1) * (cosb * sinl * sino + sinb * coso)
-!
-!
+
+end subroutine sun
 !***********************************************************************
-!
-!
-return
-!
-end
 
-
+!***********************************************************************
+!>
+!  THIS FUNCTION RETURNS THE ID NUMBER OF A SOLAR SYSTEM BODY
+!  FOR THE VERSION OF SOLSYS (OR SOLSYS-AUXPOS COMBINATION) IN USE.
+!
+!      NAME   = NAME OF BODY WHOSE ID NUMBER IS DESIRED, E.G.,
+!               'SUN', 'MOON, 'MERCURY', ETC., EXPRESSED AS ALL
+!               UPPER-CASE LETTERS (IN)
+!      IDSS   = ID NUMBER OF BODY, FOR USE IN CALLS TO SOLSYS
+!               (FUNCTION VALUE RETURNED)
+!
+!  NOTE 1: IN THIS VERSION, ONLY THE FIRST THREE LETTERS OF THE
+!  BODY'S NAME ARE USED FOR IDENTIFICATION.  ALTERNATIVE VERSIONS
+!  MIGHT USE MORE LETTERS.
+!
+!  NOTE 2: IF NAME IS 'JD', IDSS RETURNS IDSS=1, SINCE SOLSYS
+!  VERSION 3 DOES NOT PROCESS SPLIT JULIAN DATES.
+!
+!  NOTE 3: ALL VERSIONS OF IDSS MUST RETURN IDSS=-9999 FOR OBJECTS
+!  THAT IT CANNOT IDENTIFY OR ARE UNSUPPORTED BY SOLSYS.
 
 integer function idss ( name )
-!
-!     THIS FUNCTION RETURNS THE ID NUMBER OF A SOLAR SYSTEM BODY
-!     FOR THE VERSION OF SOLSYS (OR SOLSYS-AUXPOS COMBINATION) IN USE.
-!
-!         NAME   = NAME OF BODY WHOSE ID NUMBER IS DESIRED, E.G.,
-!                  'SUN', 'MOON, 'MERCURY', ETC., EXPRESSED AS ALL
-!                  UPPER-CASE LETTERS (IN)
-!         IDSS   = ID NUMBER OF BODY, FOR USE IN CALLS TO SOLSYS
-!                  (FUNCTION VALUE RETURNED)
-!
-!     NOTE 1: IN THIS VERSION, ONLY THE FIRST THREE LETTERS OF THE
-!     BODY'S NAME ARE USED FOR IDENTIFICATION.  ALTERNATIVE VERSIONS
-!     MIGHT USE MORE LETTERS.
-!
-!     NOTE 2: IF NAME IS 'JD', IDSS RETURNS IDSS=1, SINCE SOLSYS 
-!     VERSION 3 DOES NOT PROCESS SPLIT JULIAN DATES.    
-!
-!     NOTE 3: ALL VERSIONS OF IDSS MUST RETURN IDSS=-9999 FOR OBJECTS
-!     THAT IT CANNOT IDENTIFY OR ARE UNSUPPORTED BY SOLSYS.
-!
-!
+
 character name*(*), namein*3, names*3
 dimension names(35), ids(35)
 
@@ -592,23 +589,22 @@ idss = -9999
 namein = name
 
 !     LOOK THROUGH LIST OF BODY NAMES TO FIND MATCH
-do 20 i = 1, num
+do i = 1, num
     if ( namein == names(i) ) then
         idss = ids(i)
-        go to 30
+        return
     end if
-20 continue
+end do
 
-!     IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES   
+!     IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES
 if ( namein == 'JD ' ) then
 !         IN THIS CASE, SET IDSS=2 IF SOLSYS PROCESSES SPLIT
-!         JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE 
+!         JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE
     idss = 1
-    go to 30
-end if    
+    return
+end if
 
 write ( *, 3 ) name
 
-30 return
-
-end
+end function idss
+!***********************************************************************

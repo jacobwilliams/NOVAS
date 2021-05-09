@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.3% of total for procedures.">10 statements</a>
+    title=" 0.3% of total for procedures.">9 statements</a>
      </li> 
      
      
@@ -216,6 +216,21 @@ subroutine fildef(lun, nbod, filnm, fmt)
   
 
 
+    
+    <p>FOR USE WITH SUBROUTINE SOLSYS VERSION 1.
+  THIS SUBROUTINE MAY BE CALLED TO CHANGE THE VALUES IN
+  COMMON BLOCK SSFILE, WHICH CONTAINS INFORMATION ON THE
+  COORDINATE FILE USED BY SUBROUTINE SOLSYS.</p>
+<p>LUN    = FORTRAN LOGICAL UNIT NUMBER TO BE USED FOR
+           COORDINATE FILE (IN)
+  NBOD   = NUMBER OF BODIES WITH COORDINATES IN FILE (IN)
+  FILNM  = CHARACTER VARIABLE CONTAINING PATH AND FILE NAME
+           OF COORDINATE FILE (IN)
+  FMT    = CHARACTER VARIABLE CONTAINING FORMAT STATEMENT,
+           INCLUDING PARENTHESES AND EVERYTHING IN BETWEEN (IN)</p>
+<p>NOTE:  IF LUN OR NBOD IS ZERO OR LESS, OR FILNM OR FMT IS BLANK,
+  THE CORRESPONDING DEFAULT VALUE IS NOT CHANGED.  DEFAULT VALUES
+  ARE SET IN BLOCK DATA FOR COMMON /SSFILE/.</p>
     
 
     <h3>Arguments</h3>

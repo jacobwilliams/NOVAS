@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.7% of total for procedures.">22 statements</a>
+    title=" 0.7% of total for procedures.">21 statements</a>
      </li> 
      
      
@@ -186,7 +186,13 @@
 
 
 
-<em>None</em>
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../proc/idss.html#src">idss</a>
+  </div>
+</div>
+
 
 
 </div>
@@ -204,6 +210,23 @@ function idss(name)
   
 
 
+    
+    <p>THIS FUNCTION RETURNS THE ID NUMBER OF A SOLAR SYSTEM BODY
+  FOR THE VERSION OF SOLSYS (OR SOLSYS-AUXPOS COMBINATION) IN USE.</p>
+<div class="codehilite"><pre><span></span><code>  <span class="nv">NAME</span>   <span class="o">=</span> <span class="nv">NAME</span> <span class="nv">OF</span> <span class="nv">BODY</span> <span class="nv">WHOSE</span> <span class="nv">ID</span> <span class="nv">NUMBER</span> <span class="nv">IS</span> <span class="nv">DESIRED</span>, <span class="nv">E</span>.<span class="nv">G</span>.,
+           <span class="s1">&#39;</span><span class="s">SUN</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">MOON, </span><span class="s1">&#39;</span><span class="nv">MERCURY</span><span class="s1">&#39;</span><span class="s">, ETC., EXPRESSED AS ALL</span>
+           <span class="nv">UPPER</span><span class="o">-</span><span class="nv">CASE</span> <span class="nv">LETTERS</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+  <span class="nv">IDSS</span>   <span class="o">=</span> <span class="nv">ID</span> <span class="nv">NUMBER</span> <span class="nv">OF</span> <span class="nv">BODY</span>, <span class="k">FOR</span> <span class="nv">USE</span> <span class="nv">IN</span> <span class="nv">CALLS</span> <span class="nv">TO</span> <span class="nv">SOLSYS</span>
+           <span class="ss">(</span><span class="nv">FUNCTION</span> <span class="nv">VALUE</span> <span class="nv">RETURNED</span><span class="ss">)</span>
+</code></pre></div>
+
+<p>NOTE 1: IN THIS VERSION, ONLY THE FIRST THREE LETTERS OF THE
+  BODY'S NAME ARE USED FOR IDENTIFICATION.  ALTERNATIVE VERSIONS
+  MIGHT USE MORE LETTERS.</p>
+<p>NOTE 2: IF NAME IS 'JD', IDSS RETURNS IDSS=1, SINCE SOLSYS
+  VERSION 3 DOES NOT PROCESS SPLIT JULIAN DATES.</p>
+<p>NOTE 3: ALL VERSIONS OF IDSS MUST RETURN IDSS=-9999 FOR OBJECTS
+  THAT IT CANNOT IDENTIFY OR ARE UNSUPPORTED BY SOLSYS.</p>
     
 
     <h3>Arguments</h3>
@@ -377,7 +400,13 @@ function idss(name)
 
 
 
-<em>None</em>
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../proc/idss.html#src">idss</a>
+  </div>
+</div>
+
 
 
     </section>
@@ -400,6 +429,54 @@ function idss(name)
 
     
     
+    
+    <section>
+    <h2><span class="anchor" id="src"></span>Source Code</h2>
+    <div class="highlight"><pre><span></span><span class="kt">integer </span><span class="k">function </span><span class="n">idss</span> <span class="p">(</span> <span class="n">name</span> <span class="p">)</span>
+
+<span class="kt">character </span><span class="n">name</span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="n">namein</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">names</span><span class="o">*</span><span class="mi">3</span>
+<span class="k">dimension </span><span class="n">names</span><span class="p">(</span><span class="mi">35</span><span class="p">),</span> <span class="n">ids</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+
+<span class="k">data </span><span class="n">names</span> <span class="o">/</span> <span class="s1">&#39;SUN&#39;</span><span class="p">,</span> <span class="s1">&#39;EAR&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span>  <span class="o">/</span>
+<span class="k">data </span><span class="n">ids</span>   <span class="o">/</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">3</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
+                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
+                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
+                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
+                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span>  <span class="o">/</span>
+<span class="k">data </span><span class="n">num</span>   <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span>
+
+<span class="mi">3</span> <span class="k">format</span> <span class="p">(</span> <span class="s1">&#39; IDSS ERROR: NO BODY ID NUMBER FOUND FOR &#39;</span><span class="p">,</span> <span class="n">a</span> <span class="p">)</span>
+
+<span class="n">idss</span> <span class="o">=</span> <span class="o">-</span><span class="mi">9999</span>
+<span class="n">namein</span> <span class="o">=</span> <span class="n">name</span>
+
+<span class="c">!     LOOK THROUGH LIST OF BODY NAMES TO FIND MATCH</span>
+<span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="n">namein</span> <span class="o">==</span> <span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<span class="k">        </span><span class="n">idss</span> <span class="o">=</span> <span class="n">ids</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">return</span>
+<span class="k">    end if</span>
+<span class="k">end do</span>
+
+<span class="c">!     IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES</span>
+<span class="k">if</span> <span class="p">(</span> <span class="n">namein</span> <span class="o">==</span> <span class="s1">&#39;JD &#39;</span> <span class="p">)</span> <span class="k">then</span>
+<span class="c">!         IN THIS CASE, SET IDSS=2 IF SOLSYS PROCESSES SPLIT</span>
+<span class="c">!         JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE</span>
+    <span class="n">idss</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span>
+<span class="k">end if</span>
+
+<span class="k">write</span> <span class="p">(</span> <span class="o">*</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span> <span class="n">name</span>
+
+<span class="k">end function </span><span class="n">idss</span>
+</pre></div>
+
+    </section>
+    <br>
     
     
     </div>

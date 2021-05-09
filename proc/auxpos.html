@@ -205,6 +205,49 @@ subroutine auxpos(tjd, m, k, pos, vel, jerr)
 
 
     
+    <p>FOR USE WITH SUBROUTINE SOLSYS VERSION 2.
+  THIS SUBROUTINE PROVIDES THE POSITION AND VELOCITY OF
+  AN AUXILIARY SOLAR SYSTEM BODY AT TIME TJD.  IT IS CALLED
+  FROM SOLSYS VERSION 2 (JPL EPHEMERIS ACCESS) WHEN THE BODY
+  IDENTIFICATION NUMBER IS OUTSIDE THE RANGE 1-11.  ITS
+  INTENDED USE IS TO SUPPLY EPHEMERIS DATA FROM NON-STANDARD
+  SOURCES.</p>
+<div class="codehilite"><pre><span></span><code>   <span class="nv">TJD</span>  <span class="o">=</span> <span class="nv">TDB</span> <span class="nv">JULIAN</span> <span class="nv">DATE</span> <span class="nv">OF</span> <span class="nv">DESIRED</span> <span class="nv">EPOCH</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+   <span class="nv">M</span>    <span class="o">=</span> <span class="nv">BODY</span> <span class="nv">IDENTIFICATION</span> <span class="nv">NUMBER</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+   <span class="nv">K</span>    <span class="o">=</span> <span class="nv">ORIGIN</span> <span class="nv">SELECTION</span> <span class="nv">CODE</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+          <span class="nv">SET</span> <span class="nv">K</span><span class="o">=</span><span class="mi">0</span> <span class="k">FOR</span> <span class="nv">ORIGIN</span> <span class="nv">AT</span> <span class="nv">SOLAR</span> <span class="nv">SYSTEM</span> <span class="nv">BARYCENTER</span>
+          <span class="nv">SET</span> <span class="nv">K</span><span class="o">=</span><span class="mi">1</span> <span class="k">FOR</span> <span class="nv">ORIGIN</span> <span class="nv">AT</span> <span class="nv">CENTER</span> <span class="nv">OF</span> <span class="nv">SUN</span>
+   <span class="nv">POS</span>  <span class="o">=</span> <span class="nv">POSITION</span> <span class="nv">VECTOR</span>, <span class="nv">EQUATORIAL</span> <span class="nv">RECTANGULAR</span>
+          <span class="nv">COORDINATES</span>, <span class="nv">REFERRED</span> <span class="nv">TO</span> <span class="nv">ICRS</span> <span class="nv">AXES</span>, <span class="nv">COMPONENTS</span>
+          <span class="nv">IN</span> <span class="nv">AU</span> <span class="ss">(</span><span class="nv">OUT</span><span class="ss">)</span>
+   <span class="nv">VEL</span>  <span class="o">=</span> <span class="nv">VELOCITY</span> <span class="nv">VECTOR</span>, <span class="nv">EQUATORIAL</span> <span class="nv">RECTANGULAR</span>
+          <span class="nv">COORDINATES</span>, <span class="nv">REFERRED</span> <span class="nv">TO</span> <span class="nv">ICRS</span> <span class="nv">AXES</span>, <span class="nv">COMPONENTS</span>
+          <span class="nv">IN</span> <span class="nv">AU</span><span class="o">/</span><span class="nv">DAY</span> <span class="ss">(</span><span class="nv">OUT</span><span class="ss">)</span>
+   <span class="nv">JERR</span> <span class="o">=</span> <span class="nv">ERROR</span> <span class="nv">INDICATOR</span> <span class="ss">(</span><span class="nv">OUT</span><span class="ss">)</span>
+          <span class="nv">JERR</span><span class="o">=</span><span class="mi">0</span> <span class="nv">MEANS</span> <span class="nv">EVERYTHING</span> <span class="nv">OK</span>
+          <span class="nv">JERR</span><span class="o">=</span><span class="mi">1</span> <span class="nv">MEANS</span> <span class="nv">TJD</span> <span class="nv">BEFORE</span> <span class="nv">FIRST</span> <span class="nv">VALID</span> <span class="nv">DATE</span>
+          <span class="nv">JERR</span><span class="o">=</span><span class="mi">2</span> <span class="nv">MEANS</span> <span class="nv">TJD</span> <span class="nv">AFTER</span> <span class="nv">LAST</span> <span class="nv">VALID</span> <span class="nv">DATE</span>
+          <span class="nv">JERR</span><span class="o">=</span><span class="mi">3</span> <span class="nv">MEANS</span> <span class="nv">INVALID</span> <span class="nv">VALUE</span> <span class="nv">OF</span> <span class="nv">M</span> <span class="nv">OR</span> <span class="nv">K</span>
+</code></pre></div>
+
+<hr>
+<p>THIS IS A DUMMY VERSION OF SUBROUTINE AUXPOS.  IT SIMPLY
+  RETURNS AN ERROR CODE, SINCE IT CANNOT SUPPLY POSITIONS
+  OR VELOCITIES.  FOR NORMAL (CORRECT) ACCESS TO THE JPL
+  EPHEMERIDES VIA SOLSYS VERSION 2, THIS ROUTINE WILL NEVER
+  BE CALLED.</p>
+<p>A WORKING VERSION MUST BE SUPPLIED BY THE USER ONLY IF THE
+  POSITIONS/VELOCITIES OF AUXILIARY SOLAR SYSTEM BODIES (E.G.,
+  ASTEROIDS) ARE OF INTEREST.  SUCH DATA COULD BE OBTAINED FROM
+  EPHEMERIS FILES OR CLOSED-FORM SERIES APPROXIMATIONS.  THE
+  BODY IDENTIFICATION NUMBERS USED FOR SUCH OBJECTS MUST BE
+  OUTSIDE THE RANGE 1-11 USED FOR MAJOR SOLAR SYSTEM BODIES.</p>
+<p>GENERALLY, IN SUCH CASES IT WOULD BE NECESSARY FOR THIS ROUTINE
+  TO PROVIDE ONLY BARYCENTRIC POSITIONS FOR THE INPUT JD.
+  VELOCITIES ARE NEEDED ONLY FOR THE EARTH, AND HELIOCENTRIC
+  POSITIONS ARE NOT USED IN NOVAS.  ALSO, DO NOT USE FORTRAN
+  I/O UNIT NUMBER 12, WHICH IS USED BY THE JPL ROUTINES.</p>
+    
 
     <h3>Arguments</h3>
     

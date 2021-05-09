@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 3.3% of total for source files.">100 statements</a>
+    title=" 3.3% of total for source files.">98 statements</a>
      </li> 
      
      
@@ -295,9 +295,9 @@
       <h2><span class="anchor" id="src"></span>Source Code</h2>
     <div class="hl"><pre><span></span><a id="ln-1" name="ln-1"></a><span class="c">!** SOLSYS VERSION 2 PACKAGE: SOLSYS, AUXPOS, IDSS ***</span>
 <a id="ln-2" name="ln-2"></a>
-<a id="ln-3" name="ln-3"></a><span class="k">subroutine </span><span class="n">solsys</span> <span class="p">(</span><span class="n">tjd</span><span class="p">,</span><span class="n">body</span><span class="p">,</span><span class="n">origin</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span><span class="n">vel</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span>
-<a id="ln-4" name="ln-4"></a><span class="c">!</span>
-<a id="ln-5" name="ln-5"></a><span class="c">!     SUBROUTINE SOLSYS VERSION 2.</span>
+<a id="ln-3" name="ln-3"></a><span class="c">!***********************************************************************</span>
+<a id="ln-4" name="ln-4"></a><span class="c">!&gt;</span>
+<a id="ln-5" name="ln-5"></a><span class="c">!  SUBROUTINE SOLSYS VERSION 2.</span>
 <a id="ln-6" name="ln-6"></a><span class="c">!</span>
 <a id="ln-7" name="ln-7"></a><span class="c">!----------------------------------------------------------------------</span>
 <a id="ln-8" name="ln-8"></a><span class="c">!</span>
@@ -306,8 +306,8 @@
 <a id="ln-11" name="ln-11"></a><span class="c">!            SYSTEM EPHEMERIDES AND THE &#39;NOVAS&#39; ASTROMETRIC SUBROUTINE</span>
 <a id="ln-12" name="ln-12"></a><span class="c">!            LIBRARY.</span>
 <a id="ln-13" name="ln-13"></a><span class="c">!</span>
-<a id="ln-14" name="ln-14"></a><span class="c">!---REFERENCE:  JPL. 2007, JPL Planetary and Lunar Ephemerides: Export </span>
-<a id="ln-15" name="ln-15"></a><span class="c">!               Information, (Pasadena, CA: JPL) </span>
+<a id="ln-14" name="ln-14"></a><span class="c">!---REFERENCE:  JPL. 2007, JPL Planetary and Lunar Ephemerides: Export</span>
+<a id="ln-15" name="ln-15"></a><span class="c">!               Information, (Pasadena, CA: JPL)</span>
 <a id="ln-16" name="ln-16"></a><span class="c">!               http://ssd.jpl.nasa.gov/?planet_eph_export.</span>
 <a id="ln-17" name="ln-17"></a><span class="c">!</span>
 <a id="ln-18" name="ln-18"></a><span class="c">!---INPUT ARGUMENTS:     TJD = JULIAN DATE OF THE DESIRED TIME,</span>
@@ -361,8 +361,8 @@
 <a id="ln-66" name="ln-66"></a><span class="c">!          4. IF TJD IS BETWEEN -1.D0 AND +1.D0, IT IS ASSUMED TO</span>
 <a id="ln-67" name="ln-67"></a><span class="c">!             REPRESENT A FRACTION OF A DAY, WITH THE WHOLE DAYS PART</span>
 <a id="ln-68" name="ln-68"></a><span class="c">!             OF THE JULIAN DATE TAKEN FROM A PREVIOUS CALL.</span>
-<a id="ln-69" name="ln-69"></a><span class="c">!</span>
-<a id="ln-70" name="ln-70"></a><span class="c">!----------------------------------------------------------------------</span>
+<a id="ln-69" name="ln-69"></a>
+<a id="ln-70" name="ln-70"></a><span class="k">subroutine </span><span class="n">solsys</span> <span class="p">(</span><span class="n">tjd</span><span class="p">,</span><span class="n">body</span><span class="p">,</span><span class="n">origin</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span><span class="n">vel</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span>
 <a id="ln-71" name="ln-71"></a>
 <a id="ln-72" name="ln-72"></a><span class="kt">integer </span><span class="n">body</span><span class="p">,</span><span class="n">origin</span><span class="p">,</span><span class="n">ierr</span><span class="p">,</span><span class="n">targ</span><span class="p">,</span><span class="n">cent</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">n</span>
 <a id="ln-73" name="ln-73"></a>
@@ -399,7 +399,7 @@
 <a id="ln-104" name="ln-104"></a><span class="n">vel</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
 <a id="ln-105" name="ln-105"></a><span class="n">ierr</span> <span class="o">=</span> <span class="mi">0</span>
 <a id="ln-106" name="ln-106"></a>
-<a id="ln-107" name="ln-107"></a><span class="c">!---SET UP SPLIT JULIAN DATE      </span>
+<a id="ln-107" name="ln-107"></a><span class="c">!---SET UP SPLIT JULIAN DATE</span>
 <a id="ln-108" name="ln-108"></a><span class="k">if</span> <span class="p">(</span> <span class="nb">dabs</span> <span class="p">(</span> <span class="n">tjd</span> <span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">1.d0</span> <span class="p">)</span> <span class="k">then</span>
 <a id="ln-109" name="ln-109"></a><span class="k">    </span><span class="n">tjd2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">tlast</span>
 <a id="ln-110" name="ln-110"></a>    <span class="n">tjd2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="n">tjd</span>
@@ -408,7 +408,7 @@
 <a id="ln-113" name="ln-113"></a>    <span class="n">tjd2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">tlast</span>
 <a id="ln-114" name="ln-114"></a>    <span class="n">tjd2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="n">tjd</span> <span class="o">-</span> <span class="n">tlast</span>
 <a id="ln-115" name="ln-115"></a><span class="k">end if</span>
-<a id="ln-116" name="ln-116"></a><span class="n">tjd1</span> <span class="o">=</span> <span class="n">tjd2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">tjd2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> 
+<a id="ln-116" name="ln-116"></a><span class="n">tjd1</span> <span class="o">=</span> <span class="n">tjd2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">tjd2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <a id="ln-117" name="ln-117"></a>
 <a id="ln-118" name="ln-118"></a><span class="c">!---PERFORM SANITY CHECKS ON THE INPUT BODY AND ORIGIN.</span>
 <a id="ln-119" name="ln-119"></a><span class="k">if</span> <span class="p">(</span> <span class="p">(</span> <span class="n">origin</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">(</span> <span class="n">origin</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
@@ -467,142 +467,137 @@
 <a id="ln-172" name="ln-172"></a>
 <a id="ln-173" name="ln-173"></a><span class="mi">99</span> <span class="k">if</span> <span class="p">(</span> <span class="n">ierr</span> <span class="o">/=</span> <span class="mi">0</span> <span class="p">)</span> <span class="k">write</span> <span class="p">(</span> <span class="o">*</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span> <span class="n">ierr</span><span class="p">,</span> <span class="n">tjd1</span><span class="p">,</span> <span class="n">body</span>
 <a id="ln-174" name="ln-174"></a>
-<a id="ln-175" name="ln-175"></a><span class="k">return</span>
-<a id="ln-176" name="ln-176"></a>
-<a id="ln-177" name="ln-177"></a><span class="k">end</span>
-<a id="ln-178" name="ln-178"></a>
-<a id="ln-179" name="ln-179"></a>
-<a id="ln-180" name="ln-180"></a>
-<a id="ln-181" name="ln-181"></a><span class="k">subroutine </span><span class="n">auxpos</span> <span class="p">(</span><span class="n">tjd</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">k</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span><span class="n">vel</span><span class="p">,</span><span class="n">jerr</span><span class="p">)</span>
-<a id="ln-182" name="ln-182"></a><span class="c">!</span>
-<a id="ln-183" name="ln-183"></a><span class="c">!     FOR USE WITH SUBROUTINE SOLSYS VERSION 2.</span>
-<a id="ln-184" name="ln-184"></a><span class="c">!     THIS SUBROUTINE PROVIDES THE POSITION AND VELOCITY OF</span>
-<a id="ln-185" name="ln-185"></a><span class="c">!     AN AUXILIARY SOLAR SYSTEM BODY AT TIME TJD.  IT IS CALLED</span>
-<a id="ln-186" name="ln-186"></a><span class="c">!     FROM SOLSYS VERSION 2 (JPL EPHEMERIS ACCESS) WHEN THE BODY</span>
-<a id="ln-187" name="ln-187"></a><span class="c">!     IDENTIFICATION NUMBER IS OUTSIDE THE RANGE 1-11.  ITS</span>
-<a id="ln-188" name="ln-188"></a><span class="c">!     INTENDED USE IS TO SUPPLY EPHEMERIS DATA FROM NON-STANDARD</span>
-<a id="ln-189" name="ln-189"></a><span class="c">!     SOURCES.</span>
-<a id="ln-190" name="ln-190"></a><span class="c">!</span>
-<a id="ln-191" name="ln-191"></a><span class="c">!          TJD  = TDB JULIAN DATE OF DESIRED EPOCH (IN)</span>
-<a id="ln-192" name="ln-192"></a><span class="c">!          M    = BODY IDENTIFICATION NUMBER (IN)</span>
-<a id="ln-193" name="ln-193"></a><span class="c">!          K    = ORIGIN SELECTION CODE (IN)</span>
-<a id="ln-194" name="ln-194"></a><span class="c">!                 SET K=0 FOR ORIGIN AT SOLAR SYSTEM BARYCENTER</span>
-<a id="ln-195" name="ln-195"></a><span class="c">!                 SET K=1 FOR ORIGIN AT CENTER OF SUN</span>
-<a id="ln-196" name="ln-196"></a><span class="c">!          POS  = POSITION VECTOR, EQUATORIAL RECTANGULAR</span>
-<a id="ln-197" name="ln-197"></a><span class="c">!                 COORDINATES, REFERRED TO ICRS AXES, COMPONENTS</span>
-<a id="ln-198" name="ln-198"></a><span class="c">!                 IN AU (OUT)</span>
-<a id="ln-199" name="ln-199"></a><span class="c">!          VEL  = VELOCITY VECTOR, EQUATORIAL RECTANGULAR</span>
-<a id="ln-200" name="ln-200"></a><span class="c">!                 COORDINATES, REFERRED TO ICRS AXES, COMPONENTS</span>
-<a id="ln-201" name="ln-201"></a><span class="c">!                 IN AU/DAY (OUT)</span>
-<a id="ln-202" name="ln-202"></a><span class="c">!          JERR = ERROR INDICATOR (OUT)</span>
-<a id="ln-203" name="ln-203"></a><span class="c">!                 JERR=0 MEANS EVERYTHING OK</span>
-<a id="ln-204" name="ln-204"></a><span class="c">!                 JERR=1 MEANS TJD BEFORE FIRST VALID DATE</span>
-<a id="ln-205" name="ln-205"></a><span class="c">!                 JERR=2 MEANS TJD AFTER LAST VALID DATE</span>
-<a id="ln-206" name="ln-206"></a><span class="c">!                 JERR=3 MEANS INVALID VALUE OF M OR K</span>
-<a id="ln-207" name="ln-207"></a><span class="c">!</span>
-<a id="ln-208" name="ln-208"></a><span class="c">!</span>
-<a id="ln-209" name="ln-209"></a><span class="c">!----------------------------------------------------------------------</span>
-<a id="ln-210" name="ln-210"></a>
-<a id="ln-211" name="ln-211"></a><span class="c">!     THIS IS A DUMMY VERSION OF SUBROUTINE AUXPOS.  IT SIMPLY</span>
-<a id="ln-212" name="ln-212"></a><span class="c">!     RETURNS AN ERROR CODE, SINCE IT CANNOT SUPPLY POSITIONS</span>
-<a id="ln-213" name="ln-213"></a><span class="c">!     OR VELOCITIES.  FOR NORMAL (CORRECT) ACCESS TO THE JPL</span>
-<a id="ln-214" name="ln-214"></a><span class="c">!     EPHEMERIDES VIA SOLSYS VERSION 2, THIS ROUTINE WILL NEVER</span>
-<a id="ln-215" name="ln-215"></a><span class="c">!     BE CALLED.</span>
-<a id="ln-216" name="ln-216"></a><span class="c">!</span>
-<a id="ln-217" name="ln-217"></a><span class="c">!     A WORKING VERSION MUST BE SUPPLIED BY THE USER ONLY IF THE</span>
-<a id="ln-218" name="ln-218"></a><span class="c">!     POSITIONS/VELOCITIES OF AUXILIARY SOLAR SYSTEM BODIES (E.G.,</span>
-<a id="ln-219" name="ln-219"></a><span class="c">!     ASTEROIDS) ARE OF INTEREST.  SUCH DATA COULD BE OBTAINED FROM</span>
-<a id="ln-220" name="ln-220"></a><span class="c">!     EPHEMERIS FILES OR CLOSED-FORM SERIES APPROXIMATIONS.  THE</span>
-<a id="ln-221" name="ln-221"></a><span class="c">!     BODY IDENTIFICATION NUMBERS USED FOR SUCH OBJECTS MUST BE</span>
-<a id="ln-222" name="ln-222"></a><span class="c">!     OUTSIDE THE RANGE 1-11 USED FOR MAJOR SOLAR SYSTEM BODIES.</span>
-<a id="ln-223" name="ln-223"></a><span class="c">!</span>
-<a id="ln-224" name="ln-224"></a><span class="c">!     GENERALLY, IN SUCH CASES IT WOULD BE NECESSARY FOR THIS ROUTINE</span>
-<a id="ln-225" name="ln-225"></a><span class="c">!     TO PROVIDE ONLY BARYCENTRIC POSITIONS FOR THE INPUT JD.</span>
-<a id="ln-226" name="ln-226"></a><span class="c">!     VELOCITIES ARE NEEDED ONLY FOR THE EARTH, AND HELIOCENTRIC</span>
-<a id="ln-227" name="ln-227"></a><span class="c">!     POSITIONS ARE NOT USED IN NOVAS.  ALSO, DO NOT USE FORTRAN</span>
-<a id="ln-228" name="ln-228"></a><span class="c">!     I/O UNIT NUMBER 12, WHICH IS USED BY THE JPL ROUTINES.</span>
-<a id="ln-229" name="ln-229"></a>
-<a id="ln-230" name="ln-230"></a><span class="c">!----------------------------------------------------------------------</span>
-<a id="ln-231" name="ln-231"></a>
-<a id="ln-232" name="ln-232"></a><span class="kt">double precision </span><span class="n">tjd</span><span class="p">,</span><span class="n">pos</span><span class="p">,</span><span class="n">vel</span>
-<a id="ln-233" name="ln-233"></a><span class="k">dimension </span><span class="n">pos</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">vel</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<a id="ln-234" name="ln-234"></a>
-<a id="ln-235" name="ln-235"></a><span class="n">pos</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
-<a id="ln-236" name="ln-236"></a><span class="n">pos</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
-<a id="ln-237" name="ln-237"></a><span class="n">pos</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="mi">9</span><span class="mf">9.d0</span>
-<a id="ln-238" name="ln-238"></a><span class="n">vel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
-<a id="ln-239" name="ln-239"></a><span class="n">vel</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
-<a id="ln-240" name="ln-240"></a><span class="n">vel</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
-<a id="ln-241" name="ln-241"></a><span class="n">jerr</span> <span class="o">=</span> <span class="mi">3</span>
-<a id="ln-242" name="ln-242"></a><span class="k">return</span>
-<a id="ln-243" name="ln-243"></a>
-<a id="ln-244" name="ln-244"></a><span class="k">end</span>
-<a id="ln-245" name="ln-245"></a>
-<a id="ln-246" name="ln-246"></a>
-<a id="ln-247" name="ln-247"></a>
-<a id="ln-248" name="ln-248"></a><span class="kt">integer </span><span class="k">function </span><span class="n">idss</span> <span class="p">(</span> <span class="n">name</span> <span class="p">)</span>
-<a id="ln-249" name="ln-249"></a><span class="c">!</span>
-<a id="ln-250" name="ln-250"></a><span class="c">!     THIS FUNCTION RETURNS THE ID NUMBER OF A SOLAR SYSTEM BODY</span>
-<a id="ln-251" name="ln-251"></a><span class="c">!     FOR THE VERSION OF SOLSYS (OR SOLSYS-AUXPOS COMBINATION) IN USE.</span>
-<a id="ln-252" name="ln-252"></a><span class="c">!</span>
-<a id="ln-253" name="ln-253"></a><span class="c">!         NAME   = NAME OF BODY WHOSE ID NUMBER IS DESIRED, E.G.,</span>
-<a id="ln-254" name="ln-254"></a><span class="c">!                  &#39;SUN&#39;, &#39;MOON, &#39;MERCURY&#39;, ETC., EXPRESSED AS ALL</span>
-<a id="ln-255" name="ln-255"></a><span class="c">!                  UPPER-CASE LETTERS (IN)</span>
-<a id="ln-256" name="ln-256"></a><span class="c">!         IDSS   = ID NUMBER OF BODY, FOR USE IN CALLS TO SOLSYS</span>
-<a id="ln-257" name="ln-257"></a><span class="c">!                  (FUNCTION VALUE RETURNED)</span>
-<a id="ln-258" name="ln-258"></a><span class="c">!</span>
-<a id="ln-259" name="ln-259"></a><span class="c">!     NOTE 1: IN THIS VERSION, ONLY THE FIRST THREE LETTERS OF THE</span>
-<a id="ln-260" name="ln-260"></a><span class="c">!     BODY&#39;S NAME ARE USED FOR IDENTIFICATION.  ALTERNATIVE VERSIONS</span>
-<a id="ln-261" name="ln-261"></a><span class="c">!     MIGHT USE MORE LETTERS.</span>
-<a id="ln-262" name="ln-262"></a><span class="c">!</span>
-<a id="ln-263" name="ln-263"></a><span class="c">!     NOTE 2: IF NAME IS &#39;JD&#39;, IDSS RETURNS IDSS=2 IF SOLSYS PROCESSES</span>
-<a id="ln-264" name="ln-264"></a><span class="c">!     SPLIT JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE    </span>
-<a id="ln-265" name="ln-265"></a><span class="c">!</span>
-<a id="ln-266" name="ln-266"></a><span class="c">!     NOTE 3: ALL VERSIONS OF IDSS MUST RETURN IDSS=-9999 FOR OBJECTS</span>
-<a id="ln-267" name="ln-267"></a><span class="c">!     THAT IT CANNOT IDENTIFY OR ARE UNSUPPORTED BY SOLSYS.</span>
-<a id="ln-268" name="ln-268"></a><span class="c">!</span>
-<a id="ln-269" name="ln-269"></a><span class="c">!</span>
-<a id="ln-270" name="ln-270"></a><span class="kt">character </span><span class="n">name</span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="n">namein</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">names</span><span class="o">*</span><span class="mi">3</span>
-<a id="ln-271" name="ln-271"></a><span class="k">dimension </span><span class="n">names</span><span class="p">(</span><span class="mi">35</span><span class="p">),</span> <span class="n">ids</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
-<a id="ln-272" name="ln-272"></a>
-<a id="ln-273" name="ln-273"></a><span class="k">data </span><span class="n">names</span> <span class="o">/</span> <span class="s1">&#39;SUN&#39;</span><span class="p">,</span> <span class="s1">&#39;MOO&#39;</span><span class="p">,</span> <span class="s1">&#39;EAR&#39;</span><span class="p">,</span> <span class="s1">&#39;MER&#39;</span><span class="p">,</span> <span class="s1">&#39;VEN&#39;</span><span class="p">,</span> <span class="s1">&#39;MAR&#39;</span><span class="p">,</span> <span class="s1">&#39;JUP&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-274" name="ln-274"></a>             <span class="s1">&#39;SAT&#39;</span><span class="p">,</span> <span class="s1">&#39;URA&#39;</span><span class="p">,</span> <span class="s1">&#39;NEP&#39;</span><span class="p">,</span> <span class="s1">&#39;PLU&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-275" name="ln-275"></a>             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-276" name="ln-276"></a>             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-277" name="ln-277"></a>             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span>  <span class="o">/</span>
-<a id="ln-278" name="ln-278"></a><span class="k">data </span><span class="n">ids</span>   <span class="o">/</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">11</span><span class="p">,</span>     <span class="mi">3</span><span class="p">,</span>     <span class="mi">1</span><span class="p">,</span>     <span class="mi">2</span><span class="p">,</span>     <span class="mi">4</span><span class="p">,</span>     <span class="mi">5</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-279" name="ln-279"></a>                 <span class="mi">6</span><span class="p">,</span>     <span class="mi">7</span><span class="p">,</span>     <span class="mi">8</span><span class="p">,</span>     <span class="mi">9</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-280" name="ln-280"></a>                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-281" name="ln-281"></a>                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-282" name="ln-282"></a>                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span>  <span class="o">/</span>
-<a id="ln-283" name="ln-283"></a><span class="k">data </span><span class="n">num</span>   <span class="o">/</span> <span class="mi">11</span> <span class="o">/</span>
-<a id="ln-284" name="ln-284"></a>
-<a id="ln-285" name="ln-285"></a><span class="mi">3</span> <span class="k">format</span> <span class="p">(</span> <span class="s1">&#39; IDSS ERROR: NO BODY ID NUMBER FOUND FOR &#39;</span><span class="p">,</span> <span class="n">a</span> <span class="p">)</span>
-<a id="ln-286" name="ln-286"></a>
-<a id="ln-287" name="ln-287"></a><span class="n">idss</span> <span class="o">=</span> <span class="o">-</span><span class="mi">9999</span>
-<a id="ln-288" name="ln-288"></a><span class="n">namein</span> <span class="o">=</span> <span class="n">name</span>
-<a id="ln-289" name="ln-289"></a>
-<a id="ln-290" name="ln-290"></a><span class="c">!     LOOK THROUGH LIST OF BODY NAMES TO FIND MATCH</span>
-<a id="ln-291" name="ln-291"></a><span class="k">do </span><span class="mi">20</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span>
-<a id="ln-292" name="ln-292"></a>    <span class="k">if</span> <span class="p">(</span> <span class="n">namein</span> <span class="o">==</span> <span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
-<a id="ln-293" name="ln-293"></a><span class="k">        </span><span class="n">idss</span> <span class="o">=</span> <span class="n">ids</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-<a id="ln-294" name="ln-294"></a>        <span class="n">go</span> <span class="n">to</span> <span class="mi">30</span>
-<a id="ln-295" name="ln-295"></a>    <span class="k">end if</span>
-<a id="ln-296" name="ln-296"></a><span class="mi">20</span> <span class="k">continue</span>
-<a id="ln-297" name="ln-297"></a>
-<a id="ln-298" name="ln-298"></a><span class="c">!     IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES   </span>
-<a id="ln-299" name="ln-299"></a><span class="k">if</span> <span class="p">(</span> <span class="n">namein</span> <span class="o">==</span> <span class="s1">&#39;JD &#39;</span> <span class="p">)</span> <span class="k">then</span>
-<a id="ln-300" name="ln-300"></a><span class="c">!         IN THIS CASE, SET IDSS=2 IF SOLSYS PROCESSES SPLIT</span>
-<a id="ln-301" name="ln-301"></a><span class="c">!         JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE </span>
-<a id="ln-302" name="ln-302"></a>    <span class="n">idss</span> <span class="o">=</span> <span class="mi">2</span>
-<a id="ln-303" name="ln-303"></a>    <span class="n">go</span> <span class="n">to</span> <span class="mi">30</span>
-<a id="ln-304" name="ln-304"></a><span class="k">end if    </span>
-<a id="ln-305" name="ln-305"></a>
-<a id="ln-306" name="ln-306"></a><span class="k">write</span> <span class="p">(</span> <span class="o">*</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span> <span class="n">name</span>
-<a id="ln-307" name="ln-307"></a>
-<a id="ln-308" name="ln-308"></a><span class="mi">30</span> <span class="k">return</span>
-<a id="ln-309" name="ln-309"></a>
-<a id="ln-310" name="ln-310"></a><span class="k">end</span>
+<a id="ln-175" name="ln-175"></a><span class="k">end</span>
+<a id="ln-176" name="ln-176"></a><span class="c">!***********************************************************************</span>
+<a id="ln-177" name="ln-177"></a>
+<a id="ln-178" name="ln-178"></a><span class="c">!***********************************************************************</span>
+<a id="ln-179" name="ln-179"></a><span class="c">!&gt;</span>
+<a id="ln-180" name="ln-180"></a><span class="c">!  FOR USE WITH SUBROUTINE SOLSYS VERSION 2.</span>
+<a id="ln-181" name="ln-181"></a><span class="c">!  THIS SUBROUTINE PROVIDES THE POSITION AND VELOCITY OF</span>
+<a id="ln-182" name="ln-182"></a><span class="c">!  AN AUXILIARY SOLAR SYSTEM BODY AT TIME TJD.  IT IS CALLED</span>
+<a id="ln-183" name="ln-183"></a><span class="c">!  FROM SOLSYS VERSION 2 (JPL EPHEMERIS ACCESS) WHEN THE BODY</span>
+<a id="ln-184" name="ln-184"></a><span class="c">!  IDENTIFICATION NUMBER IS OUTSIDE THE RANGE 1-11.  ITS</span>
+<a id="ln-185" name="ln-185"></a><span class="c">!  INTENDED USE IS TO SUPPLY EPHEMERIS DATA FROM NON-STANDARD</span>
+<a id="ln-186" name="ln-186"></a><span class="c">!  SOURCES.</span>
+<a id="ln-187" name="ln-187"></a><span class="c">!</span>
+<a id="ln-188" name="ln-188"></a><span class="c">!       TJD  = TDB JULIAN DATE OF DESIRED EPOCH (IN)</span>
+<a id="ln-189" name="ln-189"></a><span class="c">!       M    = BODY IDENTIFICATION NUMBER (IN)</span>
+<a id="ln-190" name="ln-190"></a><span class="c">!       K    = ORIGIN SELECTION CODE (IN)</span>
+<a id="ln-191" name="ln-191"></a><span class="c">!              SET K=0 FOR ORIGIN AT SOLAR SYSTEM BARYCENTER</span>
+<a id="ln-192" name="ln-192"></a><span class="c">!              SET K=1 FOR ORIGIN AT CENTER OF SUN</span>
+<a id="ln-193" name="ln-193"></a><span class="c">!       POS  = POSITION VECTOR, EQUATORIAL RECTANGULAR</span>
+<a id="ln-194" name="ln-194"></a><span class="c">!              COORDINATES, REFERRED TO ICRS AXES, COMPONENTS</span>
+<a id="ln-195" name="ln-195"></a><span class="c">!              IN AU (OUT)</span>
+<a id="ln-196" name="ln-196"></a><span class="c">!       VEL  = VELOCITY VECTOR, EQUATORIAL RECTANGULAR</span>
+<a id="ln-197" name="ln-197"></a><span class="c">!              COORDINATES, REFERRED TO ICRS AXES, COMPONENTS</span>
+<a id="ln-198" name="ln-198"></a><span class="c">!              IN AU/DAY (OUT)</span>
+<a id="ln-199" name="ln-199"></a><span class="c">!       JERR = ERROR INDICATOR (OUT)</span>
+<a id="ln-200" name="ln-200"></a><span class="c">!              JERR=0 MEANS EVERYTHING OK</span>
+<a id="ln-201" name="ln-201"></a><span class="c">!              JERR=1 MEANS TJD BEFORE FIRST VALID DATE</span>
+<a id="ln-202" name="ln-202"></a><span class="c">!              JERR=2 MEANS TJD AFTER LAST VALID DATE</span>
+<a id="ln-203" name="ln-203"></a><span class="c">!              JERR=3 MEANS INVALID VALUE OF M OR K</span>
+<a id="ln-204" name="ln-204"></a><span class="c">!</span>
+<a id="ln-205" name="ln-205"></a><span class="c">!----------------------------------------------------------------------</span>
+<a id="ln-206" name="ln-206"></a><span class="c">!</span>
+<a id="ln-207" name="ln-207"></a><span class="c">!  THIS IS A DUMMY VERSION OF SUBROUTINE AUXPOS.  IT SIMPLY</span>
+<a id="ln-208" name="ln-208"></a><span class="c">!  RETURNS AN ERROR CODE, SINCE IT CANNOT SUPPLY POSITIONS</span>
+<a id="ln-209" name="ln-209"></a><span class="c">!  OR VELOCITIES.  FOR NORMAL (CORRECT) ACCESS TO THE JPL</span>
+<a id="ln-210" name="ln-210"></a><span class="c">!  EPHEMERIDES VIA SOLSYS VERSION 2, THIS ROUTINE WILL NEVER</span>
+<a id="ln-211" name="ln-211"></a><span class="c">!  BE CALLED.</span>
+<a id="ln-212" name="ln-212"></a><span class="c">!</span>
+<a id="ln-213" name="ln-213"></a><span class="c">!  A WORKING VERSION MUST BE SUPPLIED BY THE USER ONLY IF THE</span>
+<a id="ln-214" name="ln-214"></a><span class="c">!  POSITIONS/VELOCITIES OF AUXILIARY SOLAR SYSTEM BODIES (E.G.,</span>
+<a id="ln-215" name="ln-215"></a><span class="c">!  ASTEROIDS) ARE OF INTEREST.  SUCH DATA COULD BE OBTAINED FROM</span>
+<a id="ln-216" name="ln-216"></a><span class="c">!  EPHEMERIS FILES OR CLOSED-FORM SERIES APPROXIMATIONS.  THE</span>
+<a id="ln-217" name="ln-217"></a><span class="c">!  BODY IDENTIFICATION NUMBERS USED FOR SUCH OBJECTS MUST BE</span>
+<a id="ln-218" name="ln-218"></a><span class="c">!  OUTSIDE THE RANGE 1-11 USED FOR MAJOR SOLAR SYSTEM BODIES.</span>
+<a id="ln-219" name="ln-219"></a><span class="c">!</span>
+<a id="ln-220" name="ln-220"></a><span class="c">!  GENERALLY, IN SUCH CASES IT WOULD BE NECESSARY FOR THIS ROUTINE</span>
+<a id="ln-221" name="ln-221"></a><span class="c">!  TO PROVIDE ONLY BARYCENTRIC POSITIONS FOR THE INPUT JD.</span>
+<a id="ln-222" name="ln-222"></a><span class="c">!  VELOCITIES ARE NEEDED ONLY FOR THE EARTH, AND HELIOCENTRIC</span>
+<a id="ln-223" name="ln-223"></a><span class="c">!  POSITIONS ARE NOT USED IN NOVAS.  ALSO, DO NOT USE FORTRAN</span>
+<a id="ln-224" name="ln-224"></a><span class="c">!  I/O UNIT NUMBER 12, WHICH IS USED BY THE JPL ROUTINES.</span>
+<a id="ln-225" name="ln-225"></a>
+<a id="ln-226" name="ln-226"></a><span class="k">subroutine </span><span class="n">auxpos</span> <span class="p">(</span><span class="n">tjd</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">k</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span><span class="n">vel</span><span class="p">,</span><span class="n">jerr</span><span class="p">)</span>
+<a id="ln-227" name="ln-227"></a>
+<a id="ln-228" name="ln-228"></a><span class="kt">double precision </span><span class="n">tjd</span><span class="p">,</span><span class="n">pos</span><span class="p">,</span><span class="n">vel</span>
+<a id="ln-229" name="ln-229"></a><span class="k">dimension </span><span class="n">pos</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">vel</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<a id="ln-230" name="ln-230"></a>
+<a id="ln-231" name="ln-231"></a><span class="n">pos</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
+<a id="ln-232" name="ln-232"></a><span class="n">pos</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
+<a id="ln-233" name="ln-233"></a><span class="n">pos</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="mi">9</span><span class="mf">9.d0</span>
+<a id="ln-234" name="ln-234"></a><span class="n">vel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
+<a id="ln-235" name="ln-235"></a><span class="n">vel</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
+<a id="ln-236" name="ln-236"></a><span class="n">vel</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
+<a id="ln-237" name="ln-237"></a><span class="n">jerr</span> <span class="o">=</span> <span class="mi">3</span>
+<a id="ln-238" name="ln-238"></a><span class="k">return</span>
+<a id="ln-239" name="ln-239"></a>
+<a id="ln-240" name="ln-240"></a><span class="k">end</span>
+<a id="ln-241" name="ln-241"></a><span class="c">!***********************************************************************</span>
+<a id="ln-242" name="ln-242"></a>
+<a id="ln-243" name="ln-243"></a><span class="c">!***********************************************************************</span>
+<a id="ln-244" name="ln-244"></a><span class="c">!&gt;</span>
+<a id="ln-245" name="ln-245"></a><span class="c">!  THIS FUNCTION RETURNS THE ID NUMBER OF A SOLAR SYSTEM BODY</span>
+<a id="ln-246" name="ln-246"></a><span class="c">!  FOR THE VERSION OF SOLSYS (OR SOLSYS-AUXPOS COMBINATION) IN USE.</span>
+<a id="ln-247" name="ln-247"></a><span class="c">!</span>
+<a id="ln-248" name="ln-248"></a><span class="c">!      NAME   = NAME OF BODY WHOSE ID NUMBER IS DESIRED, E.G.,</span>
+<a id="ln-249" name="ln-249"></a><span class="c">!               &#39;SUN&#39;, &#39;MOON, &#39;MERCURY&#39;, ETC., EXPRESSED AS ALL</span>
+<a id="ln-250" name="ln-250"></a><span class="c">!               UPPER-CASE LETTERS (IN)</span>
+<a id="ln-251" name="ln-251"></a><span class="c">!      IDSS   = ID NUMBER OF BODY, FOR USE IN CALLS TO SOLSYS</span>
+<a id="ln-252" name="ln-252"></a><span class="c">!               (FUNCTION VALUE RETURNED)</span>
+<a id="ln-253" name="ln-253"></a><span class="c">!</span>
+<a id="ln-254" name="ln-254"></a><span class="c">!  NOTE 1: IN THIS VERSION, ONLY THE FIRST THREE LETTERS OF THE</span>
+<a id="ln-255" name="ln-255"></a><span class="c">!  BODY&#39;S NAME ARE USED FOR IDENTIFICATION.  ALTERNATIVE VERSIONS</span>
+<a id="ln-256" name="ln-256"></a><span class="c">!  MIGHT USE MORE LETTERS.</span>
+<a id="ln-257" name="ln-257"></a><span class="c">!</span>
+<a id="ln-258" name="ln-258"></a><span class="c">!  NOTE 2: IF NAME IS &#39;JD&#39;, IDSS RETURNS IDSS=2 IF SOLSYS PROCESSES</span>
+<a id="ln-259" name="ln-259"></a><span class="c">!  SPLIT JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE</span>
+<a id="ln-260" name="ln-260"></a><span class="c">!</span>
+<a id="ln-261" name="ln-261"></a><span class="c">!  NOTE 3: ALL VERSIONS OF IDSS MUST RETURN IDSS=-9999 FOR OBJECTS</span>
+<a id="ln-262" name="ln-262"></a><span class="c">!  THAT IT CANNOT IDENTIFY OR ARE UNSUPPORTED BY SOLSYS.</span>
+<a id="ln-263" name="ln-263"></a>
+<a id="ln-264" name="ln-264"></a><span class="kt">integer </span><span class="k">function </span><span class="n">idss</span> <span class="p">(</span> <span class="n">name</span> <span class="p">)</span>
+<a id="ln-265" name="ln-265"></a>
+<a id="ln-266" name="ln-266"></a><span class="kt">character </span><span class="n">name</span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="n">namein</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">names</span><span class="o">*</span><span class="mi">3</span>
+<a id="ln-267" name="ln-267"></a><span class="k">dimension </span><span class="n">names</span><span class="p">(</span><span class="mi">35</span><span class="p">),</span> <span class="n">ids</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+<a id="ln-268" name="ln-268"></a>
+<a id="ln-269" name="ln-269"></a><span class="k">data </span><span class="n">names</span> <span class="o">/</span> <span class="s1">&#39;SUN&#39;</span><span class="p">,</span> <span class="s1">&#39;MOO&#39;</span><span class="p">,</span> <span class="s1">&#39;EAR&#39;</span><span class="p">,</span> <span class="s1">&#39;MER&#39;</span><span class="p">,</span> <span class="s1">&#39;VEN&#39;</span><span class="p">,</span> <span class="s1">&#39;MAR&#39;</span><span class="p">,</span> <span class="s1">&#39;JUP&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-270" name="ln-270"></a>             <span class="s1">&#39;SAT&#39;</span><span class="p">,</span> <span class="s1">&#39;URA&#39;</span><span class="p">,</span> <span class="s1">&#39;NEP&#39;</span><span class="p">,</span> <span class="s1">&#39;PLU&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-271" name="ln-271"></a>             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-272" name="ln-272"></a>             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-273" name="ln-273"></a>             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span>  <span class="o">/</span>
+<a id="ln-274" name="ln-274"></a><span class="k">data </span><span class="n">ids</span>   <span class="o">/</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">11</span><span class="p">,</span>     <span class="mi">3</span><span class="p">,</span>     <span class="mi">1</span><span class="p">,</span>     <span class="mi">2</span><span class="p">,</span>     <span class="mi">4</span><span class="p">,</span>     <span class="mi">5</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-275" name="ln-275"></a>                 <span class="mi">6</span><span class="p">,</span>     <span class="mi">7</span><span class="p">,</span>     <span class="mi">8</span><span class="p">,</span>     <span class="mi">9</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-276" name="ln-276"></a>                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-277" name="ln-277"></a>                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-278" name="ln-278"></a>                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span>  <span class="o">/</span>
+<a id="ln-279" name="ln-279"></a><span class="k">data </span><span class="n">num</span>   <span class="o">/</span> <span class="mi">11</span> <span class="o">/</span>
+<a id="ln-280" name="ln-280"></a>
+<a id="ln-281" name="ln-281"></a><span class="mi">3</span> <span class="k">format</span> <span class="p">(</span> <span class="s1">&#39; IDSS ERROR: NO BODY ID NUMBER FOUND FOR &#39;</span><span class="p">,</span> <span class="n">a</span> <span class="p">)</span>
+<a id="ln-282" name="ln-282"></a>
+<a id="ln-283" name="ln-283"></a><span class="n">idss</span> <span class="o">=</span> <span class="o">-</span><span class="mi">9999</span>
+<a id="ln-284" name="ln-284"></a><span class="n">namein</span> <span class="o">=</span> <span class="n">name</span>
+<a id="ln-285" name="ln-285"></a>
+<a id="ln-286" name="ln-286"></a><span class="c">!     LOOK THROUGH LIST OF BODY NAMES TO FIND MATCH</span>
+<a id="ln-287" name="ln-287"></a><span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span>
+<a id="ln-288" name="ln-288"></a>    <span class="k">if</span> <span class="p">(</span> <span class="n">namein</span> <span class="o">==</span> <span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<a id="ln-289" name="ln-289"></a><span class="k">        </span><span class="n">idss</span> <span class="o">=</span> <span class="n">ids</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<a id="ln-290" name="ln-290"></a>        <span class="k">return</span>
+<a id="ln-291" name="ln-291"></a><span class="k">    end if</span>
+<a id="ln-292" name="ln-292"></a><span class="k">end do</span>
+<a id="ln-293" name="ln-293"></a>
+<a id="ln-294" name="ln-294"></a><span class="c">!     IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES</span>
+<a id="ln-295" name="ln-295"></a><span class="k">if</span> <span class="p">(</span> <span class="n">namein</span> <span class="o">==</span> <span class="s1">&#39;JD &#39;</span> <span class="p">)</span> <span class="k">then</span>
+<a id="ln-296" name="ln-296"></a><span class="c">!         IN THIS CASE, SET IDSS=2 IF SOLSYS PROCESSES SPLIT</span>
+<a id="ln-297" name="ln-297"></a><span class="c">!         JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE</span>
+<a id="ln-298" name="ln-298"></a>    <span class="n">idss</span> <span class="o">=</span> <span class="mi">2</span>
+<a id="ln-299" name="ln-299"></a>    <span class="k">return</span>
+<a id="ln-300" name="ln-300"></a><span class="k">end if</span>
+<a id="ln-301" name="ln-301"></a>
+<a id="ln-302" name="ln-302"></a><span class="k">write</span> <span class="p">(</span> <span class="o">*</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span> <span class="n">name</span>
+<a id="ln-303" name="ln-303"></a>
+<a id="ln-304" name="ln-304"></a><span class="k">end</span>
+<a id="ln-305" name="ln-305"></a><span class="c">!***********************************************************************</span>
 </pre></div>
 
     </section>
