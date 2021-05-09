@@ -7,10 +7,21 @@
 !
 !### Version
 !  * NOVAS FORTRAN VERS F3.1 of 2011 MARCH 21
+!  * Modernized by Jacob Williams, May 2021
 
     module novas_module
 
+    use iso_fortran_env, only: wp => real64
+
     !implicit none
+
+    real(wp),parameter,private :: pi = acos(-1.0_wp)
+    real(wp),parameter,private :: halfpi = 0.5_wp * pi
+    real(wp),parameter,private :: twopi = 2.0_wp * pi
+    real(wp),parameter,private :: jd_j2000 = 2451545.0_wp !! t0 = TDB julian date of epoch J2000.0 (TT)
+    real(wp),parameter,private :: seccon = 180.0_wp * 3600.0_wp / pi
+    real(wp),parameter,private :: degrad = pi / 180.0_wp
+    real(wp),parameter,private :: raddeg = 180.0_wp / pi
 
     contains
 !***********************************************************************
@@ -135,8 +146,8 @@
 implicit none
 integer locatn,icoord,ntimes,iearth,isun,idbody,ierr,loc,j,kcio, &
      idss
-double precision tjd,star,observ,skypos, &
-     t0,tlast1,tlast2,ttjd,tdbjd,c,x,secdif,tlight,dis,dt, &
+real(wp) :: tjd,star,observ,skypos, &
+     tlast1,tlast2,ttjd,tdbjd,c,x,secdif,tlight,dis,dt, &
      frlimb,rcio,peb,veb,psb,vsb,pog,vog,pob,vob, &
      pos1,vel1,pos2,pos3,pos4,pos5,pos6,pos7,pos8, &
      px,py,pz,ra,dec,rvs,rvd,rv,dabs,dsqrt
@@ -151,8 +162,6 @@ dimension star(*), observ(6), skypos(*), &
 
 save
 
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
 data tlast1, tlast2 / 0.d0, 0.d0 /,   ntimes / 0 /
 
 3 format ( ' PLACE: CANNOT OBTAIN COORDINATES OF ', a, ' AT JD ', &
@@ -247,7 +256,7 @@ if ( object == 'STAR' .or. object == ' ' .or. &
     call vectrs ( star(1), star(2), star(3), star(4), &
                   star(5), star(6),   pos1, vel1 )
     call dlight ( pos1, pob,   dt )
-    call propmo ( t0, pos1, vel1, tdbjd + dt,   pos2 )
+    call propmo ( jd_j2000, pos1, vel1, tdbjd + dt,   pos2 )
 !         GET POSITION OF STAR WRT OBSERVER (CORRECTED FOR PARALLAX)
     call geocen ( pos2, pob,   pos3, tlight )
     dis = 0.d0
@@ -314,7 +323,7 @@ if ( icoord == 1 ) then
 
 !         TRANSFORM TO EQUATOR AND EQUINOX OF DATE
     call frame  ( pos5, 1,   pos6 )
-    call preces ( t0, pos6, tdbjd,   pos7 )
+    call preces ( jd_j2000, pos6, tdbjd,   pos7 )
     call nutate ( tdbjd, pos7,   pos8 )
 
 else if ( icoord == 2 ) then
@@ -403,7 +412,7 @@ subroutine places()
 
 implicit none
 integer l,n,locatn,icoord
-double precision tjd,rai,deci,pmra,pmdec,parlax,radvel, &
+real(wp) :: tjd,rai,deci,pmra,pmdec,parlax,radvel, &
      ujd,glon,glat,ht,ra,dec,dis, &
      ttjd,gast,deltat,star,observ,skypos,dmod
 character*4 object
@@ -653,14 +662,12 @@ end
 !      DECI   = ICRS DECLINATION IN DEGREES (OUT)
 
 subroutine mpstar (tjd,n,ra,dec, rai,deci)
-double precision tjd,ra,dec,rai,deci,t0,t1,rainew,dcinew, &
+real(wp) :: tjd,ra,dec,rai,deci,t1,rainew,dcinew, &
      raiold,dciold,star,observ,skypos,r,d,p,v,delra,deldec, &
      dabs
 dimension star(20), observ(6), skypos(10), p(3), v(3)
 save
 
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
 data star, observ, skypos / 36 * 0.d0 /
 
 3 format ( ' MPSTAR: NO CONVERGENCE AT COORDINATES ', &
@@ -671,7 +678,7 @@ t1 = tjd
 !     GET INITIAL APPROXIMATION
 iter = 0
 call vectrs (ra,dec,0.d0,0.d0,0.d0,0.d0,p,v)
-call preces (t1,p,t0,v)
+call preces (t1,p,jd_j2000,v)
 call angles (v,rainew,dcinew)
 
 !     ITERATIVELY FIND ICRS COORDINATES THAT PRODUCE INPUT
@@ -737,17 +744,12 @@ end
 
 subroutine sidtim ( tjdh, tjdl, k,   gst )
 
-double precision tjdh,tjdl,gst,pi,degcon,deltat, &
-     t0,utjd,ttjd,tdbjd,secdif,a,theta,rcio, &
+real(wp) :: tjdh,tjdl,gst,deltat, &
+     utjd,ttjd,tdbjd,secdif,a,theta,rcio, &
      unitx,w1,w2,x,y,z,eq,haeq,ee,dmod,datan2
 dimension unitx(3), w1(3), w2(3), x(3), y(3), z(3), eq(3)
 save
 
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( degcon = 180.d0 / pi           )
-
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
 data unitx / 1.d0, 0.d0, 0.d0 /
 
 3 format ( ' SIDTIM ERROR: CANNOT RETURN SIDEREAL TIME FOR ', &
@@ -795,13 +797,13 @@ else
     call ciobas ( tdbjd, rcio, kcio,   x, y, z )
 !         COMPUTE THE DIRECTION OF THE TRUE EQUINOX IN THE GCRS
     call nutate ( -tdbjd, unitx,   w1 )
-    call preces ( tdbjd, w1, t0,   w2 )
+    call preces ( tdbjd, w1, jd_j2000,   w2 )
     call frame ( w2, -1,    eq )
 !         COMPUTE THE HOUR ANGLE OF THE EQUINOX WRT THE TIO MERIDIAN
 !         (NEAR GREENWICH, BUT PASSES THROUGH THE CIP AND TIO)
     haeq = theta - datan2 ( eq(1)*y(1) + eq(2)*y(2) + eq(3)*y(3), &
                             eq(1)*x(1) + eq(2)*x(2) + eq(3)*x(3) ) &    !
-                   * degcon
+                   * raddeg
 
 !         FOR MEAN SIDEREAL TIME, OBTAIN THE EQUATION OF THE EQUINOXES
 !         AND SUBTRACT IT
@@ -830,16 +832,11 @@ end
 !                TRUE EQUINOX OF DATE, IN HOURS (+ OR -) (OUT)
 
 subroutine ciora ( tjd,   racio )
-double precision tjd,racio,pi,degcon,t0,t,secdif,tdbjd,rcio, &
+real(wp) :: tjd,racio,t,secdif,tdbjd,rcio, &
      unitx,w1,w2,x,y,z,eq,az,datan2
 dimension unitx(3), w1(3), w2(3), x(3), y(3), z(3), eq(3)
 save
 
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( degcon = 180.d0 / pi           )
-
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
 data unitx / 1.d0, 0.d0, 0.d0 /
 
 3 format ( ' CIORA ERROR: CANNOT RETURN CIO RA VALUE FOR JD ', &
@@ -863,13 +860,13 @@ call ciobas ( tdbjd, rcio, kcio,   x, y, z )
 
 !     COMPUTE THE DIRECTION OF THE TRUE EQUINOX IN THE GCRS
 call nutate ( -tdbjd, unitx,   w1 )
-call preces ( tdbjd, w1, t0,   w2 )
+call preces ( tdbjd, w1, jd_j2000,   w2 )
 call frame ( w2, -1,    eq )
 
 !     COMPUTE THE INTERMEDIATE RA OF THE TRUE EQUINOX (EQUATION OF
 !     THE ORIGINS)
 az = datan2 ( eq(1)*y(1) + eq(2)*y(2) + eq(3)*y(3), &
-              eq(1)*x(1) + eq(2)*x(2) + eq(3)*x(3) ) * degcon
+              eq(1)*x(1) + eq(2)*x(2) + eq(3)*x(3) ) * raddeg
 
 !     THE RA OF THE CIO IS MINUS THIS COORDINATE
 racio = -az / 15.d0
@@ -923,14 +920,12 @@ end
 
 subroutine tercel ( tjdh, tjdl, xp, yp, vec1,   vec2 )
 
-double precision tjdh,tjdl,xp,yp,vec1,vec2, &
-     t0,deltat,utjdh,utjdl,utjd,ttjd,tdbjd,t,secdif, &
+real(wp) :: tjdh,tjdl,xp,yp,vec1,vec2, &
+     deltat,utjdh,utjdl,utjd,ttjd,tdbjd,t,secdif, &
      gast,rcio,theta,v1,v2,v3,v4,x,y,z
 dimension vec1(3), vec2(3), v1(3), v2(3), v3(3), v4(3), &
      x(3), y(3), z(3)
 
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
 
 call getdt ( deltat )
 
@@ -977,7 +972,7 @@ if ( mode >= 2 ) then
 
 !         APPLY NUTATION AND PRECESSION
     call nutate ( -tdbjd, v2,   v3 )
-    call preces ( tdbjd, v3, t0,   v4 )
+    call preces ( tdbjd, v3, jd_j2000,   v4 )
 
 !         APPLY FRAME-TIE MATRIX
     call frame ( v4, -1, vec2 )
@@ -1066,14 +1061,11 @@ end
 
 subroutine celter ( tjdh, tjdl, xp, yp, vec1,   vec2 )
 
-double precision tjdh,tjdl,xp,yp,vec1,vec2, &
-     t0,deltat,utjdh,utjdl,utjd,ttjd,tdbjd,t,secdif, &
+real(wp) :: tjdh,tjdl,xp,yp,vec1,vec2, &
+     deltat,utjdh,utjdl,utjd,ttjd,tdbjd,t,secdif, &
      gast,rcio,theta,v1,v2,v3,v4,x,y,z
 dimension vec1(3), vec2(3), v1(3), v2(3), v3(3), v4(3), &
      x(3), y(3), z(3)
-
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
 
 call getdt ( deltat )
 
@@ -1109,7 +1101,7 @@ if ( mode >= 2 ) then
     call frame ( vec1, 1, v1 )
 
 !         APPLY PRECESSION AND NUTATION
-    call preces ( t0, v1, tdbjd,   v2 )
+    call preces ( jd_j2000, v1, tdbjd,   v2 )
     call nutate ( tdbjd, v2,   v3 )
 
     end if
@@ -1198,7 +1190,7 @@ end
 subroutine gethip ( rah, dech, pmrah, pmdech, parxh, rvh, &
     ra2, dec2, pmra2, pmdec2, parx2, rv2 )
 
-double precision rah,dech,pmrah,pmdech,parxh,rvh, &
+real(wp) :: rah,dech,pmrah,pmdech,parxh,rvh, &
      ra2,dec2,pmra2,pmdec2,parx2,rv2,epoch1,epoch2
 
 data epoch1, epoch2 / 2448349.0625d0, 2451545.0000d0 /
@@ -1283,9 +1275,9 @@ subroutine catran ( it, &
                     date1, ra1, dec1, pmra1, pmdec1, parx1, rv1, &
                     date2, ra2, dec2, pmra2, pmdec2, parx2, rv2 )
 
-double precision date1,ra1,dec1,pmra1,pmdec1,parx1,rv1, &
+real(wp) :: date1,ra1,dec1,pmra1,pmdec1,parx1,rv1, &
      date2,ra2,dec2,pmra2,pmdec2,parx2,rv2, &
-     pi,seccon,aukm,c,tjd1,pos1,vel1,tjd2,pos2,vel2, &
+     aukm,c,tjd1,pos1,vel1,tjd2,pos2,vel2, &
      paralx,dist,r,d,cra,sra,cdc,sdc,k,pmr,pmd,rvl, &
      xyproj,dcos,dsin,datan2
 integer it,j
@@ -1293,9 +1285,6 @@ integer it,j
 dimension pos1(3), vel1(3), pos2(3), vel2(3)
 
 save
-
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( seccon = 180.d0 * 3600.d0 / pi )
 
 data ntimes / 0 /
 
@@ -1503,18 +1492,13 @@ end
 subroutine zdaz ( ujd, xp, yp, glon, glat, ht, ra, dec, irefr, &
     zd, az, rar, decr )
 
-double precision ujd,xp,yp,glon,glat,ht,ra,dec,zd,az,rar,decr, &
-     pi,degrad,raddeg, &
+real(wp) :: ujd,xp,yp,glon,glat,ht,ra,dec,zd,az,rar,decr, &
      sinlat,coslat,sinlon,coslon,sindc,cosdc,sinra,cosra, &
      uze,une,uwe,uz,un,uw,p,pr,pz,pn,pw,proj, &
      zd0,zd1,refr,sinzd,coszd,sinzd0,coszd0, &
      dsin,dcos,dsqrt,datan2
 dimension uze(3), une(3), uwe(3), uz(3), un(3), uw(3), &
      p(3), pr(3)
-
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( degrad = pi / 180.d0           )
-parameter ( raddeg = 180.d0 / pi           )
 
 rar    = ra
 decr   = dec
@@ -1648,24 +1632,18 @@ end
 
 subroutine gcrseq ( tjd, icoord, rag, decg,   ra, dec )
 
-double precision tjd,rag,decg,ra,dec,pi,radcon,t0,t1,t,secdif,r,d, &    !
+real(wp) :: tjd,rag,decg,ra,dec,t1,t,secdif,r,d, &    !
      pos1,pos2,pos3,pos4,rcio,x,y,z,dsin,dcos
 dimension pos1(3), pos2(3), pos3(3), pos4(3), x(3), y(3), z(3)
 save
-
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( radcon = pi / 180.d0           )
-
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
 
 !     T1 IS THE TDB JULIAN DATE
 call times ( tjd, t,   secdif )
 t1 = tjd + secdif / 86400.d0
 
 !     FORM POSITION VECTOR IN EQUATORIAL SYSTEM FROM INPUT COORDINATES
-r = rag * 15.d0 * radcon
-d = decg * radcon
+r = rag * 15.d0 * degrad
+d = decg * degrad
 pos1(1) = dcos ( d ) * dcos ( r )
 pos1(2) = dcos ( d ) * dsin ( r )
 pos1(3) = dsin ( d )
@@ -1675,7 +1653,7 @@ if ( icoord <= 1 ) then
 !         TRANSFORM THE POSITION VECTOR FROM GCRS TO MEAN EQUATOR AND
 !         EQUINOX OF DATE
     call frame  ( pos1, 1,   pos2 )
-    call preces ( t0, pos2, t1,   pos3 )
+    call preces ( jd_j2000, pos2, t1,   pos3 )
 !         IF REQUESTED, TRANSFORM FURTHER TO TRUE EQUATOR AND EQUINOX
 !         OF DATE
     if ( icoord == 1 ) then
@@ -1732,17 +1710,16 @@ end
 
 subroutine eqecl ( tjd, icoord, ra, dec,   elon, elat )
 
-double precision tjd,ra,dec,elon,elat,pi,radcon,r,d,xyproj,e, &
+real(wp) :: tjd,ra,dec,elon,elat,r,d,xyproj,e, &
      pos1,pos2,dsin,dcos,dsqrt,datan2
 dimension pos1(3), pos2(3)
 save
 
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( radcon = pi / 180.d0           )
+
 
 !     FORM POSITION VECTOR IN EQUATORIAL SYSTEM FROM INPUT COORDINATES
-r = ra * 15.d0 * radcon
-d = dec * radcon
+r = ra * 15.d0 * degrad
+d = dec * degrad
 pos1(1) = dcos ( d ) * dcos ( r )
 pos1(2) = dcos ( d ) * dsin ( r )
 pos1(3) = dsin ( d )
@@ -1754,10 +1731,10 @@ call eqec ( tjd, icoord, pos1,   pos2 )
 xyproj = dsqrt ( pos2(1)**2 + pos2(2)**2 )
 e = 0.d0
 if ( xyproj > 0.d0 ) e = datan2 ( pos2(2), pos2(1) )
-elon = e / radcon
+elon = e / degrad
 if ( elon < 0.d0 ) elon = elon + 360.d0
 e = datan2 ( pos2(3), xyproj )
-elat = e / radcon
+elat = e / degrad
 
 end
 !***********************************************************************
@@ -1785,16 +1762,13 @@ end
 
 subroutine eqec ( tjd, icoord, pos1,   pos2 )
 
-double precision tjd,pos1,pos2,pos0,pi,radcon,t0,t1,t,secdif, &
+real(wp) :: tjd,pos1,pos2,pos0,t1,t,secdif, &
      tlast,ob2000,oblm,oblt,obl,x,dsin,dcos
 dimension pos1(3), pos2(3), pos0(3)
 save
 
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( radcon = pi / 180.d0           )
 
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
+
 data tlast / 0.d0 /,   ob2000 / 0.d0 /
 
 !     T1 IS THE TDB JULIAN DATE
@@ -1805,8 +1779,8 @@ if ( tjd == 0.d0 ) then
 !         CASE WHERE INPUT VECTOR IS IN ICRS SYSTEM
     call frame ( pos1, 1,   pos0 )
 !         GET MEAN OBLIQUITY AT J2000.0 IF NECESSARY
-    if ( ob2000 == 0.d0 ) call etilt ( t0,  ob2000, x, x, x, x )      !
-    obl = ob2000 * radcon
+    if ( ob2000 == 0.d0 ) call etilt ( jd_j2000,  ob2000, x, x, x, x )      !
+    obl = ob2000 * degrad
 else
 !         CASE WHERE INPUT VECTOR IS IN EQUATOR OF DATE SYSTEM
     pos0(1) = pos1(1)
@@ -1818,8 +1792,8 @@ else
         tlast = tjd
     end if
 !         SELECT MEAN OR TRUE OBLIQUITY
-    obl = oblm * radcon
-    if ( icoord == 1 ) obl = oblt * radcon
+    obl = oblm * degrad
+    if ( icoord == 1 ) obl = oblt * degrad
 end if
 
 !     ROTATE EQUATORIAL POSITION VECTOR TO ECLIPTIC SYSTEM
@@ -1856,16 +1830,13 @@ end
 
 subroutine eceq ( tjd, icoord, pos1,   pos2 )
 
-double precision tjd,pos1,pos2,pos0,pi,radcon,t0,t1,t,secdif, &
+real(wp) :: tjd,pos1,pos2,pos0,t1,t,secdif, &
      tlast,ob2000,oblm,oblt,obl,x,dsin,dcos
 dimension pos1(3), pos2(3), pos0(3)
 save
 
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( radcon = pi / 180.d0           )
 
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
+
 data tlast / 0.d0 /,   ob2000 / 0.d0 /
 
 !     T1 IS THE TDB JULIAN DATE
@@ -1875,8 +1846,8 @@ t1 = tjd + secdif / 86400.d0
 if ( tjd == 0.d0 ) then
 !         CASE WHERE OUTPUT VECTOR IS TO BE IN ICRS SYSTEM
 !         GET MEAN OBLIQUITY AT J2000.0 IF NECESSARY
-    if ( ob2000 == 0.d0 ) call etilt ( t0,  ob2000, x, x, x, x )      !
-    obl = ob2000 * radcon
+    if ( ob2000 == 0.d0 ) call etilt ( jd_j2000,  ob2000, x, x, x, x )      !
+    obl = ob2000 * degrad
 else
 !         CASE WHERE OUTPUT VECTOR IS TO BE IN EQUATOR OF DATE SYSTEM
 !         GET MEAN AND TRUE OBLIQUITY
@@ -1885,8 +1856,8 @@ else
         tlast = tjd
     end if
 !         SELECT MEAN OR TRUE OBLIQUITY
-    obl = oblm * radcon
-    if ( icoord == 1 ) obl = oblt * radcon
+    obl = oblm * degrad
+    if ( icoord == 1 ) obl = oblt * degrad
 end if
 
 !     ROTATE ECLIPTIC POSITION VECTOR TO EQUATORIAL SYSTEM
@@ -1922,13 +1893,13 @@ end
 
 subroutine eqgal ( ra, dec,   glon, glat )
 
-double precision ra,dec,glon,glat,pi,radcon,ag,r,d,xyproj,g, &
+real(wp) :: ra,dec,glon,glat,ag,r,d,xyproj,g, &
      pos1,pos2,dsin,dcos,dsqrt,datan2
 dimension pos1(3), pos2(3), ag(3,3)
 save
 
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( radcon = pi / 180.d0           )
+
+
 
 !     ROTATION MATRIX A_G FROM HIPPARCOS DOCUMENTATION EQ. 1.5.11
 data ag / &
@@ -1937,8 +1908,8 @@ data ag / &
      -0.4838350155d0, +0.7469822445d0, +0.4559837762d0 /
 
 !     FORM POSITION VECTOR IN EQUATORIAL SYSTEM FROM INPUT COORDINATES
-r = ra * 15.d0 * radcon
-d = dec * radcon
+r = ra * 15.d0 * degrad
+d = dec * degrad
 pos1(1) = dcos ( d ) * dcos ( r )
 pos1(2) = dcos ( d ) * dsin ( r )
 pos1(3) = dsin ( d )
@@ -1953,10 +1924,10 @@ pos2(3) = ag(3,1)*pos1(1) + ag(3,2)*pos1(2) + ag(3,3)*pos1(3)
 xyproj = dsqrt ( pos2(1)**2 + pos2(2)**2 )
 g = 0.d0
 if ( xyproj > 0.d0 ) g = datan2 ( pos2(2), pos2(1) )
-glon = g / radcon
+glon = g / degrad
 if ( glon < 0.d0 ) glon = glon + 360.d0
 g = datan2 ( pos2(3), xyproj )
-glat = g / radcon
+glat = g / degrad
 
 !     STORE COMPUTED POSITION VECTOR FOR POSSIBLE LATER RETRIEVAL
 call setvec ( pos2 )
@@ -1986,14 +1957,11 @@ end
 
 subroutine vectrs (ra,dec,pmra,pmdec,parllx,rv,pos,vel)
 
-double precision ra,dec,pmra,pmdec,parllx,rv,pos,vel, &
-     pi,seccon,aukm,c,paralx,dist,r,d,cra,sra,cdc,sdc,k, &
+real(wp) :: ra,dec,pmra,pmdec,parllx,rv,pos,vel, &
+     aukm,c,paralx,dist,r,d,cra,sra,cdc,sdc,k, &
      pmr,pmd,rvl,dcos,dsin
 dimension pos(3), vel(3)
 save
-
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( seccon = 180.d0 * 3600.d0 / pi )
 
 data ntimes / 0 /
 
@@ -2052,11 +2020,8 @@ end
 
 subroutine angles (pos,ra,dec)
 
-double precision pos,ra,dec,pi,seccon,xyproj,r,d,dsqrt,datan2
+real(wp) :: pos,ra,dec,xyproj,r,d,dsqrt,datan2
 dimension pos(3)
-
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( seccon = 180.d0 * 3600.d0 / pi )
 
 xyproj = dsqrt(pos(1)**2 + pos(2)**2)
 r = 0.d0
@@ -2086,7 +2051,7 @@ end
 
 subroutine propmo (tjd1,pos1,vel1,tjd2,pos2)
 
-double precision tjd1,pos1,vel1,tjd2,pos2
+real(wp) :: tjd1,pos1,vel1,tjd2,pos2
 dimension pos1(3), vel1(3), pos2(3)
 
 do j=1,3
@@ -2120,7 +2085,7 @@ end subroutine propmo
 
 subroutine geocen (pos1,pe,pos2,tlight)
 
-double precision pos1,pe,pos2,tlight,c,dsqrt
+real(wp) :: pos1,pe,pos2,tlight,c,dsqrt
 dimension pos1(3), pe(3), pos2(3)
 save
 
@@ -2190,7 +2155,7 @@ end subroutine geocen
 
 subroutine geopos (tjd,locatn,observ,pos,vel)
 
-double precision tjd,observ,pos,vel,t0,tlast, &
+real(wp) :: tjd,observ,pos,vel,tlast, &
      au,deltat,ttjd,tdbjd,ut1jd,st,gst,gmst,gast,eqeq,x, &
      pos1,vel1,pos2,vel2,pos3,vel3
 
@@ -2199,8 +2164,6 @@ dimension observ(6), pos(3), vel(3), &
 
 save
 
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
 data tlast / 0.d0 /,   gst / -99.d0 /,   ntimes / 0 /
 
 ntimes = ntimes + 1
@@ -2279,12 +2242,12 @@ end if
 
 !     TRANSFORM GEOCENTRIC POSITION VECTOR OF OBSERVER TO GCRS
 call nutate ( -tdbjd, pos1,   pos2 )
-call preces ( tdbjd, pos2, t0,   pos3 )
+call preces ( tdbjd, pos2, jd_j2000,   pos3 )
 call frame ( pos3, -1,   pos )
 
 !     TRANSFORM GEOCENTRIC VELOCITY VECTOR OF OBSERVER TO GCRS
 call nutate ( -tdbjd, vel1,   vel2 )
-call preces ( tdbjd, vel2, t0,   vel3 )
+call preces ( tdbjd, vel2, jd_j2000,   vel3 )
 call frame ( vel3, -1,   vel )
 
 return
@@ -2317,7 +2280,7 @@ end
 
 subroutine littim (tjd,idbody,pose,tlite,pos,tlight)
 
-double precision tjd,pose,tlite,pos,tlight,t0,t1,t2,t3,tol, &
+real(wp) :: tjd,pose,tlite,pos,tlight,t0,t1,t2,t3,tol, &
      pos1,vel1,dint,dabs
 logical split
 
@@ -2405,7 +2368,7 @@ end
 
 subroutine dlight (pos1,pe,diflt)
 
-double precision pos1,pe,diflt,c,dis,u1,dsqrt
+real(wp) :: pos1,pe,diflt,c,dis,u1,dsqrt
 dimension pos1(3), pe(3), u1(3)
 save
 
@@ -2461,7 +2424,7 @@ end
 
 subroutine grvdef (tjd,loc,pos1,pobs,pos2)
 
-double precision tjd,pos1,pobs,pos2,c,rmass,rmasse,pbody,vbody, &
+real(wp) :: tjd,pos1,pobs,pos2,c,rmass,rmasse,pbody,vbody, &
      pbodyo,x,tlt,dlt,tclose,dsqrt
 character*3 name
 dimension pos1(3), pobs(3), pos2(3), name(10), id(10), rmass(10), &
@@ -2571,7 +2534,7 @@ end
 
 subroutine grvd (pos1,pobs,pbody,rmass,pos2)
 
-double precision pos1,pobs,pbody,rmass,pos2,c,mau,gs,pq,pe, &
+real(wp) :: pos1,pobs,pbody,rmass,pos2,c,mau,gs,pq,pe, &
      pmag,emag,qmag,phat,ehat,qhat,pdotq,edotp,qdote, &
      fac1,fac2,p2j,dabs,dsqrt
 dimension pos1(3), pobs(3), pbody(3), pos2(3), pq(3), pe(3), &
@@ -2656,7 +2619,7 @@ end
 
 subroutine aberat (pos1,ve,tlight,pos2)
 
-double precision pos1,ve,tlight,pos2,c,tl,p1mag,vemag, &
+real(wp) :: pos1,ve,tlight,pos2,c,tl,p1mag,vemag, &
      beta,dot,cosd,gammai,p,q,r,dsqrt
 dimension pos1(3), ve(3), pos2(3)
 save
@@ -2756,7 +2719,7 @@ end
 
 subroutine radvl ( pos, vel, velobs, star, dist,   rv )
 
-double precision pos,vel,velobs,star,dist,rv,pi,radcon, &
+real(wp) :: pos,vel,velobs,star,dist,rv, &
      au,c,gs,ge,c2,toms,toms2, &
      posmag,uk,v2,vo2,r,phigeo,phisun,rel,zc,ra,dc,du, &
      zb1,kvobs,kv,zobs1,dsqrt,dcos,dsin
@@ -2768,8 +2731,8 @@ dimension pos(3), vel(3), velobs(3), star(3), dist(3), uk(3), &
 
 save
 
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( radcon = pi / 180.d0           )
+
+
 
 data ntimes / 0 /
 
@@ -2833,8 +2796,8 @@ if ( dostar ) then
 
 !         FOR STARS, UPDATE BARYCENTRIC RADIAL VELOCITY MEASURE FOR
 !         CHANGE IN VIEW ANGLE
-    ra = star(1) * 15.d0 * radcon
-    dc = star(2) * radcon
+    ra = star(1) * 15.d0 * degrad
+    dc = star(2) * degrad
     du(1) = uk(1) - ( dcos ( dc ) * dcos ( ra ) )
     du(2) = uk(2) - ( dcos ( dc ) * dsin ( ra ) )
     du(3) = uk(3) - ( dsin ( dc )               )
@@ -2901,17 +2864,12 @@ end
 
 subroutine preces (tjd1,pos1,tjd2,pos2)
 
-double precision tjd1,tjd2,pos1,pos2,pi,seccon,t0,tlast,t, &
+real(wp) :: tjd1,tjd2,pos1,pos2,tlast,t, &
      eps0,psia,omegaa,chia,sa,ca,sb,cb,sc,cc,sd,cd, &
      xx,yx,zx,xy,yy,zy,xz,yz,zz,dabs,dcos,dsin
 dimension pos1(3), pos2(3)
 save
 
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( seccon = 180.d0 * 3600.d0 / pi )
-
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
 data tlast / 0.d0 /
 
 !     INITIALIZE PRECESSION ROTATION MATRIX AS IDENTITY MATRIX
@@ -2922,14 +2880,14 @@ data zx, zy, zz / 0.d0, 0.d0, 1.d0 /
 3 format ( ' PRECES ERROR: PRECESSION FROM JD ', f10.1, ' TO ', &
      f10.1, ' NOT TO/FROM J2000' )
 
-if ( tjd1 /= t0 .and. tjd2 /= t0 ) then
+if ( tjd1 /= jd_j2000 .and. tjd2 /= jd_j2000 ) then
     write ( *, 3 ) tjd1, tjd2
     return
 end if
 
 !     T IS TIME IN TDB CENTURIES BETWEEN THE TWO EPOCHS
 t = ( tjd2 - tjd1 ) / 36525.d0
-if ( tjd2 == t0 ) t = -t
+if ( tjd2 == jd_j2000 ) t = -t
 if ( dabs ( t - tlast ) >= 1.d-15 ) then
 
     !     NUMERICAL COEFFICIENTS OF PSI_A, OMEGA_A, AND CHI_A, ALONG WITH
@@ -2980,7 +2938,7 @@ if ( dabs ( t - tlast ) >= 1.d-15 ) then
 
 end if
 
-if ( tjd2 == t0 ) then
+if ( tjd2 == jd_j2000 ) then
     !     PERFORM ROTATION FROM EPOCH TO J2000.0
     pos2(1) = xx * pos1(1) + xy * pos1(2) + xz * pos1(3)
     pos2(2) = yx * pos1(1) + yy * pos1(2) + yz * pos1(3)
@@ -3014,13 +2972,10 @@ end
 !  IS APPLIED.
 
 subroutine nutate (tjd,pos1,pos2)
-double precision tjd,pos1,pos2,tjd1,pi,seccon,oblm,oblt,eqeq, &
+real(wp) :: tjd,pos1,pos2,tjd1,oblm,oblt,eqeq, &
      dpsi,deps,cobm,sobm,cobt,sobt,cpsi,spsi, &
      xx,yx,zx,xy,yy,zy,xz,yz,zz,dabs,dcos,dsin
 dimension pos1(3), pos2(3)
-
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( seccon = 180.d0 * 3600.d0 / pi )
 
 tjd1 = dabs(tjd)
 
@@ -3078,12 +3033,10 @@ end
 
 subroutine spin (angl,pos1,pos2)
 
-double precision angl,pos1,pos2,pi,alast,ang,cosang,sinang, &
+real(wp) :: angl,pos1,pos2,alast,ang,cosang,sinang, &
      xx,yx,zx,xy,yy,zy,xz,yz,zz,dabs,dcos,dsin
 dimension pos1(3), pos2(3)
 save
-
-parameter ( pi     = 3.14159265358979324d0 )
 
 data alast / -999.d0 /
 
@@ -3149,21 +3102,15 @@ end
 
 subroutine wobble (tjd,xp,yp,pos1,pos2)
 
-double precision tjd,xp,yp,pos1,pos2,pi,seccon,t0,t,xpole,ypole, &
+real(wp) :: tjd,xp,yp,pos1,pos2,t,xpole,ypole, &
      sprime,tiolon,sinx,cosx,siny,cosy,sinl,cosl, &
      xx,yx,zx,xy,yy,zy,xz,yz,zz,dabs,dsin,dcos
 dimension pos1(3), pos2(3)
 
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( seccon = 180.d0 * 3600.d0 / pi )
-
-!     T0 = TT JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.0d0 /
-
 xpole = xp / seccon
 ypole = yp / seccon
 
-t = ( dabs(tjd) - t0 ) / 36525.d0
+t = ( dabs(tjd) - jd_j2000 ) / 36525.d0
 
 !     COMPUTE APPROXIMATE LONGITUDE OF TIO, USING EQ. (10) OF
 !     LAMBERT & BIZOUARD (2002), ASTRONOMY AND ASTROPHYSICS 394,
@@ -3231,13 +3178,10 @@ end
 
 subroutine frame (pos1,k,pos2)
 
-double precision pos1,pos2,pi,seccon,xi0,eta0,da0, &
+real(wp) :: pos1,pos2,xi0,eta0,da0, &
      xx,yx,zx,xy,yy,zy,xz,yz,zz
 dimension pos1(3), pos2(3)
 save
-
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( seccon = 180.d0 * 3600.d0 / pi )
 
 !     XI0, ETA0, AND DA0 ARE ICRS FRAME BIASES IN ARCSECONDS TAKEN
 !     FROM IERS CONVENTIONS (2003), CHAPTER 5
@@ -3319,14 +3263,11 @@ end
 
 subroutine terra (glon,glat,ht,st,pos,vel)
 
-double precision glon,glat,ht,st,pos,vel,pi,seccon,erad,f,omega, &
+real(wp) :: glon,glat,ht,st,pos,vel,erad,f,omega, &
      aukm,df2,phi,sinphi,cosphi,c,s,ach,ash,stlocl,sinst,cosst, &
      dsqrt,dcos,dsin
 dimension pos(3), vel(3)
 save
-
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( seccon = 180.d0 * 3600.d0 / pi )
 
 data ntimes / 0 /
 
@@ -3391,12 +3332,9 @@ end
 
 subroutine times (tdbjd,ttjd,secdif)
 
-double precision tdbjd,ttjd,secdif,t,t0,dsin
+real(wp) :: tdbjd,ttjd,secdif,t,dsin
 
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
-
-t = ( tdbjd - t0 ) / 36525.d0
+t = ( tdbjd - jd_j2000 ) / 36525.d0
 
 !     EXPRESSION GIVEN IN USNO CIRCULAR 179, EQ. 2.6
 secdif = 0.001657d0 * dsin (  628.3076d0 * t + 6.2401d0) &              !
@@ -3434,8 +3372,8 @@ end
 
 subroutine etilt (tjd,oblm,oblt,eqeq,dpsi,deps)
 
-double precision tjd,oblm,oblt,eqeq,dpsi,deps,pi,seccon, &
-     t0,tlast,t,psi,eps,psicor,epscor,cterms,delpsi,deleps, &
+real(wp) :: tjd,oblm,oblt,eqeq,dpsi,deps, &
+     tlast,t,psi,eps,psicor,epscor,cterms,delpsi,deleps, &
      el,elp,f,d,omega,obm,obt,ee, &
      dpole1,dpole2,dx,dy,dz,sine,x,dp1,dp2,dp3, &
      obliq,dabs,dsin,dcos !,eect2000
@@ -3443,11 +3381,6 @@ integer accdif
 dimension dp1(3), dp2(3), dp3(3)
 save
 
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( seccon = 180.d0 * 3600.d0 / pi )
-
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
 data tlast / 0.d0 /,   mlast / 0 /
 data delpsi, deleps, cterms, psicor, epscor / 5 * 0.d0 /
 
@@ -3467,7 +3400,7 @@ call getmod ( mode )
 !     CHECK FOR DIFFERENCE IN ACCURACY MODE FROM LAST CALL
 accdif = mod ( mode, 2 ) - mod ( mlast, 2 )
 
-t = ( tjd - t0 ) / 36525.d0
+t = ( tjd - jd_j2000 ) / 36525.d0
 
 if ( dabs ( tjd - tlast ) > 1.d-8 .or. accdif /= 0 ) then
 
@@ -3568,7 +3501,7 @@ else
     dx = dpole1
     dy = dpole2
 
-    t = ( tjd - t0 ) / 36525.d0
+    t = ( tjd - jd_j2000 ) / 36525.d0
 !         COMPUTE SINE OF MEAN OBLIQUITY OF DATE
     sine = dsin ( obliq(t) / seccon )
 
@@ -3588,7 +3521,7 @@ else
 
 !         PRECESS POLE OFFSET VECTOR TO MEAN EQUATOR AND EQUINOX OF DATE
     call frame ( dp1, 1, dp2 )
-    call preces ( t0, dp2, tjd, dp3 )
+    call preces ( jd_j2000, dp2, tjd, dp3 )
 
 !         COMPUTE DELTA-DELTA-PSI AND DELTA-DELTA-EPSILON IN ARCSECONDS
     psicor = ( dp3(1) / sine ) * seccon
@@ -3622,11 +3555,9 @@ end
 
 subroutine funarg (t,el,elp,f,d,omega)
 
-double precision t,el,elp,f,d,omega,pi,seccon,rev,dmod
+real(wp) :: t,el,elp,f,d,omega,dmod
 
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( seccon = 180.d0 * 3600.d0 / pi )
-parameter ( rev    = 360.d0 * 3600.d0      )
+real(wp), parameter :: rev = 360.d0 * 3600.d0
 
 !     FUNDAMENTAL (DELAUNAY) ARGUMENTS FROM SIMON ET AL. (1994)
 
@@ -3689,13 +3620,10 @@ end
 
 subroutine refrac (height,zdobs,refr)
 
-double precision height,zdobs,refr,pi,degrad,s, &
+real(wp) :: height,zdobs,refr,s, &
      pobs,tobs,dobs,wlobs,obsp,obst,obsd,obswl,p,t,d,wl,h,r, &
      dexp,dtan
 save
-
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( degrad = pi / 180.d0           )
 
 !     S IS APPROXIMATE SCALE HEIGHT OF ATMOSPHERE IN METERS
 data s / 9.1d3 /
@@ -3779,15 +3707,11 @@ end
 
 subroutine limang (pos1,poso,alimb,afrac)
 
-double precision pos1,poso,alimb,afrac,pi,halfpi,degcon, &
+real(wp) :: pos1,poso,alimb,afrac, &
      erad,au,rade,disobj,disobs,aprad,zdlim,coszd,zdobj, &
      dsqrt,dacos
 dimension pos1(3), poso(3)
 save
-
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( halfpi = 0.5d0 * pi            )
-parameter ( degcon = 180.d0 / pi           )
 
 data ntimes / 0 /
 
@@ -3823,7 +3747,7 @@ else
 end if
 
 !     ANGLE OF OBJECT WRT LIMB IS DIFFERENCE IN ZENITH DISTANCES
-alimb = ( zdlim - zdobj ) * degcon
+alimb = ( zdlim - zdobj ) * raddeg
 
 !     NADIR ANGLE OF OBJECT AS A FRACTION OF ANGULAR RADIUS OF LIMB
 afrac = ( pi - zdobj ) / aprad
@@ -3852,7 +3776,7 @@ end
 
 subroutine cioloc ( tjd,   racio, k )
 
-double precision tjd,racio,a,tlast,rlast,jd,ra,p,eqor,dabs
+real(wp) :: tjd,racio,a,tlast,rlast,jd,ra,p,eqor,dabs
 logical usefil
 dimension jd(8), ra(8), a(1)
 save
@@ -3952,7 +3876,7 @@ end
 
 subroutine ciord ( tjd, nvals,   tlist, ralist, ierr )
 
-double precision tjd,tlist,ralist,t,t1,r,tbeg,tend,tint,dif
+real(wp) :: tjd,tlist,ralist,t,t1,r,tbeg,tend,tint,dif
 character filnam*40, fileid*(*)
 logical fileok
 dimension tlist(nvals), ralist(nvals), t(20), r(20)
@@ -4265,17 +4189,14 @@ end
 
 subroutine ciobas ( tjd, racio, k,   x, y, z )
 
-double precision tjd,racio,x,y,z,xx,yy,zz,w0,w1,w2,z0, &
-     pi,radcon,t0,tlast,sinra,cosra,xmag,dabs,dsin,dcos,dsqrt
+real(wp) :: tjd,racio,x,y,z,xx,yy,zz,w0,w1,w2,z0, &
+     tlast,sinra,cosra,xmag,dabs,dsin,dcos,dsqrt
 dimension x(3), y(3), z(3), xx(3), yy(3), zz(3), z0(3), &
      w0(3), w1(3), w2(3)
 save
 
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( radcon = pi / 180.d0           )
 
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
+
 data z0 / 0.d0, 0.d0, 1.d0 /,   tlast / 0.d0 /,   klast / 0 /
 
 3 format ( ' CIOBAS ERROR: INVALID VALUE FOR K FOR JD ', &
@@ -4287,7 +4208,7 @@ if ( dabs ( tjd - tlast ) <= 1.d-8 .and. k == klast ) &
 
 !     COMPUTE UNIT VECTOR Z TOWARD CELESTIAL POLE (CIP)
 call nutate ( -tjd, z0,   w1 )
-call preces ( tjd, w1, t0,   w2 )
+call preces ( tjd, w1, jd_j2000,   w2 )
 call frame ( w2, -1,   zz )
 
 ! --- RA OF CIO EXPRESSED IN GCRS -------------------------------------
@@ -4295,8 +4216,8 @@ call frame ( w2, -1,   zz )
 if ( k == 1 ) then
 
 !         COMPUTE VECTOR X TOWARD CIO IN GCRS
-    sinra = dsin ( racio * 15.d0 * radcon )
-    cosra = dcos ( racio * 15.d0 * radcon )
+    sinra = dsin ( racio * 15.d0 * degrad )
+    cosra = dcos ( racio * 15.d0 * degrad )
     xx(1) =  zz(3) * cosra
     xx(2) =  zz(3) * sinra
     xx(3) = -zz(1) * cosra - zz(2) * sinra
@@ -4318,13 +4239,13 @@ else if ( k == 2 ) then
 
 !         CONSTRUCT UNIT VECTOR TOWARD CIO
 !         IN EQUATOR-AND-EQUINOX-OF-DATE SYSTEM
-    w0(1) = dcos ( racio * 15.d0 * radcon )
-    w0(2) = dsin ( racio * 15.d0 * radcon )
+    w0(1) = dcos ( racio * 15.d0 * degrad )
+    w0(2) = dsin ( racio * 15.d0 * degrad )
     w0(3) = 0.d0
 
 !         ROTATE THE VECTOR INTO THE GCRS TO FORM UNIT VECTOR X
     call nutate ( -tjd, w0,   w1 )
-    call preces ( tjd, w1, t0,   w2 )
+    call preces ( tjd, w1, jd_j2000,   w2 )
     call frame ( w2, -1,   xx )
 
 !         COMPUTE UNIT VECTOR Y ORTHOGONAL TO X AND Z (Y = Z CROSS X)
@@ -4367,10 +4288,8 @@ end
 
 subroutine erot (date1,date2,theta)
 
-double precision date1, date2, theta, t0, thet1, thet2, thet3, &
+real(wp) :: date1, date2, theta, thet1, thet2, thet3, &
      dmod
-
-data t0 / 2451545.0d0 /
 
 !     THE ALGORITHM USED BELOW IS EQUIVALENT TO THE CANNONICAL
 !     THETA = 0.7790572732640D0 + 1.00273781191135448D0 * T,
@@ -4379,7 +4298,7 @@ data t0 / 2451545.0d0 /
 !     (ADOPTED FROM SOFA ROUTINE IAU_ERA00 BY PAT WALLACE; SEE ALSO
 !     EXPRESSION AT TOP OF PAGE 35 OF IERS CONVENTIONS (1996))
 
-thet1 = 0.7790572732640d0 + 0.00273781191135448d0 * ( date1 - t0 )
+thet1 = 0.7790572732640d0 + 0.00273781191135448d0 * ( date1 - jd_j2000 )
 thet2 =                     0.00273781191135448d0 *   date2
 thet3 = dmod ( date1, 1.d0 ) + dmod ( date2, 1.d0 )
 theta = dmod ( thet1 + thet2 + thet3, 1.d0 ) * 360.d0
@@ -4404,14 +4323,12 @@ end
 
 subroutine eqxra ( tjd, k,    raeq )
 
-double precision tjd,raeq,t0,tlast,ee,eqeq,t,a,precra,dabs
+real(wp) :: tjd,raeq,tlast,ee,eqeq,t,a,precra,dabs
 save
 
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
 data tlast / 0.d0 /,   ee / 0.d0 /
 
-t = ( tjd - t0 ) / 36525.d0
+t = ( tjd - jd_j2000 ) / 36525.d0
 
 !     FOR THE TRUE EQUINOX, OBTAIN THE EQUATION OF THE EQUINOXES IN
 !     TIME SECONDS, WHICH INCLUDES THE 'COMPLIMENTARY TERMS'
@@ -4469,7 +4386,7 @@ end
 
 subroutine setdt ( delt )
 
-double precision deltat, dt, delt
+real(wp) :: deltat, dt, delt
 save dt
 
 !     DEFAULT VALUE OF DELTA-T IN DAYS, EQUIVALENT TO 64 SECONDS,
@@ -4595,7 +4512,7 @@ end
 
 subroutine getvec ( unitv )
 
-double precision unitv, p, pos, r, dsqrt
+real(wp) :: unitv, p, pos, r, dsqrt
 dimension unitv(3), p(3), pos(3)
 save p
 
@@ -4642,7 +4559,7 @@ end
 
 subroutine juldat (i,m,k,h,tjd)
 
-double precision h,tjd
+real(wp) :: h,tjd
 
 !     JD=JULIAN DAY NO FOR DAY BEGINNING AT GREENWICH NOON ON GIVEN DATE
 jd = k-32075+1461*(i+4800+(m-14)/12)/4+367*(m-2-(m-14)/12*12)/12 &
@@ -4668,7 +4585,7 @@ end
 
 subroutine caldat (tjd,i,m,k,h)
 
-double precision tjd,h,djd,dmod
+real(wp) :: tjd,h,djd,dmod
 
 djd = tjd + 0.5d0
 jd = djd
@@ -4718,7 +4635,7 @@ end subroutine caldat
 
 subroutine astcon (name,factor,const)
 
-double precision factor,const,c,ausec
+real(wp) :: factor,const,c,ausec
 character name*(*)
 
 !     NOTE:  THESE CONSTANT VALUES ARE BASED ON THE TDB SECOND WHERE
@@ -4805,14 +4722,8 @@ end subroutine astcon
 
 subroutine nod (t,dpsi,deps)
 
-double precision t,dpsi,deps,pi,seccon,t0,t1,dp,de
+real(wp) :: t,dpsi,deps,t1,dp,de
 save
-
-parameter ( pi     = 3.14159265358979324d0 )
-parameter ( seccon = 180.d0 * 3600.d0 / pi )
-
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0 (TT)
-data t0 / 2451545.00000000d0 /
 
 !     GET METHOD/ACCURACY MODE
 call getmod ( mode )
@@ -4826,10 +4737,10 @@ t1 = t * 36525.d0
 !     CALL SUBROUTINE TO EVALUATE NUTATION SERIES
 if ( mod ( mode, 2 ) == 0 ) then
 !         HIGH ACCURACY MODE -- IERS SUBROUTINE
-    call nu2000a ( t0, t1, dp, de )
+    call nu2000a ( jd_j2000, t1, dp, de )
 else
 !         LOW ACCURACY MODE -- MODIFICATION OF IERS SUBROUTINE
-    call nu2000k ( t0, t1, dp, de )
+    call nu2000k ( jd_j2000, t1, dp, de )
 end if
 dpsi = dp * seccon
 deps = de * seccon
@@ -4855,38 +4766,18 @@ subroutine nu2000a ( date1, date2, dpsi, deps )
 
 implicit none
 
-double precision date1, date2, dpsi, deps
+real(wp) :: date1, date2, dpsi, deps
 
-!  Arcseconds to radians
-double precision das2r
-parameter ( das2r = 4.848136811095359935899141d-6 )
-
-!  Milliarcseconds to radians
-double precision dmas2r
-parameter ( dmas2r = das2r / 1d3 )
-
-!  Arc seconds in a full circle
-double precision turnas
-parameter ( turnas = 1296000d0 )
-
-!  2Pi
-double precision d2pi
-parameter ( d2pi = 6.283185307179586476925287d0 )
-
-!  Units of 0.1 microarcsecond to radians
-double precision u2r
-parameter ( u2r = das2r/1d7 )
-
-!  Reference epoch (J2000), JD
-double precision dj0
-parameter ( dj0 = 2451545d0 )
-
-!  Days per Julian century
-double precision djc
-parameter ( djc = 36525d0 )
+real(wp), parameter :: das2r = 4.848136811095359935899141d-6 !!  Arcseconds to radians
+real(wp), parameter :: dmas2r = das2r / 1d3 !!  Milliarcseconds to radians
+real(wp), parameter :: turnas = 1296000d0  !!  Arc seconds in a full circle
+real(wp), parameter :: d2pi = 6.283185307179586476925287d0  !!  2Pi
+real(wp), parameter :: u2r = das2r/1d7  !!  Units of 0.1 microarcsecond to radians
+real(wp), parameter :: dj0 = 2451545d0  !!  Reference epoch (J2000), JD
+real(wp), parameter :: djc = 36525d0  !!  Days per Julian century
 
 !  Miscellaneous
-double precision t, el, elp, f, d, om, arg, dp, de, sarg, carg, &
+real(wp) :: t, el, elp, f, d, om, arg, dp, de, sarg, carg, &
                  dpsils, depsls, &
                  al, alsu, af, ad, aom, alme, alve, alea, alma, &
                  alju, alsa, alur, alne, apa, dpsipl, depspl
@@ -4896,23 +4787,19 @@ integer i, j
 !  Luni-Solar nutation model
 !  -------------------------
 
-!  Number of terms in the luni-solar nutation model
-integer nls
-parameter ( nls = 678 )
+integer, parameter :: nls = 678  !!  Number of terms in the luni-solar nutation model
 
 !  Coefficients for fundamental arguments
 integer nals(5,nls)
 
 !  Longitude and obliquity coefficients
-double precision cls(6,nls)
+real(wp) :: cls(6,nls)
 
 !  ---------------
 !  Planetary terms
 !  ---------------
 
-!  Number of terms in the planetary nutation model
-integer npl
-parameter ( npl = 687 )
+integer, parameter :: npl = 687  !!  Number of terms in the planetary nutation model
 
 !  Coefficients for fundamental arguments
 integer napl(14,npl)
@@ -8129,38 +8016,18 @@ subroutine nu2000k ( date1, date2, dpsi, deps )
 
 implicit none
 
-double precision date1, date2, dpsi, deps
+real(wp) :: date1, date2, dpsi, deps
 
-!  Arcseconds to radians
-double precision das2r
-parameter ( das2r = 4.848136811095359935899141d-6 )
-
-!  Milliarcseconds to radians
-double precision dmas2r
-parameter ( dmas2r = das2r / 1d3 )
-
-!  Arc seconds in a full circle
-double precision turnas
-parameter ( turnas = 1296000d0 )
-
-!  2Pi
-double precision d2pi
-parameter ( d2pi = 6.283185307179586476925287d0 )
-
-!  Units of 0.1 microarcsecond to radians
-double precision u2r
-parameter ( u2r = das2r/1d7 )
-
-!  Reference epoch (J2000), JD
-double precision dj0
-parameter ( dj0 = 2451545d0 )
-
-!  Days per Julian century
-double precision djc
-parameter ( djc = 36525d0 )
+real(wp), parameter :: das2r = 4.848136811095359935899141d-6  !!  Arcseconds to radians
+real(wp), parameter :: dmas2r = das2r / 1d3  !!  Milliarcseconds to radians
+real(wp), parameter :: turnas = 1296000d0 !!  Arc seconds in a full circle
+real(wp), parameter :: d2pi = 6.283185307179586476925287d0  !!  2Pi
+real(wp), parameter :: u2r = das2r/1d7 !!  Units of 0.1 microarcsecond to radians
+real(wp), parameter :: dj0 = 2451545d0 !!  Reference epoch (J2000), JD
+real(wp), parameter :: djc = 36525d0 !!  Days per Julian century
 
 !  Miscellaneous
-double precision t, el, elp, f, d, om, arg, dp, de, sarg, carg, &
+real(wp) :: t, el, elp, f, d, om, arg, dp, de, sarg, carg, &
                  dpsils, depsls, &
                  alme, alve, alea, alma, alju, alsa, alur, alne, &
                  apa, &
@@ -8171,29 +8038,25 @@ integer i, j
 !  Luni-Solar nutation model
 !  -------------------------
 
-!  Number of terms in the luni-solar nutation model
-integer nls
-parameter ( nls = 323 )
+integer, parameter :: nls = 323 !!  Number of terms in the luni-solar nutation model
 
 !  Coefficients for fundamental arguments
 integer nals(5,nls)
 
 !  Longitude and obliquity coefficients
-double precision cls(6,nls)
+real(wp) :: cls(6,nls)
 
 !  ---------------
 !  Planetary terms
 !  ---------------
 
-!  Number of terms in the planetary nutation model
-integer npl
-parameter ( npl = 165 )
+integer, parameter :: npl = 165 !!  Number of terms in the planetary nutation model
 
 !  Coefficients for fundamental arguments
 integer napl(14,npl)
 
 !  Longitude and obliquity coefficients
-double precision cpl(4,npl)
+real(wp) :: cpl(4,npl)
 
 !  ----------------------------------------
 !  Tables of argument and term coefficients
@@ -9379,53 +9242,41 @@ end
 !  This revision:  2002 November 13
 !                  References updated 2010 November 26
 
-double precision function eect2000 ( date1, date2 )
+real(wp) function eect2000 ( date1, date2 )
 
 implicit none
 
-double precision date1, date2
+real(wp) :: date1, date2
 
-!  2Pi
-double precision d2pi
-parameter ( d2pi = 6.283185307179586476925287d0 )
-
-!  Arcseconds to radians
-double precision das2r
-parameter ( das2r = 4.848136811095359935899141d-6 )
-
-!  Reference epoch (J2000), JD
-double precision dj0
-parameter ( dj0 = 2451545d0 )
-
-!  Days per Julian century
-double precision djc
-parameter ( djc = 36525d0 )
+real(wp), parameter :: d2pi = 6.283185307179586476925287d0  !!  2Pi
+real(wp), parameter :: das2r = 4.848136811095359935899141d-6 !!  Arcseconds to radians
+real(wp), parameter :: dj0 = 2451545d0 !!  Reference epoch (J2000), JD
+real(wp), parameter :: djc = 36525d0 !!  Days per Julian century
 
 !  Time since J2000, in Julian centuries
-double precision t
+real(wp) :: t
 
 !  Miscellaneous
 integer i, j
-double precision a, s0, s1
-!double precision anmp
+real(wp) :: a, s0, s1
 
 !  Fundamental arguments
-double precision fa(14)
+real(wp) :: fa(14)
 
 !  -----------------------------------------
 !  The series for the EE complementary terms
 !  -----------------------------------------
 
 !  Number of terms in the series
-integer ne0, ne1
-parameter ( ne0=  33, ne1=  1 )
+integer, parameter :: ne0 = 33
+integer, parameter :: ne1 = 1
 
 !  Coefficients of l,l',F,D,Om,LMe,LVe,LE,LMa,LJu,LSa,LU,LN,pA
 integer ke0 ( 14, ne0 ), &
         ke1 ( 14, ne1 )
 
 !  Sine and cosine coefficients
-double precision se0 ( 2, ne0 ), &
+real(wp) :: se0 ( 2, ne0 ), &
                  se1 ( 2, ne1 )
 
 !  Argument coefficients for t^0
@@ -9604,21 +9455,15 @@ end function eect2000
 !>
 !  Normalize angle into the range -pi <= A < +pi.
 
-    double precision function anmp ( a )
+    pure elemental function anmp ( a ) result(w)
 
     implicit none
 
-    double precision a
+    real(wp),intent(in) :: a
+    real(wp) :: w
 
-    double precision dpi, d2pi
-    parameter ( dpi = 3.141592653589793238462643d0, &
-                d2pi = 6.283185307179586476925287d0 )
-
-    double precision w
-
-    w = mod(a,d2pi)
-    if ( abs(w) >= dpi ) w = w - sign(d2pi,a)
-    anmp = w
+    w = mod(a,twopi)
+    if ( abs(w) >= pi ) w = w - sign(twopi,a)
 
     end function anmp
 !***********************************************************************
