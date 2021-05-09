@@ -10,120 +10,122 @@
 
     module novas_module
 
+    !implicit none
+
     contains
 !***********************************************************************
 
 !***********************************************************************
 !>
-!     THIS SUBROUTINE COMPUTES THE APPARENT DIRECTION OF A STAR OR SOLAR
-!     SYSTEM BODY AT A SPECIFIED TIME AND IN A SPECIFIED COORDINATE
-!     SYSTEM.  BASED ON KAPLAN, ET AL. (1989), ASTRONOMICAL JOURNAL 97,
-!     1197-1210, WITH SOME ENHANCEMENTS FROM KLIONER (2003),
-!     ASTRONOMICAL JOURNAL 125, 1580-1597.
+!  THIS SUBROUTINE COMPUTES THE APPARENT DIRECTION OF A STAR OR SOLAR
+!  SYSTEM BODY AT A SPECIFIED TIME AND IN A SPECIFIED COORDINATE
+!  SYSTEM.  BASED ON KAPLAN, ET AL. (1989), ASTRONOMICAL JOURNAL 97,
+!  1197-1210, WITH SOME ENHANCEMENTS FROM KLIONER (2003),
+!  ASTRONOMICAL JOURNAL 125, 1580-1597.
 !
-!          TJD    = TT JULIAN DATE FOR PLACE (IN)
-!          OBJECT = CHARACTER STRING IDENTIFYING OBJECT OF INTEREST (IN)
-!                   FOR SOLAR SYSTEM
-!                   BODY,             SPECIFY THE NAME USING ALL UPPER-
-!                                     CASE LETTERS ('SUN', 'MOON',
-!                                     'JUPITER', ETC.),
-!                                     - OR -
-!                                     SPECIFY THE BODY ID NUMBER
-!                                     IN A 4-CHARACTER STRING OF THE
-!                                     FORM '=NNN', WHERE NNN IS THE
-!                                     BODY ID NUMBER
-!                   FOR STAR,         PROVIDE A BLANK STRING, THE WORD
-!                                     'STAR', OR ANY STRING BEGINNING
-!                                     WITH '*'
-!          LOCATN = INTEGER CODE SPECIFYING LOCATION OF OBSERVER (IN)
-!                   SET LOCATN=0 FOR OBSERVER AT GEOCENTER
-!                   SET LOCATN=1 FOR OBSERVER ON SURFACE OF EARTH
-!                   SET LOCATN=2 FOR OBSERVER ON NEAR-EARTH SPACECRAFT
-!          ICOORD = INTEGER CODE SPECIFYING COORDINATE SYSTEM OF OUTPUT
-!                   POSITION (IN)
-!                   SET ICOORD=0 FOR GCRS (OR 'LOCAL GCRS')
-!                   SET ICOORD=1 FOR TRUE EQUATOR AND EQUINOX OF DATE
-!                   SET ICOORD=2 FOR TRUE EQUATOR AND CIO OF DATE
-!                   SET ICOORD=3 FOR ASTROMETRIC COORDINATES, I.E.,
-!                                WITHOUT LIGHT DEFLECTION OR ABERRATION
-!          STAR   = ARRAY OF CATALOG DATA FOR STAR (IN)
-!                   (NOT USED IF SOLAR SYSTEM BODY REQUESTED)
-!                   STAR(1) = ICRS RIGHT ASCENSION IN HOURS
-!                   STAR(2) = ICRS DECLINATION IN DEGREES
-!                   STAR(3) = ICRS PROPER MOTION IN RA IN
-!                             MILLIARCSECONDS/YEAR
-!                   STAR(4) = ICRS PROPER MOTION IN DEC IN
-!                             MILLIARCSECONDS/YEAR
-!                   STAR(5) = PARALLAX IN MILLIARCSECONDS
-!                   STAR(6) = RADIAL VELOCITY IN KILOMETERS/SECOND
-!                   FURTHER STAR ARRAY ELEMENTS ARE NOT USED HERE
-!                   BUT ARE RESERVED FOR FUTURE USE
-!          OBSERV = ARRAY OF DATA SPECIFYING LOCATION OF OBSERVER (IN)
-!                   (NOT USED IF LOCATN=0)
-!                   FOR LOCATN=1,
-!                   OBSERV(1) = GEODETIC LONGITUDE (WGS-84) OF OBSERVER
-!                               (EAST +) IN DEGREES
-!                   OBSERV(2) = GEODETIC LATITUDE (WGS-84) OF OBSERVER
-!                               (NORTH +) IN DEGREES
-!                   OBSERV(3) = HEIGHT OF OBSERVER ABOVE ELLIPSOID
-!                               IN METERS
-!                   OBSERV(4) = VALUE OF DELTA-T IN SECONDS
-!                               (DELTA-T=TT-UT1)
-!                   OBSERV(5) = (NOT USED, RESERVED FOR FUTURE USE)
-!                   OBSERV(6) = (NOT USED, RESERVED FOR FUTURE USE)
-!                   FOR LOCATN=2,
-!                   OBSERV(1) = GEOCENTRIC X IN KILOMETERS
-!                   OBSERV(2) = GEOCENTRIC Y IN KILOMETERS
-!                   OBSERV(3) = GEOCENTRIC Z IN KILOMETERS
-!                   OBSERV(4) = GEOCENTRIC X-DOT IN KILOMETERS/SECOND
-!                   OBSERV(5) = GEOCENTRIC Y-DOT IN KILOMETERS/SECOND
-!                   OBSERV(6) = GEOCENTRIC Z-DOT IN KILOMETERS/SECOND
-!                   WITH RESPECT TO TRUE EQUATOR AND EQUINOX OF DATE
-!          SKYPOS = ARRAY OF OUTPUT DATA SPECIFYING OBJECT'S PLACE
-!                   ON THE SKY AT TIME TJD, WITH RESPECT TO THE
-!                   SPECIFIED OUTPUT COORDINATE SYSTEM (OUT)
-!                   SKYPOS(1) = X, DIMENSIONLESS      UNIT VECTOR
-!                   SKYPOS(2) = Y, DIMENSIONLESS      TOWARD OBJECT
-!                   SKYPOS(3) = Z, DIMENSIONLESS
-!                   SKYPOS(4) = APPARENT, TOPOCENTRIC, OR ASTROMETRIC
-!                               RIGHT ASCENSION IN HOURS
-!                   SKYPOS(5) = APPARENT, TOPOCENTRIC, OR ASTROMETRIC
-!                               DECLINATION IN DEGREES
-!                   SKYPOS(6) = TRUE (GEOMETRIC, EUCLIDIAN) DISTANCE
-!                               TO SOLAR SYSTEM BODY IN AU AT TIME TJD,
-!                               OR 0.D0 FOR STAR
-!                   SKYPOS(7) = RADIAL VELOCITY IN KILOMETERS/SECOND
-!                   FURTHER SKYPOS ARRAY ELEMENTS ARE NOT USED HERE
-!                   BUT ARE RESERVED FOR FUTURE USE
+!       TJD    = TT JULIAN DATE FOR PLACE (IN)
+!       OBJECT = CHARACTER STRING IDENTIFYING OBJECT OF INTEREST (IN)
+!                FOR SOLAR SYSTEM
+!                BODY,             SPECIFY THE NAME USING ALL UPPER-
+!                                  CASE LETTERS ('SUN', 'MOON',
+!                                  'JUPITER', ETC.),
+!                                  - OR -
+!                                  SPECIFY THE BODY ID NUMBER
+!                                  IN A 4-CHARACTER STRING OF THE
+!                                  FORM '=NNN', WHERE NNN IS THE
+!                                  BODY ID NUMBER
+!                FOR STAR,         PROVIDE A BLANK STRING, THE WORD
+!                                  'STAR', OR ANY STRING BEGINNING
+!                                  WITH '*'
+!       LOCATN = INTEGER CODE SPECIFYING LOCATION OF OBSERVER (IN)
+!                SET LOCATN=0 FOR OBSERVER AT GEOCENTER
+!                SET LOCATN=1 FOR OBSERVER ON SURFACE OF EARTH
+!                SET LOCATN=2 FOR OBSERVER ON NEAR-EARTH SPACECRAFT
+!       ICOORD = INTEGER CODE SPECIFYING COORDINATE SYSTEM OF OUTPUT
+!                POSITION (IN)
+!                SET ICOORD=0 FOR GCRS (OR 'LOCAL GCRS')
+!                SET ICOORD=1 FOR TRUE EQUATOR AND EQUINOX OF DATE
+!                SET ICOORD=2 FOR TRUE EQUATOR AND CIO OF DATE
+!                SET ICOORD=3 FOR ASTROMETRIC COORDINATES, I.E.,
+!                             WITHOUT LIGHT DEFLECTION OR ABERRATION
+!       STAR   = ARRAY OF CATALOG DATA FOR STAR (IN)
+!                (NOT USED IF SOLAR SYSTEM BODY REQUESTED)
+!                STAR(1) = ICRS RIGHT ASCENSION IN HOURS
+!                STAR(2) = ICRS DECLINATION IN DEGREES
+!                STAR(3) = ICRS PROPER MOTION IN RA IN
+!                          MILLIARCSECONDS/YEAR
+!                STAR(4) = ICRS PROPER MOTION IN DEC IN
+!                          MILLIARCSECONDS/YEAR
+!                STAR(5) = PARALLAX IN MILLIARCSECONDS
+!                STAR(6) = RADIAL VELOCITY IN KILOMETERS/SECOND
+!                FURTHER STAR ARRAY ELEMENTS ARE NOT USED HERE
+!                BUT ARE RESERVED FOR FUTURE USE
+!       OBSERV = ARRAY OF DATA SPECIFYING LOCATION OF OBSERVER (IN)
+!                (NOT USED IF LOCATN=0)
+!                FOR LOCATN=1,
+!                OBSERV(1) = GEODETIC LONGITUDE (WGS-84) OF OBSERVER
+!                            (EAST +) IN DEGREES
+!                OBSERV(2) = GEODETIC LATITUDE (WGS-84) OF OBSERVER
+!                            (NORTH +) IN DEGREES
+!                OBSERV(3) = HEIGHT OF OBSERVER ABOVE ELLIPSOID
+!                            IN METERS
+!                OBSERV(4) = VALUE OF DELTA-T IN SECONDS
+!                            (DELTA-T=TT-UT1)
+!                OBSERV(5) = (NOT USED, RESERVED FOR FUTURE USE)
+!                OBSERV(6) = (NOT USED, RESERVED FOR FUTURE USE)
+!                FOR LOCATN=2,
+!                OBSERV(1) = GEOCENTRIC X IN KILOMETERS
+!                OBSERV(2) = GEOCENTRIC Y IN KILOMETERS
+!                OBSERV(3) = GEOCENTRIC Z IN KILOMETERS
+!                OBSERV(4) = GEOCENTRIC X-DOT IN KILOMETERS/SECOND
+!                OBSERV(5) = GEOCENTRIC Y-DOT IN KILOMETERS/SECOND
+!                OBSERV(6) = GEOCENTRIC Z-DOT IN KILOMETERS/SECOND
+!                WITH RESPECT TO TRUE EQUATOR AND EQUINOX OF DATE
+!       SKYPOS = ARRAY OF OUTPUT DATA SPECIFYING OBJECT'S PLACE
+!                ON THE SKY AT TIME TJD, WITH RESPECT TO THE
+!                SPECIFIED OUTPUT COORDINATE SYSTEM (OUT)
+!                SKYPOS(1) = X, DIMENSIONLESS      UNIT VECTOR
+!                SKYPOS(2) = Y, DIMENSIONLESS      TOWARD OBJECT
+!                SKYPOS(3) = Z, DIMENSIONLESS
+!                SKYPOS(4) = APPARENT, TOPOCENTRIC, OR ASTROMETRIC
+!                            RIGHT ASCENSION IN HOURS
+!                SKYPOS(5) = APPARENT, TOPOCENTRIC, OR ASTROMETRIC
+!                            DECLINATION IN DEGREES
+!                SKYPOS(6) = TRUE (GEOMETRIC, EUCLIDIAN) DISTANCE
+!                            TO SOLAR SYSTEM BODY IN AU AT TIME TJD,
+!                            OR 0.D0 FOR STAR
+!                SKYPOS(7) = RADIAL VELOCITY IN KILOMETERS/SECOND
+!                FURTHER SKYPOS ARRAY ELEMENTS ARE NOT USED HERE
+!                BUT ARE RESERVED FOR FUTURE USE
 !
-!     NOTE 1: VALUES OF LOCATN AND ICOORD FOR VARIOUS STANDARD KINDS
-!     OF PLACE:
-!     LOCATN=0 AND ICOORD=1 APPARENT PLACE
-!     LOCATN=1 AND ICOORD=1 TOPOCENTRIC PLACE
-!     LOCATN=0 AND ICOORD=0 VIRTUAL PLACE
-!     LOCATN=1 AND ICOORD=0 LOCAL PLACE
-!     LOCATN=0 AND ICOORD=3 ASTROMETRIC PLACE
-!     LOCATN=1 AND ICOORD=3 TOPOCENTRIC ASTROMETRIC PLACE
+!  NOTE 1: VALUES OF LOCATN AND ICOORD FOR VARIOUS STANDARD KINDS
+!  OF PLACE:
+!  LOCATN=0 AND ICOORD=1 APPARENT PLACE
+!  LOCATN=1 AND ICOORD=1 TOPOCENTRIC PLACE
+!  LOCATN=0 AND ICOORD=0 VIRTUAL PLACE
+!  LOCATN=1 AND ICOORD=0 LOCAL PLACE
+!  LOCATN=0 AND ICOORD=3 ASTROMETRIC PLACE
+!  LOCATN=1 AND ICOORD=3 TOPOCENTRIC ASTROMETRIC PLACE
 !
-!     NOTE 2: ARRAYS STAR AND SKYPOS MAY BE EXPANDED IN THE FUTURE, AND
-!     THIS CAN BE ALLOWED FOR IN THE CALLING CODE BY DIMENSIONING
-!     THESE ARRAYS WITH 20 AND 10 ELEMENTS, RESPECTIVELY, EVEN THOUGH
-!     ELEMENTS BEYOND STAR(6) AND SKYPOS(7) ARE NOT NOW REFERRED TO IN
-!     THIS SUBROUTINE.
+!  NOTE 2: ARRAYS STAR AND SKYPOS MAY BE EXPANDED IN THE FUTURE, AND
+!  THIS CAN BE ALLOWED FOR IN THE CALLING CODE BY DIMENSIONING
+!  THESE ARRAYS WITH 20 AND 10 ELEMENTS, RESPECTIVELY, EVEN THOUGH
+!  ELEMENTS BEYOND STAR(6) AND SKYPOS(7) ARE NOT NOW REFERRED TO IN
+!  THIS SUBROUTINE.
 !
-!     NOTE 3: IF LOCATN=1 AND OBSERV(4)=0.D0, THE VALUE OF DELTA-T WILL
-!     BE OBTAINED FROM GETDT, WHICH PROVIDES THE LAST VALUE OF DELTA-T
-!     DEFINED BY THE USER VIA CALL TO SETDT.
+!  NOTE 3: IF LOCATN=1 AND OBSERV(4)=0.D0, THE VALUE OF DELTA-T WILL
+!  BE OBTAINED FROM GETDT, WHICH PROVIDES THE LAST VALUE OF DELTA-T
+!  DEFINED BY THE USER VIA CALL TO SETDT.
 !
-!     NOTE 4: SKYPOS(7), THE RADIAL VELOCITY, IS THE PREDICTED
-!     RADIAL VELOCITY MEASURE (Z) TIMES THE SPEED OF LIGHT, AN
-!     INHERENTLY SPECTROSCOPIC MEASURE.  FOR A STAR, IT
-!     INCLUDES ALL EFFECTS, SUCH AS GRAVITATIONAL RED SHIFT,
-!     CONTAINED IN THE CATALOG BARYCENTRIC RADIAL VELOCITY MEASURE,
-!     WHICH IS ASSUMED GIVEN IN STAR(6).  FOR A SOLAR SYSTEM
-!     BODY, IT APPLIES TO A FICTITIOUS EMITTER AT THE CENTER OF THE
-!     OBSERVED OBJECT, ASSUMED MASSLESS (NO GRAVITATIONAL RED SHIFT),
-!     AND DOES NOT IN GENERAL APPLY TO REFLECTED LIGHT.
+!  NOTE 4: SKYPOS(7), THE RADIAL VELOCITY, IS THE PREDICTED
+!  RADIAL VELOCITY MEASURE (Z) TIMES THE SPEED OF LIGHT, AN
+!  INHERENTLY SPECTROSCOPIC MEASURE.  FOR A STAR, IT
+!  INCLUDES ALL EFFECTS, SUCH AS GRAVITATIONAL RED SHIFT,
+!  CONTAINED IN THE CATALOG BARYCENTRIC RADIAL VELOCITY MEASURE,
+!  WHICH IS ASSUMED GIVEN IN STAR(6).  FOR A SOLAR SYSTEM
+!  BODY, IT APPLIES TO A FICTITIOUS EMITTER AT THE CENTER OF THE
+!  OBSERVED OBJECT, ASSUMED MASSLESS (NO GRAVITATIONAL RED SHIFT),
+!  AND DOES NOT IN GENERAL APPLY TO REFLECTED LIGHT.
 
     subroutine place ( tjd, object, locatn, icoord, star, observ, &
         skypos )
@@ -399,7 +401,7 @@ end
 
 subroutine places()
 
-    implicit none
+implicit none
 integer l,n,locatn,icoord
 double precision tjd,rai,deci,pmra,pmdec,parlax,radvel, &
      ujd,glon,glat,ht,ra,dec,dis, &
@@ -561,7 +563,11 @@ locatn = 0
 icoord = 3
 
 30 ttjd = tjd
-write ( object, '(''='',I3)' ) l
+if (l == -9999) then
+    object = '    '  ! JW : bug in original?
+else
+    write ( object, '(''='',I3)') l
+end if
 
 call place (ttjd,object,locatn,icoord,star,observ, skypos)
 
@@ -4680,7 +4686,7 @@ l = m / 11
 m = m + 2 - 12*l
 i = 100*(n-49) + i + l
 
-end
+end subroutine caldat
 !***********************************************************************
 
 !***********************************************************************
@@ -4785,7 +4791,7 @@ end if
 
 const = const * factor
 
-end
+end subroutine astcon
 !***********************************************************************
 
 !***********************************************************************
@@ -4828,7 +4834,7 @@ end if
 dpsi = dp * seccon
 deps = de * seccon
 
-end
+end subroutine nod
 !***********************************************************************
 
 !***********************************************************************
@@ -8095,7 +8101,7 @@ depspl = de * u2r
 dpsi = dpsipl + dpsils
 deps = depspl + depsls
 
-end
+end subroutine nu2000a
 !***********************************************************************
 
 !***********************************************************************
@@ -9591,32 +9597,30 @@ do i = ne1,1,-1
 end do
 eect2000 = ( s0 + s1 * t ) * das2r
 
-!  Finished.
-
-end
+end function eect2000
 !***********************************************************************
 
 !***********************************************************************
 !>
 !  Normalize angle into the range -pi <= A < +pi.
 
-double precision function anmp ( a )
+    double precision function anmp ( a )
 
-implicit none
+    implicit none
 
-double precision a
+    double precision a
 
-double precision dpi, d2pi
-parameter ( dpi = 3.141592653589793238462643d0, &
-            d2pi = 6.283185307179586476925287d0 )
+    double precision dpi, d2pi
+    parameter ( dpi = 3.141592653589793238462643d0, &
+                d2pi = 6.283185307179586476925287d0 )
 
-double precision w
+    double precision w
 
-w = mod(a,d2pi)
-if ( abs(w) >= dpi ) w = w - sign(d2pi,a)
-anmp = w
+    w = mod(a,d2pi)
+    if ( abs(w) >= dpi ) w = w - sign(d2pi,a)
+    anmp = w
 
-end
+    end function anmp
 !***********************************************************************
 
 !***********************************************************************
