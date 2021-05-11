@@ -186,7 +186,13 @@
 
 
 
-<em>None</em>
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../proc/idss~2.html#src">idss</a>
+  </div>
+</div>
+
 
 
 </div>
@@ -394,7 +400,13 @@ function idss(name)
 
 
 
-<em>None</em>
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../proc/idss~2.html#src">idss</a>
+  </div>
+</div>
+
 
 
     </section>
@@ -417,6 +429,54 @@ function idss(name)
 
     
     
+    
+    <section>
+    <h2><span class="anchor" id="src"></span>Source Code</h2>
+    <div class="highlight"><pre><span></span><span class="kt">integer </span><span class="k">function </span><span class="n">idss</span> <span class="p">(</span> <span class="n">name</span> <span class="p">)</span>
+
+<span class="kt">character </span><span class="n">name</span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="n">namein</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">names</span><span class="o">*</span><span class="mi">3</span>
+<span class="k">dimension </span><span class="n">names</span><span class="p">(</span><span class="mi">35</span><span class="p">),</span> <span class="n">ids</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+
+<span class="k">data </span><span class="n">names</span> <span class="o">/</span> <span class="s1">&#39;SUN&#39;</span><span class="p">,</span> <span class="s1">&#39;MOO&#39;</span><span class="p">,</span> <span class="s1">&#39;EAR&#39;</span><span class="p">,</span> <span class="s1">&#39;MER&#39;</span><span class="p">,</span> <span class="s1">&#39;VEN&#39;</span><span class="p">,</span> <span class="s1">&#39;MAR&#39;</span><span class="p">,</span> <span class="s1">&#39;JUP&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+             <span class="s1">&#39;SAT&#39;</span><span class="p">,</span> <span class="s1">&#39;URA&#39;</span><span class="p">,</span> <span class="s1">&#39;NEP&#39;</span><span class="p">,</span> <span class="s1">&#39;PLU&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span>  <span class="o">/</span>
+<span class="k">data </span><span class="n">ids</span>   <span class="o">/</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">11</span><span class="p">,</span>     <span class="mi">3</span><span class="p">,</span>     <span class="mi">1</span><span class="p">,</span>     <span class="mi">2</span><span class="p">,</span>     <span class="mi">4</span><span class="p">,</span>     <span class="mi">5</span><span class="p">,</span> <span class="p">&amp;</span>
+                 <span class="mi">6</span><span class="p">,</span>     <span class="mi">7</span><span class="p">,</span>     <span class="mi">8</span><span class="p">,</span>     <span class="mi">9</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
+                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
+                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
+                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span>  <span class="o">/</span>
+<span class="k">data </span><span class="n">num</span>   <span class="o">/</span> <span class="mi">11</span> <span class="o">/</span>
+
+<span class="mi">3</span> <span class="k">format</span> <span class="p">(</span> <span class="s1">&#39; IDSS ERROR: NO BODY ID NUMBER FOUND FOR &#39;</span><span class="p">,</span> <span class="n">a</span> <span class="p">)</span>
+
+<span class="n">idss</span> <span class="o">=</span> <span class="o">-</span><span class="mi">9999</span>
+<span class="n">namein</span> <span class="o">=</span> <span class="n">name</span>
+
+<span class="c">! LOOK THROUGH LIST OF BODY NAMES TO FIND MATCH</span>
+<span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="n">namein</span> <span class="o">==</span> <span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<span class="k">        </span><span class="n">idss</span> <span class="o">=</span> <span class="n">ids</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">return</span>
+<span class="k">    end if</span>
+<span class="k">end do</span>
+
+    <span class="c">! IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES</span>
+<span class="k">if</span> <span class="p">(</span> <span class="n">namein</span> <span class="o">==</span> <span class="s1">&#39;JD &#39;</span> <span class="p">)</span> <span class="k">then</span>
+    <span class="c">! IN THIS CASE, SET IDSS=2 IF SOLSYS PROCESSES SPLIT</span>
+    <span class="c">! JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE</span>
+    <span class="n">idss</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">return</span>
+<span class="k">end if</span>
+
+<span class="k">write</span> <span class="p">(</span> <span class="o">*</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span> <span class="n">name</span>
+
+<span class="k">end function </span><span class="n">idss</span>
+</pre></div>
+
+    </section>
+    <br>
     
     
     </div>

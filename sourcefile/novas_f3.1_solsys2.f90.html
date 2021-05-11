@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 3.3% of total for source files.">98 statements</a>
+    title=" 3.3% of total for source files.">97 statements</a>
      </li> 
      
      
@@ -455,10 +455,10 @@
 <a id="ln-160" name="ln-160"></a><span class="c">!     IF JULIAN DATE IS NOT SPLIT</span>
 <a id="ln-161" name="ln-161"></a>
 <a id="ln-162" name="ln-162"></a><span class="c">!---DECOMPOSE &#39;POSVEL&#39; INTO POSITION &#39;POS&#39; AND VELOCITY &#39;VEL&#39;.</span>
-<a id="ln-163" name="ln-163"></a><span class="k">do </span><span class="mi">10</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span>
+<a id="ln-163" name="ln-163"></a><span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span>
 <a id="ln-164" name="ln-164"></a>    <span class="n">pos</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">posvel</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <a id="ln-165" name="ln-165"></a>    <span class="n">vel</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">posvel</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>
-<a id="ln-166" name="ln-166"></a><span class="mi">10</span> <span class="k">continue</span>
+<a id="ln-166" name="ln-166"></a><span class="k">end do</span>
 <a id="ln-167" name="ln-167"></a>
 <a id="ln-168" name="ln-168"></a><span class="c">!---ROTATE POSITION AND VELOCITY FROM DYNAMICAL TO ICRS FRAME</span>
 <a id="ln-169" name="ln-169"></a><span class="c">!   (NECESSARY ONLY FOR JPL EPHEMERIDES PRIOR TO DE405/LE405)</span>
@@ -467,7 +467,7 @@
 <a id="ln-172" name="ln-172"></a>
 <a id="ln-173" name="ln-173"></a><span class="mi">99</span> <span class="k">if</span> <span class="p">(</span> <span class="n">ierr</span> <span class="o">/=</span> <span class="mi">0</span> <span class="p">)</span> <span class="k">write</span> <span class="p">(</span> <span class="o">*</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span> <span class="n">ierr</span><span class="p">,</span> <span class="n">tjd1</span><span class="p">,</span> <span class="n">body</span>
 <a id="ln-174" name="ln-174"></a>
-<a id="ln-175" name="ln-175"></a><span class="k">end</span>
+<a id="ln-175" name="ln-175"></a><span class="k">end subroutine </span><span class="n">solsys</span>
 <a id="ln-176" name="ln-176"></a><span class="c">!***********************************************************************</span>
 <a id="ln-177" name="ln-177"></a>
 <a id="ln-178" name="ln-178"></a><span class="c">!***********************************************************************</span>
@@ -530,74 +530,73 @@
 <a id="ln-235" name="ln-235"></a><span class="n">vel</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
 <a id="ln-236" name="ln-236"></a><span class="n">vel</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
 <a id="ln-237" name="ln-237"></a><span class="n">jerr</span> <span class="o">=</span> <span class="mi">3</span>
-<a id="ln-238" name="ln-238"></a><span class="k">return</span>
-<a id="ln-239" name="ln-239"></a>
-<a id="ln-240" name="ln-240"></a><span class="k">end</span>
-<a id="ln-241" name="ln-241"></a><span class="c">!***********************************************************************</span>
-<a id="ln-242" name="ln-242"></a>
-<a id="ln-243" name="ln-243"></a><span class="c">!***********************************************************************</span>
-<a id="ln-244" name="ln-244"></a><span class="c">!&gt;</span>
-<a id="ln-245" name="ln-245"></a><span class="c">!  THIS FUNCTION RETURNS THE ID NUMBER OF A SOLAR SYSTEM BODY</span>
-<a id="ln-246" name="ln-246"></a><span class="c">!  FOR THE VERSION OF SOLSYS (OR SOLSYS-AUXPOS COMBINATION) IN USE.</span>
-<a id="ln-247" name="ln-247"></a><span class="c">!</span>
-<a id="ln-248" name="ln-248"></a><span class="c">!      NAME   = NAME OF BODY WHOSE ID NUMBER IS DESIRED, E.G.,</span>
-<a id="ln-249" name="ln-249"></a><span class="c">!               &#39;SUN&#39;, &#39;MOON, &#39;MERCURY&#39;, ETC., EXPRESSED AS ALL</span>
-<a id="ln-250" name="ln-250"></a><span class="c">!               UPPER-CASE LETTERS (IN)</span>
-<a id="ln-251" name="ln-251"></a><span class="c">!      IDSS   = ID NUMBER OF BODY, FOR USE IN CALLS TO SOLSYS</span>
-<a id="ln-252" name="ln-252"></a><span class="c">!               (FUNCTION VALUE RETURNED)</span>
-<a id="ln-253" name="ln-253"></a><span class="c">!</span>
-<a id="ln-254" name="ln-254"></a><span class="c">!  NOTE 1: IN THIS VERSION, ONLY THE FIRST THREE LETTERS OF THE</span>
-<a id="ln-255" name="ln-255"></a><span class="c">!  BODY&#39;S NAME ARE USED FOR IDENTIFICATION.  ALTERNATIVE VERSIONS</span>
-<a id="ln-256" name="ln-256"></a><span class="c">!  MIGHT USE MORE LETTERS.</span>
-<a id="ln-257" name="ln-257"></a><span class="c">!</span>
-<a id="ln-258" name="ln-258"></a><span class="c">!  NOTE 2: IF NAME IS &#39;JD&#39;, IDSS RETURNS IDSS=2 IF SOLSYS PROCESSES</span>
-<a id="ln-259" name="ln-259"></a><span class="c">!  SPLIT JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE</span>
-<a id="ln-260" name="ln-260"></a><span class="c">!</span>
-<a id="ln-261" name="ln-261"></a><span class="c">!  NOTE 3: ALL VERSIONS OF IDSS MUST RETURN IDSS=-9999 FOR OBJECTS</span>
-<a id="ln-262" name="ln-262"></a><span class="c">!  THAT IT CANNOT IDENTIFY OR ARE UNSUPPORTED BY SOLSYS.</span>
-<a id="ln-263" name="ln-263"></a>
-<a id="ln-264" name="ln-264"></a><span class="kt">integer </span><span class="k">function </span><span class="n">idss</span> <span class="p">(</span> <span class="n">name</span> <span class="p">)</span>
-<a id="ln-265" name="ln-265"></a>
-<a id="ln-266" name="ln-266"></a><span class="kt">character </span><span class="n">name</span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="n">namein</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">names</span><span class="o">*</span><span class="mi">3</span>
-<a id="ln-267" name="ln-267"></a><span class="k">dimension </span><span class="n">names</span><span class="p">(</span><span class="mi">35</span><span class="p">),</span> <span class="n">ids</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
-<a id="ln-268" name="ln-268"></a>
-<a id="ln-269" name="ln-269"></a><span class="k">data </span><span class="n">names</span> <span class="o">/</span> <span class="s1">&#39;SUN&#39;</span><span class="p">,</span> <span class="s1">&#39;MOO&#39;</span><span class="p">,</span> <span class="s1">&#39;EAR&#39;</span><span class="p">,</span> <span class="s1">&#39;MER&#39;</span><span class="p">,</span> <span class="s1">&#39;VEN&#39;</span><span class="p">,</span> <span class="s1">&#39;MAR&#39;</span><span class="p">,</span> <span class="s1">&#39;JUP&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-270" name="ln-270"></a>             <span class="s1">&#39;SAT&#39;</span><span class="p">,</span> <span class="s1">&#39;URA&#39;</span><span class="p">,</span> <span class="s1">&#39;NEP&#39;</span><span class="p">,</span> <span class="s1">&#39;PLU&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-238" name="ln-238"></a>
+<a id="ln-239" name="ln-239"></a><span class="k">end subroutine </span><span class="n">auxpos</span>
+<a id="ln-240" name="ln-240"></a><span class="c">!***********************************************************************</span>
+<a id="ln-241" name="ln-241"></a>
+<a id="ln-242" name="ln-242"></a><span class="c">!***********************************************************************</span>
+<a id="ln-243" name="ln-243"></a><span class="c">!&gt;</span>
+<a id="ln-244" name="ln-244"></a><span class="c">!  THIS FUNCTION RETURNS THE ID NUMBER OF A SOLAR SYSTEM BODY</span>
+<a id="ln-245" name="ln-245"></a><span class="c">!  FOR THE VERSION OF SOLSYS (OR SOLSYS-AUXPOS COMBINATION) IN USE.</span>
+<a id="ln-246" name="ln-246"></a><span class="c">!</span>
+<a id="ln-247" name="ln-247"></a><span class="c">!      NAME   = NAME OF BODY WHOSE ID NUMBER IS DESIRED, E.G.,</span>
+<a id="ln-248" name="ln-248"></a><span class="c">!               &#39;SUN&#39;, &#39;MOON, &#39;MERCURY&#39;, ETC., EXPRESSED AS ALL</span>
+<a id="ln-249" name="ln-249"></a><span class="c">!               UPPER-CASE LETTERS (IN)</span>
+<a id="ln-250" name="ln-250"></a><span class="c">!      IDSS   = ID NUMBER OF BODY, FOR USE IN CALLS TO SOLSYS</span>
+<a id="ln-251" name="ln-251"></a><span class="c">!               (FUNCTION VALUE RETURNED)</span>
+<a id="ln-252" name="ln-252"></a><span class="c">!</span>
+<a id="ln-253" name="ln-253"></a><span class="c">!  NOTE 1: IN THIS VERSION, ONLY THE FIRST THREE LETTERS OF THE</span>
+<a id="ln-254" name="ln-254"></a><span class="c">!  BODY&#39;S NAME ARE USED FOR IDENTIFICATION.  ALTERNATIVE VERSIONS</span>
+<a id="ln-255" name="ln-255"></a><span class="c">!  MIGHT USE MORE LETTERS.</span>
+<a id="ln-256" name="ln-256"></a><span class="c">!</span>
+<a id="ln-257" name="ln-257"></a><span class="c">!  NOTE 2: IF NAME IS &#39;JD&#39;, IDSS RETURNS IDSS=2 IF SOLSYS PROCESSES</span>
+<a id="ln-258" name="ln-258"></a><span class="c">!  SPLIT JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE</span>
+<a id="ln-259" name="ln-259"></a><span class="c">!</span>
+<a id="ln-260" name="ln-260"></a><span class="c">!  NOTE 3: ALL VERSIONS OF IDSS MUST RETURN IDSS=-9999 FOR OBJECTS</span>
+<a id="ln-261" name="ln-261"></a><span class="c">!  THAT IT CANNOT IDENTIFY OR ARE UNSUPPORTED BY SOLSYS.</span>
+<a id="ln-262" name="ln-262"></a>
+<a id="ln-263" name="ln-263"></a><span class="kt">integer </span><span class="k">function </span><span class="n">idss</span> <span class="p">(</span> <span class="n">name</span> <span class="p">)</span>
+<a id="ln-264" name="ln-264"></a>
+<a id="ln-265" name="ln-265"></a><span class="kt">character </span><span class="n">name</span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="n">namein</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">names</span><span class="o">*</span><span class="mi">3</span>
+<a id="ln-266" name="ln-266"></a><span class="k">dimension </span><span class="n">names</span><span class="p">(</span><span class="mi">35</span><span class="p">),</span> <span class="n">ids</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+<a id="ln-267" name="ln-267"></a>
+<a id="ln-268" name="ln-268"></a><span class="k">data </span><span class="n">names</span> <span class="o">/</span> <span class="s1">&#39;SUN&#39;</span><span class="p">,</span> <span class="s1">&#39;MOO&#39;</span><span class="p">,</span> <span class="s1">&#39;EAR&#39;</span><span class="p">,</span> <span class="s1">&#39;MER&#39;</span><span class="p">,</span> <span class="s1">&#39;VEN&#39;</span><span class="p">,</span> <span class="s1">&#39;MAR&#39;</span><span class="p">,</span> <span class="s1">&#39;JUP&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-269" name="ln-269"></a>             <span class="s1">&#39;SAT&#39;</span><span class="p">,</span> <span class="s1">&#39;URA&#39;</span><span class="p">,</span> <span class="s1">&#39;NEP&#39;</span><span class="p">,</span> <span class="s1">&#39;PLU&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-270" name="ln-270"></a>             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
 <a id="ln-271" name="ln-271"></a>             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-272" name="ln-272"></a>             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-273" name="ln-273"></a>             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span>  <span class="o">/</span>
-<a id="ln-274" name="ln-274"></a><span class="k">data </span><span class="n">ids</span>   <span class="o">/</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">11</span><span class="p">,</span>     <span class="mi">3</span><span class="p">,</span>     <span class="mi">1</span><span class="p">,</span>     <span class="mi">2</span><span class="p">,</span>     <span class="mi">4</span><span class="p">,</span>     <span class="mi">5</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-275" name="ln-275"></a>                 <span class="mi">6</span><span class="p">,</span>     <span class="mi">7</span><span class="p">,</span>     <span class="mi">8</span><span class="p">,</span>     <span class="mi">9</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-272" name="ln-272"></a>             <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span>  <span class="o">/</span>
+<a id="ln-273" name="ln-273"></a><span class="k">data </span><span class="n">ids</span>   <span class="o">/</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">11</span><span class="p">,</span>     <span class="mi">3</span><span class="p">,</span>     <span class="mi">1</span><span class="p">,</span>     <span class="mi">2</span><span class="p">,</span>     <span class="mi">4</span><span class="p">,</span>     <span class="mi">5</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-274" name="ln-274"></a>                 <span class="mi">6</span><span class="p">,</span>     <span class="mi">7</span><span class="p">,</span>     <span class="mi">8</span><span class="p">,</span>     <span class="mi">9</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
+<a id="ln-275" name="ln-275"></a>                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
 <a id="ln-276" name="ln-276"></a>                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-277" name="ln-277"></a>                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-278" name="ln-278"></a>                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span>  <span class="o">/</span>
-<a id="ln-279" name="ln-279"></a><span class="k">data </span><span class="n">num</span>   <span class="o">/</span> <span class="mi">11</span> <span class="o">/</span>
-<a id="ln-280" name="ln-280"></a>
-<a id="ln-281" name="ln-281"></a><span class="mi">3</span> <span class="k">format</span> <span class="p">(</span> <span class="s1">&#39; IDSS ERROR: NO BODY ID NUMBER FOUND FOR &#39;</span><span class="p">,</span> <span class="n">a</span> <span class="p">)</span>
-<a id="ln-282" name="ln-282"></a>
-<a id="ln-283" name="ln-283"></a><span class="n">idss</span> <span class="o">=</span> <span class="o">-</span><span class="mi">9999</span>
-<a id="ln-284" name="ln-284"></a><span class="n">namein</span> <span class="o">=</span> <span class="n">name</span>
-<a id="ln-285" name="ln-285"></a>
-<a id="ln-286" name="ln-286"></a><span class="c">!     LOOK THROUGH LIST OF BODY NAMES TO FIND MATCH</span>
-<a id="ln-287" name="ln-287"></a><span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span>
-<a id="ln-288" name="ln-288"></a>    <span class="k">if</span> <span class="p">(</span> <span class="n">namein</span> <span class="o">==</span> <span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
-<a id="ln-289" name="ln-289"></a><span class="k">        </span><span class="n">idss</span> <span class="o">=</span> <span class="n">ids</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-<a id="ln-290" name="ln-290"></a>        <span class="k">return</span>
-<a id="ln-291" name="ln-291"></a><span class="k">    end if</span>
-<a id="ln-292" name="ln-292"></a><span class="k">end do</span>
-<a id="ln-293" name="ln-293"></a>
-<a id="ln-294" name="ln-294"></a><span class="c">!     IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES</span>
-<a id="ln-295" name="ln-295"></a><span class="k">if</span> <span class="p">(</span> <span class="n">namein</span> <span class="o">==</span> <span class="s1">&#39;JD &#39;</span> <span class="p">)</span> <span class="k">then</span>
-<a id="ln-296" name="ln-296"></a><span class="c">!         IN THIS CASE, SET IDSS=2 IF SOLSYS PROCESSES SPLIT</span>
-<a id="ln-297" name="ln-297"></a><span class="c">!         JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE</span>
-<a id="ln-298" name="ln-298"></a>    <span class="n">idss</span> <span class="o">=</span> <span class="mi">2</span>
-<a id="ln-299" name="ln-299"></a>    <span class="k">return</span>
-<a id="ln-300" name="ln-300"></a><span class="k">end if</span>
-<a id="ln-301" name="ln-301"></a>
-<a id="ln-302" name="ln-302"></a><span class="k">write</span> <span class="p">(</span> <span class="o">*</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span> <span class="n">name</span>
-<a id="ln-303" name="ln-303"></a>
-<a id="ln-304" name="ln-304"></a><span class="k">end</span>
-<a id="ln-305" name="ln-305"></a><span class="c">!***********************************************************************</span>
+<a id="ln-277" name="ln-277"></a>                 <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span>  <span class="o">/</span>
+<a id="ln-278" name="ln-278"></a><span class="k">data </span><span class="n">num</span>   <span class="o">/</span> <span class="mi">11</span> <span class="o">/</span>
+<a id="ln-279" name="ln-279"></a>
+<a id="ln-280" name="ln-280"></a><span class="mi">3</span> <span class="k">format</span> <span class="p">(</span> <span class="s1">&#39; IDSS ERROR: NO BODY ID NUMBER FOUND FOR &#39;</span><span class="p">,</span> <span class="n">a</span> <span class="p">)</span>
+<a id="ln-281" name="ln-281"></a>
+<a id="ln-282" name="ln-282"></a><span class="n">idss</span> <span class="o">=</span> <span class="o">-</span><span class="mi">9999</span>
+<a id="ln-283" name="ln-283"></a><span class="n">namein</span> <span class="o">=</span> <span class="n">name</span>
+<a id="ln-284" name="ln-284"></a>
+<a id="ln-285" name="ln-285"></a><span class="c">! LOOK THROUGH LIST OF BODY NAMES TO FIND MATCH</span>
+<a id="ln-286" name="ln-286"></a><span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span>
+<a id="ln-287" name="ln-287"></a>    <span class="k">if</span> <span class="p">(</span> <span class="n">namein</span> <span class="o">==</span> <span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<a id="ln-288" name="ln-288"></a><span class="k">        </span><span class="n">idss</span> <span class="o">=</span> <span class="n">ids</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<a id="ln-289" name="ln-289"></a>        <span class="k">return</span>
+<a id="ln-290" name="ln-290"></a><span class="k">    end if</span>
+<a id="ln-291" name="ln-291"></a><span class="k">end do</span>
+<a id="ln-292" name="ln-292"></a>
+<a id="ln-293" name="ln-293"></a>    <span class="c">! IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES</span>
+<a id="ln-294" name="ln-294"></a><span class="k">if</span> <span class="p">(</span> <span class="n">namein</span> <span class="o">==</span> <span class="s1">&#39;JD &#39;</span> <span class="p">)</span> <span class="k">then</span>
+<a id="ln-295" name="ln-295"></a>    <span class="c">! IN THIS CASE, SET IDSS=2 IF SOLSYS PROCESSES SPLIT</span>
+<a id="ln-296" name="ln-296"></a>    <span class="c">! JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE</span>
+<a id="ln-297" name="ln-297"></a>    <span class="n">idss</span> <span class="o">=</span> <span class="mi">2</span>
+<a id="ln-298" name="ln-298"></a>    <span class="k">return</span>
+<a id="ln-299" name="ln-299"></a><span class="k">end if</span>
+<a id="ln-300" name="ln-300"></a>
+<a id="ln-301" name="ln-301"></a><span class="k">write</span> <span class="p">(</span> <span class="o">*</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span> <span class="n">name</span>
+<a id="ln-302" name="ln-302"></a>
+<a id="ln-303" name="ln-303"></a><span class="k">end function </span><span class="n">idss</span>
+<a id="ln-304" name="ln-304"></a><span class="c">!***********************************************************************</span>
 </pre></div>
 
     </section>

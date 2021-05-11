@@ -186,7 +186,13 @@
 
 
 
-<em>None</em>
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../proc/solsys~2.html#src">solsys</a>
+  </div>
+</div>
+
 
 
 </div>
@@ -405,7 +411,7 @@ subroutine solsys(tjd, body, origin, pos, vel, ierr)
 </g>
 </g>
 <!-- proc~solsys~2&#45;&gt;proc~auxpos -->
-<g id="proc~~solsys~2~~CallsGraph_edge3" class="edge">
+<g id="proc~~solsys~2~~CallsGraph_edge1" class="edge">
 <title>proc~solsys~2&#45;&gt;proc~auxpos</title>
 <path fill="none" stroke="#000000" d="M53.45,-66.15C62.21,-70.33 72.17,-75.08 81.52,-79.54"/>
 <polygon fill="#000000" stroke="#000000" points="80.07,-82.73 90.6,-83.88 83.09,-76.41 80.07,-82.73"/>
@@ -417,7 +423,7 @@ subroutine solsys(tjd, body, origin, pos, vel, ierr)
 <text text-anchor="middle" x="117" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dpleph</text>
 </g>
 <!-- proc~solsys~2&#45;&gt;dpleph -->
-<g id="proc~~solsys~2~~CallsGraph_edge1" class="edge">
+<g id="proc~~solsys~2~~CallsGraph_edge2" class="edge">
 <title>proc~solsys~2&#45;&gt;dpleph</title>
 <path fill="none" stroke="#000000" d="M54.4,-54C62.39,-54 71.31,-54 79.82,-54"/>
 <polygon fill="#000000" stroke="#000000" points="79.92,-57.5 89.92,-54 79.92,-50.5 79.92,-57.5"/>
@@ -429,7 +435,7 @@ subroutine solsys(tjd, body, origin, pos, vel, ierr)
 <text text-anchor="middle" x="117" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">const</text>
 </g>
 <!-- proc~solsys~2&#45;&gt;const -->
-<g id="proc~~solsys~2~~CallsGraph_edge2" class="edge">
+<g id="proc~~solsys~2~~CallsGraph_edge3" class="edge">
 <title>proc~solsys~2&#45;&gt;const</title>
 <path fill="none" stroke="#000000" d="M53.45,-41.85C62.21,-37.67 72.17,-32.92 81.52,-28.46"/>
 <polygon fill="#000000" stroke="#000000" points="83.09,-31.59 90.6,-24.12 80.07,-25.27 83.09,-31.59"/>
@@ -526,7 +532,13 @@ subroutine solsys(tjd, body, origin, pos, vel, ierr)
 
 
 
-<em>None</em>
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../proc/solsys~2.html#src">solsys</a>
+  </div>
+</div>
+
 
 
     </section>
@@ -549,6 +561,119 @@ subroutine solsys(tjd, body, origin, pos, vel, ierr)
 
     
     
+    
+    <section>
+    <h2><span class="anchor" id="src"></span>Source Code</h2>
+    <div class="highlight"><pre><span></span><span class="k">subroutine </span><span class="n">solsys</span> <span class="p">(</span><span class="n">tjd</span><span class="p">,</span><span class="n">body</span><span class="p">,</span><span class="n">origin</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span><span class="n">vel</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span>
+
+<span class="kt">integer </span><span class="n">body</span><span class="p">,</span><span class="n">origin</span><span class="p">,</span><span class="n">ierr</span><span class="p">,</span><span class="n">targ</span><span class="p">,</span><span class="n">cent</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">n</span>
+
+<span class="kt">double precision </span><span class="n">tjd</span><span class="p">,</span><span class="n">pos</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="n">vel</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="n">posvel</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span><span class="n">values</span><span class="p">(</span><span class="mi">500</span><span class="p">),</span><span class="n">sss</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="p">&amp;</span>
+     <span class="n">begjd</span><span class="p">,</span><span class="n">endjd</span><span class="p">,</span><span class="n">tjd1</span><span class="p">,</span><span class="n">tjd2</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="n">tlast</span><span class="p">,</span><span class="nb">dint</span>
+
+<span class="kt">character </span><span class="n">names</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="o">*</span><span class="mi">6</span>
+
+<span class="kt">logical </span><span class="n">first</span>
+
+<span class="k">save </span><span class="n">first</span><span class="p">,</span> <span class="n">begjd</span><span class="p">,</span> <span class="n">endjd</span><span class="p">,</span> <span class="n">tlast</span>
+
+<span class="k">data </span><span class="n">first</span> <span class="o">/</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span> <span class="o">/</span>
+
+<span class="mi">3</span> <span class="k">format</span> <span class="p">(</span> <span class="s1">&#39; SOLSYS: ERROR &#39;</span><span class="p">,</span><span class="n">i1</span><span class="p">,</span><span class="s1">&#39; AT JD &#39;</span><span class="p">,</span> <span class="n">f10</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;, BODY ID &#39;</span><span class="p">,</span> <span class="p">&amp;</span>
+     <span class="n">i2</span> <span class="p">)</span>
+
+<span class="c">!---ON FIRST CALL, CALL JPL ROUTINE &#39;CONST&#39; TO OBTAIN BEGINNING</span>
+<span class="c">!   AND ENDING JULIAN DATES OF EPHEMERIS</span>
+<span class="k">if</span> <span class="p">(</span> <span class="n">first</span> <span class="p">)</span> <span class="k">then</span>
+<span class="k">    call </span><span class="n">const</span> <span class="p">(</span> <span class="n">names</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">sss</span><span class="p">,</span> <span class="n">n</span> <span class="p">)</span>
+    <span class="n">begjd</span> <span class="o">=</span> <span class="n">sss</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">endjd</span> <span class="o">=</span> <span class="n">sss</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">tlast</span> <span class="o">=</span> <span class="mf">0.d0</span>
+    <span class="n">first</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+<span class="k">end if</span>
+
+<span class="c">!---INITIALIZE OUTPUT ARGUMENTS</span>
+<span class="n">pos</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
+<span class="n">pos</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
+<span class="n">pos</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="mi">9</span><span class="mf">9.d0</span>
+<span class="n">vel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
+<span class="n">vel</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
+<span class="n">vel</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span>  <span class="mf">0.d0</span>
+<span class="n">ierr</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c">!---SET UP SPLIT JULIAN DATE</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nb">dabs</span> <span class="p">(</span> <span class="n">tjd</span> <span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">1.d0</span> <span class="p">)</span> <span class="k">then</span>
+<span class="k">    </span><span class="n">tjd2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">tlast</span>
+    <span class="n">tjd2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="n">tjd</span>
+<span class="k">else</span>
+<span class="k">    </span><span class="n">tlast</span> <span class="o">=</span> <span class="nb">dint</span> <span class="p">(</span> <span class="n">tjd</span> <span class="p">)</span>
+    <span class="n">tjd2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">tlast</span>
+    <span class="n">tjd2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="n">tjd</span> <span class="o">-</span> <span class="n">tlast</span>
+<span class="k">end if</span>
+<span class="n">tjd1</span> <span class="o">=</span> <span class="n">tjd2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">tjd2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c">!---PERFORM SANITY CHECKS ON THE INPUT BODY AND ORIGIN.</span>
+<span class="k">if</span> <span class="p">(</span> <span class="p">(</span> <span class="n">origin</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">(</span> <span class="n">origin</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<span class="k">    </span><span class="n">ierr</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">go</span> <span class="n">to</span> <span class="mi">99</span>
+<span class="k">else if</span> <span class="p">(</span> <span class="p">(</span> <span class="n">body</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">(</span> <span class="n">body</span> <span class="o">&gt;</span> <span class="mi">11</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<span class="c">!         CALL AUXPOS FOR AUXILIARY BODIES (IF ANY)</span>
+    <span class="k">call </span><span class="n">auxpos</span> <span class="p">(</span> <span class="n">tjd1</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span>   <span class="n">pos</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">jerr</span> <span class="p">)</span>
+    <span class="n">ierr</span> <span class="o">=</span> <span class="n">jerr</span>
+    <span class="n">go</span> <span class="n">to</span> <span class="mi">99</span>
+<span class="k">endif</span>
+
+<span class="c">!---CHECK THAT REQUESTED JULIAN DATE IS WITHIN RANGE OF EPHEMERIS.</span>
+<span class="k">if</span> <span class="p">(</span> <span class="n">tjd1</span> <span class="o">&lt;</span> <span class="n">begjd</span> <span class="p">)</span> <span class="k">then</span>
+<span class="k">    </span><span class="n">ierr</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">go</span> <span class="n">to</span> <span class="mi">99</span>
+<span class="k">else if</span> <span class="p">(</span> <span class="n">tjd1</span> <span class="o">&gt;</span> <span class="n">endjd</span> <span class="p">)</span> <span class="k">then</span>
+<span class="k">    </span><span class="n">ierr</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">go</span> <span class="n">to</span> <span class="mi">99</span>
+<span class="k">endif</span>
+
+<span class="c">!---SELECT &#39;TARG&#39; ACCORDING TO VALUE OF &#39;BODY&#39;.</span>
+<span class="k">if</span> <span class="p">(</span> <span class="n">body</span> <span class="o">==</span> <span class="mi">10</span> <span class="p">)</span> <span class="k">then</span>
+<span class="k">    </span><span class="n">targ</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="k">else if</span> <span class="p">(</span> <span class="n">body</span> <span class="o">==</span> <span class="mi">11</span> <span class="p">)</span> <span class="k">then</span>
+<span class="k">    </span><span class="n">targ</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="k">else</span>
+<span class="k">    </span><span class="n">targ</span> <span class="o">=</span> <span class="n">body</span>
+<span class="k">endif</span>
+
+<span class="c">!---SELECT &#39;CENT&#39; ACCORDING TO THE VALUE OF &#39;ORIGIN&#39;.</span>
+<span class="k">if</span> <span class="p">(</span> <span class="n">origin</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">)</span> <span class="k">then</span>
+<span class="k">    </span><span class="n">cent</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="k">else if</span> <span class="p">(</span> <span class="n">origin</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">)</span> <span class="k">then</span>
+<span class="k">    </span><span class="n">cent</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="k">endif</span>
+
+<span class="c">!---CALL JPL ROUTINE &#39;DPLEPH&#39; TO OBTAIN POSITION AND VELOCITY ARRAY</span>
+<span class="c">!   &#39;POSVEL&#39;.</span>
+
+<span class="k">call </span><span class="n">dpleph</span> <span class="p">(</span> <span class="n">tjd2</span><span class="p">,</span> <span class="n">targ</span><span class="p">,</span> <span class="n">cent</span><span class="p">,</span>   <span class="n">posvel</span><span class="p">)</span>
+
+<span class="c">!     ABOVE IS EQUIVALENT TO CALL PLEPH ( TJD1, TARG, CENT,   POSVEL )</span>
+<span class="c">!     IF JULIAN DATE IS NOT SPLIT</span>
+
+<span class="c">!---DECOMPOSE &#39;POSVEL&#39; INTO POSITION &#39;POS&#39; AND VELOCITY &#39;VEL&#39;.</span>
+<span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span>
+    <span class="n">pos</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">posvel</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">vel</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">posvel</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">end do</span>
+
+<span class="c">!---ROTATE POSITION AND VELOCITY FROM DYNAMICAL TO ICRS FRAME</span>
+<span class="c">!   (NECESSARY ONLY FOR JPL EPHEMERIDES PRIOR TO DE405/LE405)</span>
+<span class="c">!     CALL FRAME (POSVEL(1),-1,POS)</span>
+<span class="c">!     CALL FRAME (POSVEL(4),-1,VEL)</span>
+
+<span class="mi">99</span> <span class="k">if</span> <span class="p">(</span> <span class="n">ierr</span> <span class="o">/=</span> <span class="mi">0</span> <span class="p">)</span> <span class="k">write</span> <span class="p">(</span> <span class="o">*</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span> <span class="n">ierr</span><span class="p">,</span> <span class="n">tjd1</span><span class="p">,</span> <span class="n">body</span>
+
+<span class="k">end subroutine </span><span class="n">solsys</span>
+</pre></div>
+
+    </section>
+    <br>
     
     
     </div>

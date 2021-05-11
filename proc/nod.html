@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 1.0% of total for procedures.">28 statements</a>
+    title=" 0.9% of total for procedures.">27 statements</a>
      </li> 
      
      
@@ -204,6 +204,22 @@ subroutine nod(t, dpsi, deps)
   
 
 
+    
+    <p>SUBROUTINE NOD VERSION 2.
+  IN LOW-ACCURACY MODE, THIS SUBROUTINE EVALUATES A SHORT
+  NUTATION SERIES AND RETURNS APPROXIMATE VALUES FOR NUTATION IN
+  LONGITUDE AND NUTATION IN OBLIQUITY FOR A GIVEN TDB JULIAN DATE.
+  IN THIS MODE, ONLY THE LARGEST 13 TERMS OF THE IAU 2000A NUTATION
+  SERIES ARE EVALUATED.  IN HIGH-ACCURACY MODE, THE STANDARD IERS
+  SUBROUINE IS CALLED TO EVALUATE THE FULL IAU 2000A NUTATION
+  SERIES.</p>
+<div class="codehilite"><pre><span></span><code>   T    = TDB TIME IN JULIAN CENTURIES SINCE J2000.0 (IN)
+   DPSI = NUTATION IN LONGITUDE IN ARCSECONDS (OUT)
+   DEPS = NUTATION IN OBLIQUITY IN ARCSECONDS (OUT)
+</code></pre></div>
+
+<p>NOTE:  IN LOW-ACCURACY MODE, MAX ERROR IN DPSI &lt; 0.05 ARCSEC,
+  MAX ERROR IN DEPS &lt; 0.02 ARCSEC, AVERAGE ERROR ABOUT 1/4 OF MAX.</p>
     
 
     <h3>Arguments</h3>
@@ -301,7 +317,7 @@ subroutine nod(t, dpsi, deps)
 <text text-anchor="middle" x="120" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">getmod</text>
 </g>
 <!-- proc~nod&#45;&gt;getmod -->
-<g id="proc~~nod~~CallsGraph_edge3" class="edge">
+<g id="proc~~nod~~CallsGraph_edge1" class="edge">
 <title>proc~nod&#45;&gt;getmod</title>
 <path fill="none" stroke="#000000" d="M54.32,-66.15C63.47,-70.37 73.89,-75.18 83.65,-79.68"/>
 <polygon fill="#000000" stroke="#000000" points="82.19,-82.87 92.74,-83.88 85.13,-76.51 82.19,-82.87"/>
@@ -313,7 +329,7 @@ subroutine nod(t, dpsi, deps)
 <text text-anchor="middle" x="120" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">funarg</text>
 </g>
 <!-- proc~nod&#45;&gt;funarg -->
-<g id="proc~~nod~~CallsGraph_edge1" class="edge">
+<g id="proc~~nod~~CallsGraph_edge2" class="edge">
 <title>proc~nod&#45;&gt;funarg</title>
 <path fill="none" stroke="#000000" d="M54.32,-54C63.19,-54 73.24,-54 82.74,-54"/>
 <polygon fill="#000000" stroke="#000000" points="82.74,-57.5 92.74,-54 82.74,-50.5 82.74,-57.5"/>
@@ -325,7 +341,7 @@ subroutine nod(t, dpsi, deps)
 <text text-anchor="middle" x="120" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">nu2000a</text>
 </g>
 <!-- proc~nod&#45;&gt;nu2000a -->
-<g id="proc~~nod~~CallsGraph_edge2" class="edge">
+<g id="proc~~nod~~CallsGraph_edge3" class="edge">
 <title>proc~nod&#45;&gt;nu2000a</title>
 <path fill="none" stroke="#000000" d="M54.32,-41.85C63.47,-37.63 73.89,-32.82 83.65,-28.32"/>
 <polygon fill="#000000" stroke="#000000" points="85.13,-31.49 92.74,-24.12 82.19,-25.13 85.13,-31.49"/>

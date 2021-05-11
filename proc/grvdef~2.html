@@ -186,7 +186,13 @@
 
 
 
-<em>None</em>
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../proc/grvdef~2.html#src">grvdef</a>
+  </div>
+</div>
+
 
 
 </div>
@@ -204,6 +210,29 @@ subroutine grvdef(tjd, loc, pos1, pobs, pos2)
   
 
 
+    
+    <p>SUBROUTINE GRVDEF VERSION 2.
+  THIS SUBROUTINE COMPUTES THE TOTAL GRAVITATIONAL DEFLECTION OF
+  LIGHT FOR THE OBSERVED OBJECT DUE TO THE MAJOR GRAVITATING BODIES
+  IN THE SOLAR SYSTEM.
+  THIS VERSION IS A DUMMY.  NO CORRECTION IS APPLIED.</p>
+<div class="codehilite"><pre><span></span><code>   <span class="nv">TJD</span>    <span class="o">=</span> <span class="ss">(</span><span class="nv">NOT</span> <span class="nv">USED</span><span class="ss">)</span>
+   <span class="nv">LOC</span>    <span class="o">=</span> <span class="ss">(</span><span class="nv">NOT</span> <span class="nv">USED</span><span class="ss">)</span>
+   <span class="nv">POS1</span>   <span class="o">=</span> <span class="nv">POSITION</span> <span class="nv">VECTOR</span> <span class="nv">OF</span> <span class="nv">OBSERVED</span> <span class="nv">OBJECT</span>, <span class="nv">WITH</span> <span class="nv">RESPECT</span> <span class="nv">TO</span>
+            <span class="nv">ORIGIN</span> <span class="nv">AT</span> <span class="nv">OBSERVER</span> <span class="ss">(</span><span class="nv">OR</span> <span class="nv">THE</span> <span class="nv">GEOCENTER</span><span class="ss">)</span>, <span class="nv">REFERRED</span>
+            <span class="nv">TO</span> <span class="nv">ICRS</span> <span class="nv">AXES</span>, <span class="nv">COMPONENTS</span> <span class="nv">IN</span> <span class="nv">AU</span> <span class="ss">(</span><span class="nv">IN</span><span class="ss">)</span>
+   <span class="nv">POBS</span>   <span class="o">=</span> <span class="ss">(</span><span class="nv">NOT</span> <span class="nv">USED</span><span class="ss">)</span>
+   <span class="nv">POS2</span>   <span class="o">=</span> <span class="nv">POSITION</span> <span class="nv">VECTOR</span> <span class="nv">OF</span> <span class="nv">OBSERVED</span> <span class="nv">OBJECT</span>, <span class="nv">WITH</span> <span class="nv">RESPECT</span> <span class="nv">TO</span>
+            <span class="nv">ORIGIN</span> <span class="nv">AT</span> <span class="nv">OBSERVER</span> <span class="ss">(</span><span class="nv">OR</span> <span class="nv">THE</span> <span class="nv">GEOCENTER</span><span class="ss">)</span>, <span class="nv">REFERRED</span>
+            <span class="nv">TO</span> <span class="nv">ICRS</span> <span class="nv">AXES</span>, <span class="nv">CORRECTED</span> <span class="k">FOR</span> <span class="nv">GRAVITATIONAL</span>
+            <span class="nv">DEFLECTION</span>, <span class="nv">COMPONENTS</span> <span class="nv">IN</span> <span class="nv">AU</span> <span class="ss">(</span><span class="nv">OUT</span><span class="ss">)</span>
+</code></pre></div>
+
+<p>NOTE:  IN THIS VERSION, POS2 = POS1.  THE GRAVITATIONAL DEFLECTION
+  THAT IS NEGLECTED HERE CAN REACH 1.8 ARCSECONDS AT THE LIMB OF
+  THE SUN, BUT IS LESS THAN 10 MILLIARCSECONDS OVER THE AREA OF SKY
+  MORE THAN 45 DEGREES FROM THE SUN.  SEE TABLE 3.26.1 ON PAGE 138
+  OF THE EXPLANATORY SUPPLEMENT TO THE ASTRONOMICAL ALMANAC (1992).</p>
     
 
     <h3>Arguments</h3>
@@ -328,7 +357,13 @@ subroutine grvdef(tjd, loc, pos1, pobs, pos2)
 
 
 
-<em>None</em>
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../proc/grvdef~2.html#src">grvdef</a>
+  </div>
+</div>
+
 
 
     </section>
@@ -351,6 +386,23 @@ subroutine grvdef(tjd, loc, pos1, pobs, pos2)
 
     
     
+    
+    <section>
+    <h2><span class="anchor" id="src"></span>Source Code</h2>
+    <div class="highlight"><pre><span></span><span class="k">subroutine </span><span class="n">grvdef</span> <span class="p">(</span><span class="n">tjd</span><span class="p">,</span><span class="nb">loc</span><span class="p">,</span><span class="n">pos1</span><span class="p">,</span><span class="n">pobs</span><span class="p">,</span><span class="n">pos2</span><span class="p">)</span>
+
+<span class="kt">double precision </span><span class="n">tjd</span><span class="p">,</span><span class="n">pos1</span><span class="p">,</span><span class="n">pobs</span><span class="p">,</span><span class="n">pos2</span>
+<span class="k">dimension </span><span class="n">pos1</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">pobs</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">pos2</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="k">do </span><span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span>
+    <span class="n">pos2</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="n">pos1</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+<span class="k">end do</span>
+
+<span class="k">end subroutine </span><span class="n">grvdef</span>
+</pre></div>
+
+    </section>
+    <br>
     
     
     </div>

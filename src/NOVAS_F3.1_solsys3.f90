@@ -44,16 +44,16 @@ parameter ( pi     = 3.14159265358979324d0 )
 parameter ( twopi  = 2.d0 * pi             )
 parameter ( t0     = 2451545.0d0           )
 parameter ( obl    = 23.43927944d0         )
-!     T0 = TDB JULIAN DATE OF EPOCH J2000.0
-!     OBL = OBLIQUITY OF ECLIPTIC AT EPOCH J2000.0
+! T0 = TDB JULIAN DATE OF EPOCH J2000.0
+! OBL = OBLIQUITY OF ECLIPTIC AT EPOCH J2000.0
 
 data el, c, p / 43*0.d0 /,   tlast / 0.d0 /
 
-!     ARRAYS BELOW CONTAIN MASSES AND ORBITAL ELEMENTS OF THE FOUR
-!     LARGEST PLANETS (SEE EXPLANATORY SUPPLEMENT (1992), P. 316)
-!     WITH ANGLES IN RADIANS
-!     THIS DATA USED FOR BARYCENTER COMPUTATIONS ONLY
-!                 JUPITER        SATURN        URANUS       NEPTUNE
+! ARRAYS BELOW CONTAIN MASSES AND ORBITAL ELEMENTS OF THE FOUR
+! LARGEST PLANETS (SEE EXPLANATORY SUPPLEMENT (1992), P. 316)
+! WITH ANGLES IN RADIANS
+! THIS DATA USED FOR BARYCENTER COMPUTATIONS ONLY
+!             JUPITER        SATURN        URANUS       NEPTUNE
 data pm /  1047.349d+0,  3497.898d+0,   22903.0d+0,   19412.2d+0 /      !
 data pa /  5.203363d+0,  9.537070d+0, 19.191264d+0, 30.068963d+0 /      !
 data pe /  0.048393d+0,  0.054151d+0,  0.047168d+0,  0.008586d+0 /      !
@@ -98,82 +98,80 @@ if ( tlast < 1.d0 ) then
 end if
 
 ierr = 0
-!     VALID DATES ARE WITHIN 3 CENTURIES OF J2000, ALTHOUGH RESULTS
-!     DETERIORATE GRADUALLY
+! VALID DATES ARE WITHIN 3 CENTURIES OF J2000, ALTHOUGH RESULTS
+! DETERIORATE GRADUALLY
 if ( tjd < 2340000.5d0 ) ierr = 1
 if ( tjd > 2560000.5d0 ) ierr = 2
-if ( ierr /= 0 ) go to 110
-if ( m >= 2 ) go to 30
+if ( ierr /= 0 ) return
+if ( m >= 2 ) then
+    ! FORM HELIOCENTRIC COORDINATES OF EARTH
+    ! VELOCITIES ARE OBTAINED FROM CRUDE NUMERICAL DIFFERENTIATION
+    do i = 1, 3
+        qjd = tjd + dfloat(i-2) * 0.1d0
+        ! SUBROUTINE SUN COMPUTES EARTH-SUN VECTOR
+        call sun ( qjd, el, c )
+        call preces ( qjd, c(11), t0, pos )
+        p(i,1) = -pos(1)
+        p(i,2) = -pos(2)
+        p(i,3) = -pos(3)
+    end do
+    do j=1,3
+        pos(j) =   p(2,j)
+        vel(j) = ( p(3,j) - p(1,j) ) / 0.2d0
+    end do
+    if ( k >= 1 ) return
+else
+    ! FORM HELIOCENTRIC COORDINATES OF SUN
+    do j=1,3
+        pos(j) = 0.d0
+        vel(j) = 0.d0
+    end do
+    if ( k >= 1 ) return
+end if
 
-!     FORM HELIOCENTRIC COORDINATES OF SUN
-20 do 25 j=1,3
-    pos(j) = 0.d0
-    vel(j) = 0.d0
-25 continue
-if ( k >= 1 ) go to 110
-go to 90
-
-!     FORM HELIOCENTRIC COORDINATES OF EARTH
-!     VELOCITIES ARE OBTAINED FROM CRUDE NUMERICAL DIFFERENTIATION
-30 do 35 i = 1, 3
-    qjd = tjd + dfloat(i-2) * 0.1d0
-!         SUBROUTINE SUN COMPUTES EARTH-SUN VECTOR
-    call sun ( qjd, el, c )
-    call preces ( qjd, c(11), t0, pos )
-    p(i,1) = -pos(1)
-    p(i,2) = -pos(2)
-    p(i,3) = -pos(3)
-35 continue
-do 40 j=1,3
-    pos(j) =   p(2,j)
-    vel(j) = ( p(3,j) - p(1,j) ) / 0.2d0
-40 continue
-if ( k >= 1 ) go to 110
-
-!     IF K=0, MOVE ORIGIN TO SOLAR SYSTEM BARYCENTER
-!     SOLAR SYSTEM BARYCENTER COORDINATES COMPUTED FROM KEPLERIAN
-!     APPROXIMATIONS OF THE COORDINATES OF THE FOUR LARGEST PLANETS
-90 if ( dabs ( tjd - tlast ) < 1.d-6 ) go to 99
-do 92 j = 1, 3
-    pbary(j) = 0.d0
-    vbary(j) = 0.d0
-92 continue
-!     THE FOLLOWING LOOP CYCLES ONCE FOR EACH OF THE FOUR LARGE PLANETS
-do 98 i = 1, 4
-!         COMPUTE MEAN LONGITUDE, MEAN ANOMALY, AND ECCENTRIC ANOMOLY
-    e = pe(i)
-    mlon = pl(i) + pn(i) * ( tjd - t0 )
-    ma = dmod ( mlon - pw(i), twopi )
-    u = ma + e * dsin ( ma ) + 0.5d0 * e * e * dsin ( 2.d0 * ma )
-    sinu = dsin ( u )
-    cosu = dcos ( u )
-!         COMPUTE VELOCITY FACTOR
-    anr = pn(i) / ( 1.d0 - e * cosu )
-!         COMPUTE PLANET'S POSITION AND VELOCITY WRT EQ & EQ J2000
-    pplan(1) = a(1,i) * ( cosu - e ) + b(1,i) * sinu
-    pplan(2) = a(2,i) * ( cosu - e ) + b(2,i) * sinu
-    pplan(3) = a(3,i) * ( cosu - e ) + b(3,i) * sinu
-    vplan(1) = anr * ( -a(1,i) * sinu + b(1,i) * cosu )
-    vplan(2) = anr * ( -a(2,i) * sinu + b(2,i) * cosu )
-    vplan(3) = anr * ( -a(3,i) * sinu + b(3,i) * cosu )
-!         COMPUTE MASS FACTOR AND ADD IN TO TOTAL DISPLACEMENT
-    f = 1.d0 / ( pm(i) * tmass )
-    pbary(1) = pbary(1) + pplan(1) * f
-    pbary(2) = pbary(2) + pplan(2) * f
-    pbary(3) = pbary(3) + pplan(3) * f
-    vbary(1) = vbary(1) + vplan(1) * f
-    vbary(2) = vbary(2) + vplan(2) * f
-    vbary(3) = vbary(3) + vplan(3) * f
-98 continue
-tlast = tjd
-99 do 100 j=1,3
+! IF K=0, MOVE ORIGIN TO SOLAR SYSTEM BARYCENTER
+! SOLAR SYSTEM BARYCENTER COORDINATES COMPUTED FROM KEPLERIAN
+! APPROXIMATIONS OF THE COORDINATES OF THE FOUR LARGEST PLANETS
+if ( dabs ( tjd - tlast ) >= 1.d-6 ) then
+    do j = 1, 3
+        pbary(j) = 0.d0
+        vbary(j) = 0.d0
+    end do
+    ! THE FOLLOWING LOOP CYCLES ONCE FOR EACH OF THE FOUR LARGE PLANETS
+    do i = 1, 4
+        ! COMPUTE MEAN LONGITUDE, MEAN ANOMALY, AND ECCENTRIC ANOMOLY
+        e = pe(i)
+        mlon = pl(i) + pn(i) * ( tjd - t0 )
+        ma = dmod ( mlon - pw(i), twopi )
+        u = ma + e * dsin ( ma ) + 0.5d0 * e * e * dsin ( 2.d0 * ma )
+        sinu = dsin ( u )
+        cosu = dcos ( u )
+        ! COMPUTE VELOCITY FACTOR
+        anr = pn(i) / ( 1.d0 - e * cosu )
+        ! COMPUTE PLANET'S POSITION AND VELOCITY WRT EQ & EQ J2000
+        pplan(1) = a(1,i) * ( cosu - e ) + b(1,i) * sinu
+        pplan(2) = a(2,i) * ( cosu - e ) + b(2,i) * sinu
+        pplan(3) = a(3,i) * ( cosu - e ) + b(3,i) * sinu
+        vplan(1) = anr * ( -a(1,i) * sinu + b(1,i) * cosu )
+        vplan(2) = anr * ( -a(2,i) * sinu + b(2,i) * cosu )
+        vplan(3) = anr * ( -a(3,i) * sinu + b(3,i) * cosu )
+        ! COMPUTE MASS FACTOR AND ADD IN TO TOTAL DISPLACEMENT
+        f = 1.d0 / ( pm(i) * tmass )
+        pbary(1) = pbary(1) + pplan(1) * f
+        pbary(2) = pbary(2) + pplan(2) * f
+        pbary(3) = pbary(3) + pplan(3) * f
+        vbary(1) = vbary(1) + vplan(1) * f
+        vbary(2) = vbary(2) + vplan(2) * f
+        vbary(3) = vbary(3) + vplan(3) * f
+    end do
+    tlast = tjd
+end if
+do j=1,3
     pos(j) = pos(j) - pbary(j)
     vel(j) = vel(j) - vbary(j)
-100 continue
+end do
 
-110 return
-
-end
+end subroutine solsys
 !***********************************************************************
 
 !***********************************************************************
