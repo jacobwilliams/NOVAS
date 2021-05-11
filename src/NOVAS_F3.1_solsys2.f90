@@ -160,10 +160,10 @@ call dpleph ( tjd2, targ, cent,   posvel)
 !     IF JULIAN DATE IS NOT SPLIT
 
 !---DECOMPOSE 'POSVEL' INTO POSITION 'POS' AND VELOCITY 'VEL'.
-do 10 i = 1, 3
+do i = 1, 3
     pos(i) = posvel(i)
     vel(i) = posvel(i+3)
-10 continue
+end do
 
 !---ROTATE POSITION AND VELOCITY FROM DYNAMICAL TO ICRS FRAME
 !   (NECESSARY ONLY FOR JPL EPHEMERIDES PRIOR TO DE405/LE405)
@@ -172,7 +172,7 @@ do 10 i = 1, 3
 
 99 if ( ierr /= 0 ) write ( *, 3 ) ierr, tjd1, body
 
-end
+end subroutine solsys
 !***********************************************************************
 
 !***********************************************************************
@@ -235,9 +235,8 @@ vel(1) =  0.d0
 vel(2) =  0.d0
 vel(3) =  0.d0
 jerr = 3
-return
 
-end
+end subroutine auxpos
 !***********************************************************************
 
 !***********************************************************************
@@ -283,7 +282,7 @@ data num   / 11 /
 idss = -9999
 namein = name
 
-!     LOOK THROUGH LIST OF BODY NAMES TO FIND MATCH
+! LOOK THROUGH LIST OF BODY NAMES TO FIND MATCH
 do i = 1, num
     if ( namein == names(i) ) then
         idss = ids(i)
@@ -291,15 +290,15 @@ do i = 1, num
     end if
 end do
 
-!     IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES
+    ! IF NO MATCH, CHECK FOR INQUIRY ABOUT SPLIT JULIAN DATES
 if ( namein == 'JD ' ) then
-!         IN THIS CASE, SET IDSS=2 IF SOLSYS PROCESSES SPLIT
-!         JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE
+    ! IN THIS CASE, SET IDSS=2 IF SOLSYS PROCESSES SPLIT
+    ! JULIAN DATES (IN SUCCESSIVE CALLS), IDSS=1 OTHERWISE
     idss = 2
     return
 end if
 
 write ( *, 3 ) name
 
-end
+end function idss
 !***********************************************************************
