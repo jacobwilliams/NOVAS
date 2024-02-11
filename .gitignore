@@ -8,3 +8,9 @@ lib
 *.mod
 *.a
 *.so
+
+/build
+/lib
+/bin
+
+/checkout.out
