@@ -35,5 +35,5 @@ The latest API documentation can be found [here](http://jacobwilliams.github.io/
 
 ### See also
 
- * Original source: https://www.usno.navy.mil/USNO/astronomical-applications/software-products/novas
+ * Original source: https://aa.usno.navy.mil/software/novas_info
  * [astro-fortran](https://github.com/jacobwilliams/astro-fortran) -- Modern Fortran implementations of standard models used in fundamental astronomy
