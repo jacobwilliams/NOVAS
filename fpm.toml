@@ -17,3 +17,9 @@ library = true
 auto-executables = false
 auto-examples = false
 auto-tests = true
+
+[fortran]
+implicit-typing = true
+implicit-external = true
+source-form = "free"
+
